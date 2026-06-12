@@ -2,1187 +2,911 @@
 {
   "name": "Finance Briefing",
   "schemaVersion": 1,
-  "description": "Týdenní finanční briefing Martina: forex (EUR/USD/GBP/CZK), krypto (BTC), akciové indexy, analýza portfolia Trading 212 (5 ETF), upozornění na překryv ETF, doporučená měsíční alokace 10 000 Kč, týdenní zprávy s dopadem na portfolio. Tlačítko \"Obnovit komentář\" volá Claude (Haiku) pro aktualizaci sentiment komentáře."
+  "description": "Týdenní finanční briefing Martina: forex s buy/sell signály, BTC, akciové indexy, fund cards (5 ETF s popisem a holdings), alokace 10 000 Kč na všech 5 fondů, strukturovaný komentář, Polymarket predikce, týdenní zprávy."
 }
 </script>
 <html lang="cs">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Finanční briefing — Martin</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
-  :root {
-    color-scheme: light;
-    --bg: #f7f6f3;
-    --bg-grad-1: #ecebe5;
-    --bg-grad-2: #f7f6f3;
-    --card: #ffffff;
-    --ink: #0a0a0a;
-    --ink-2: #404040;
-    --ink-3: #737373;
-    --ink-4: #a3a3a3;
-    --border: #e7e5e0;
-    --border-2: #d4d4d4;
-    --accent: #4f46e5;
-    --accent-2: #7c3aed;
-    --pos: #047857;
-    --pos-bg: #ecfdf5;
-    --neg: #be123c;
-    --neg-bg: #fff1f2;
-    --warn: #b45309;
-    --warn-bg: #fffbeb;
-    --info: #1d4ed8;
-    --info-bg: #eff6ff;
-    --shadow-sm: 0 1px 2px rgba(10,10,10,0.04);
-    --shadow-md: 0 4px 12px -2px rgba(10,10,10,0.06), 0 2px 4px rgba(10,10,10,0.04);
-    --shadow-lg: 0 12px 32px -6px rgba(10,10,10,0.10), 0 4px 8px rgba(10,10,10,0.04);
-    --radius: 14px;
-    --radius-sm: 8px;
-    --radius-lg: 20px;
-    --serif: "Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    font-family: var(--sans);
-    background:
-      radial-gradient(1100px 600px at 100% -10%, rgba(124,58,237,0.06), transparent 60%),
-      radial-gradient(900px 500px at -10% 0%, rgba(79,70,229,0.05), transparent 55%),
-      linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 240px);
-    background-attachment: fixed;
-    color: var(--ink);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  .wrap {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 28px 28px 56px;
-  }
+:root {
+  --bg: #f7f6f3; --bg2: #ecebe5;
+  --card: #fff; --ink: #0a0a0a; --ink2: #404040; --ink3: #737373; --ink4: #a3a3a3;
+  --border: #e7e5e0; --border2: #d4d4d4;
+  --accent: #4f46e5; --accent2: #7c3aed;
+  --pos: #047857; --pos-bg: #ecfdf5;
+  --neg: #be123c; --neg-bg: #fff1f2;
+  --warn: #b45309; --warn-bg: #fffbeb;
+  --r: 14px; --rs: 8px;
+  --sh: 0 1px 3px rgba(10,10,10,.05);
+  --shm: 0 4px 14px -2px rgba(10,10,10,.08), 0 2px 4px rgba(10,10,10,.04);
+  --sans: -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+  --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif: "Iowan Old Style","Apple Garamond",Baskerville,Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%,rgba(124,58,237,.07),transparent 55%),radial-gradient(800px 400px at -5% 5%,rgba(79,70,229,.05),transparent 50%),linear-gradient(180deg,var(--bg2) 0%,var(--bg) 220px);background-attachment:fixed;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 24px 64px}
 
-  /* HERO */
-  .hero {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 18px;
-    margin-bottom: 28px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero .meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 11px;
-    background: rgba(79,70,229,0.08);
-    color: var(--accent);
-    border-radius: 999px;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .pill::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.55; transform: scale(0.85); }
-  }
-  .pill.muted {
-    background: #f1f1ee;
-    color: var(--ink-2);
-  }
-  .pill.muted::before { background: var(--ink-3); animation: none; }
-  .hero h1 {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 44px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-  }
-  .hero .subtitle {
-    margin: 10px 0 0;
-    color: var(--ink-3);
-    font-size: 15px;
-    max-width: 640px;
-  }
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .btn {
-    appearance: none;
-    border: 1px solid var(--border-2);
-    background: var(--card);
-    color: var(--ink);
-    font: inherit;
-    font-size: 13.5px;
-    font-weight: 600;
-    padding: 9px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn:hover { background: #fafaf7; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
-  .btn.primary {
-    background: var(--ink);
-    color: #fff;
-    border-color: var(--ink);
-  }
-  .btn.primary:hover { background: #262626; }
-  .btn svg { width: 14px; height: 14px; }
-  .last-updated {
-    font-size: 12px;
-    color: var(--ink-3);
-    font-family: var(--mono);
-  }
+/* ── HERO ── */
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.hero h1{margin:0;font-family:var(--serif);font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.hero .sub{margin:8px 0 0;color:var(--ink3);font-size:15px}
+.meta-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.pill.live{background:rgba(79,70,229,.09);color:var(--accent)}
+.pill.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+.pill.muted{background:#f0efe9;color:var(--ink2)}
+.pill.muted::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink3)}
+.hero-right{display:flex;align-items:center;gap:10px}
+.ts{font-size:11.5px;color:var(--ink4);font-family:var(--mono)}
+.btn{appearance:none;border:1px solid var(--border2);background:var(--card);color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.btn:hover{background:#fafaf7;transform:translateY(-1px);box-shadow:var(--sh)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.primary:hover{background:#262626}
+.btn svg{width:13px;height:13px}
 
-  /* SECTION HEADERS */
-  .section { margin-top: 36px; }
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .section-head h2 {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  .section-head .lead {
-    color: var(--ink-3);
-    font-size: 14px;
-  }
+/* ── SECTION ── */
+.section{margin-top:40px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.sec-head h2{margin:0;font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:-.01em}
+.sec-head .lead{color:var(--ink3);font-size:13.5px}
 
-  /* GRID & CARDS */
-  .grid { display: grid; gap: 14px; }
-  .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .span-2 { grid-column: span 2; }
-  @media (max-width: 980px) {
-    .cols-3, .cols-2, .cols-4 { grid-template-columns: 1fr; }
-    .span-2 { grid-column: auto; }
-    .hero h1 { font-size: 34px; }
-  }
+/* ── GRID ── */
+.g{display:grid;gap:13px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.span2{grid-column:span 2}
+@media(max-width:1000px){.g3,.g5,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:1fr}.span2{grid-column:auto}}
+@media(max-width:600px){.g3,.g5,.g4,.g2{grid-template-columns:1fr}.hero h1{font-size:32px}}
 
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-  .card:hover { box-shadow: var(--shadow-md); }
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shm)}
 
-  /* MARKET CARD */
-  .market-card { position: relative; overflow: hidden; }
-  .market-card .label {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  .market-card .label-text {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: var(--ink-3);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .market-card .value {
-    font-family: var(--mono);
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    line-height: 1;
-  }
-  .market-card .row-sub {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .delta {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 999px;
-    font-variant-numeric: tabular-nums;
-    font-family: var(--mono);
-  }
-  .delta.up { background: var(--pos-bg); color: var(--pos); }
-  .delta.down { background: var(--neg-bg); color: var(--neg); }
-  .delta.flat { background: #f1f1ee; color: var(--ink-2); }
-  .delta::before {
-    content: "";
-    width: 0; height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-  }
-  .delta.up::before { border-bottom: 6px solid currentColor; }
-  .delta.down::before { border-top: 6px solid currentColor; }
-  .delta.flat::before {
-    border: none;
-    width: 8px; height: 2px;
-    background: currentColor;
-    border-radius: 1px;
-  }
-  .ctx {
-    font-size: 12.5px;
-    color: var(--ink-3);
-    margin-top: 12px;
-  }
-  .source {
-    font-size: 10.5px;
-    color: var(--ink-4);
-    font-family: var(--mono);
-    margin-top: 8px;
-    letter-spacing: 0.02em;
-  }
-  .sparkline { margin-top: 14px; height: 36px; }
+/* ── MARKET CARD ── */
+.mcard{position:relative;overflow:hidden}
+.mcard .mlabel{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mcard .mlt{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.mcard .msrc{font-size:10px;color:var(--ink4);font-family:var(--mono)}
+.mcard .val{font-family:var(--mono);font-size:28px;font-weight:600;letter-spacing:-.015em;line-height:1}
+.mcard .sub{display:flex;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap}
+.mcard .ctx{font-size:12px;color:var(--ink3)}
+.mcard .sp{margin-top:12px;height:32px}
+/* FX signal badge bottom-right */
+.mcard .fxsig{position:absolute;bottom:14px;right:16px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.fxsig.cheap{background:var(--pos-bg);color:var(--pos)}
+.fxsig.fair{background:#f0efe9;color:var(--ink3)}
+.fxsig.pricey{background:var(--neg-bg);color:var(--neg)}
 
-  /* COMMENT CARD */
-  .comment-card {
-    background: linear-gradient(180deg, #fefefe 0%, #faf9f6 100%);
-    border-left: 3px solid var(--accent);
-  }
-  .comment-card .ai-comment {
-    font-size: 15.5px;
-    color: var(--ink);
-    line-height: 1.62;
-    margin: 0;
-  }
-  .comment-card .ai-comment.loading { color: var(--ink-3); font-style: italic; }
+.delta{display:inline-flex;align-items:center;gap:2px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;font-family:var(--mono)}
+.delta.up{background:var(--pos-bg);color:var(--pos)}
+.delta.down{background:var(--neg-bg);color:var(--neg)}
+.delta.flat{background:#f0efe9;color:var(--ink2)}
+.delta::before{content:"";width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent}
+.delta.up::before{border-bottom:5px solid currentColor}
+.delta.down::before{border-top:5px solid currentColor}
+.delta.flat::before{border:none;width:7px;height:1.5px;background:currentColor;border-radius:1px}
 
-  /* PORTFOLIO TABLE */
-  table.holdings { width: 100%; border-collapse: collapse; font-size: 14px; }
-  table.holdings th {
-    text-align: left;
-    padding: 10px 8px 8px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--ink-3);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border);
-  }
-  table.holdings td {
-    padding: 12px 8px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  table.holdings tr:last-child td { border-bottom: none; }
-  table.holdings td.num, table.holdings th.num {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    font-family: var(--mono);
-  }
-  table.holdings td .ticker {
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.01em;
-  }
-  table.holdings td .ticker-sub {
-    font-size: 12px;
-    color: var(--ink-3);
-    margin-top: 1px;
-  }
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-weight: 600;
-    line-height: 1.6;
-  }
-  .tag.us { background: #dbeafe; color: #1d4ed8; }
-  .tag.em { background: #fef3c7; color: #92400e; }
-  .tag.tech { background: #fae8ff; color: #86198f; }
-  .tag.world { background: #d1fae5; color: #047857; }
-  .tag.warn { background: #fee2e2; color: #b91c1c; }
+/* ── COMMENT CARD (structured) ── */
+.comment-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.comment-sentiment{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(79,70,229,.04),transparent)}
+.sent-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sent-dot.bull{background:var(--pos)}
+.sent-dot.bear{background:var(--neg)}
+.sent-dot.neut{background:#f59e0b}
+.sent-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.sent-label.bear{color:var(--neg)}
+.sent-label.bull{color:var(--pos)}
+.sent-label.neut{color:#b45309}
+.sent-title{font-size:15px;font-weight:600;color:var(--ink);margin-left:4px}
+.comment-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+@media(max-width:800px){.comment-grid{grid-template-columns:1fr}}
+.czone{padding:20px 22px;border-right:1px solid var(--border)}
+.czone:last-child{border-right:none}
+@media(max-width:800px){.czone{border-right:none;border-bottom:1px solid var(--border)}.czone:last-child{border-bottom:none}}
+.czone-title{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink4);margin:0 0 12px;display:flex;align-items:center;gap:6px}
+.czone-title svg{width:13px;height:13px;opacity:.7}
+.czone ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.czone li{font-size:13.5px;color:var(--ink2);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.czone li::before{content:"•";color:var(--accent);font-weight:900;flex-shrink:0;margin-top:.1em}
+.czone li strong{color:var(--ink)}
+.akce-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#fafaf7;border-radius:var(--rs);border-left:2.5px solid var(--accent);margin-bottom:8px;font-size:13.5px;line-height:1.5}
+.akce-item:last-child{margin-bottom:0}
+.akce-item .arrow{color:var(--accent);font-weight:700;flex-shrink:0}
 
-  /* INSIGHT BOX */
-  .insight {
-    background:
-      linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(217,119,6,0.04) 100%),
-      var(--card);
-    border: 1px solid #fde68a;
-    border-radius: var(--radius);
-    padding: 22px 26px;
-    box-shadow: var(--shadow-sm);
-  }
-  .insight .insight-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .insight .insight-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #fbbf24, #d97706);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .insight h3 {
-    font-family: var(--serif);
-    font-size: 19px;
-    font-weight: 700;
-    margin: 0;
-    color: #78350f;
-    letter-spacing: -0.005em;
-  }
-  .insight ul { margin: 12px 0 0; padding-left: 20px; }
-  .insight li {
-    margin-bottom: 8px;
-    color: var(--ink);
-    line-height: 1.55;
-  }
-  .insight li strong { color: #78350f; }
+/* ── FUND CARDS ── */
+.fund-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
+.fund-card:hover{box-shadow:var(--shm);transform:translateY(-1px)}
+.fund-header{padding:18px 18px 14px;position:relative}
+.fund-ticker{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:-.01em;color:#fff;margin:0 0 2px}
+.fund-name{font-size:11.5px;color:rgba(255,255,255,.8);line-height:1.3;margin:0}
+.fund-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.fund-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.03em;text-transform:uppercase;background:rgba(255,255,255,.18);color:#fff}
+.fund-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:10px}
+.fund-desc{font-size:13px;color:var(--ink2);line-height:1.5;margin:0}
+.fund-holdings-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink4);margin-bottom:6px}
+.fund-chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;font-family:var(--mono);font-weight:600;padding:2px 7px;border-radius:5px;background:#f5f4f0;color:var(--ink2);letter-spacing:.01em}
+.fund-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+.fund-meta-item{font-size:11px;color:var(--ink4);font-family:var(--mono)}
+.fund-meta-item span{color:var(--ink2);font-weight:600}
 
-  /* ALLOCATION */
-  .allocation-table td.sym {
-    font-weight: 700;
-    font-family: var(--mono);
-    color: var(--ink);
-    letter-spacing: 0.02em;
-  }
-  .allocation-table .logic { font-size: 13px; color: var(--ink-2); }
-  .alloc-bar {
-    height: 6px;
-    background: #efeee9;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 8px;
-    max-width: 100%;
-  }
-  .alloc-bar > span {
-    display: block;
-    height: 100%;
-    background: linear-gradient(90deg, #4f46e5, #7c3aed);
-    border-radius: 6px;
-  }
-  .chart-host { position: relative; height: 260px; }
+/* Fund header gradients */
+.fh-sp500eur{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.fh-em{background:linear-gradient(135deg,#b45309,#f59e0b)}
+.fh-nasdaq{background:linear-gradient(135deg,#6d28d9,#a78bfa)}
+.fh-sp500gbp{background:linear-gradient(135deg,#065f46,#10b981)}
+.fh-world{background:linear-gradient(135deg,#0f766e,#2dd4bf)}
 
-  /* BRIEFING */
-  .briefing-list { list-style: none; margin: 0; padding: 0; }
-  .briefing-list > li {
-    padding: 16px 18px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  .briefing-list > li:last-child { border-bottom: none; }
-  .briefing-list .dot {
-    flex-shrink: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-top: 8px;
-  }
-  .briefing-list .dot.pos { background: var(--pos); box-shadow: 0 0 0 4px var(--pos-bg); }
-  .briefing-list .dot.neg { background: var(--neg); box-shadow: 0 0 0 4px var(--neg-bg); }
-  .briefing-list .dot.neutral { background: var(--ink-3); box-shadow: 0 0 0 4px #f1f1ee; }
-  .briefing-list .content { flex: 1; min-width: 0; }
-  .briefing-list .headline {
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--ink);
-    margin: 0 0 4px;
-  }
-  .briefing-list .impact {
-    font-size: 13px;
-    color: var(--ink-2);
-    margin: 6px 0 0;
-    padding: 8px 12px;
-    background: #fafaf7;
-    border-radius: var(--radius-sm);
-    border-left: 2px solid var(--border-2);
-  }
-  .briefing-list .impact.pos { border-left-color: var(--pos); }
-  .briefing-list .impact.neg { border-left-color: var(--neg); }
+/* ── ALLOCATION TABLE ── */
+.alloc-table{width:100%;border-collapse:collapse;font-size:14px}
+.alloc-table th{text-align:left;padding:9px 10px 8px;font-size:10.5px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+.alloc-table th.r{text-align:right}
+.alloc-table td{padding:11px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.alloc-table tr:last-child td{border-bottom:none}
+.alloc-table .sym{font-family:var(--mono);font-weight:700;font-size:13.5px;letter-spacing:.02em}
+.alloc-table .logic{font-size:12.5px;color:var(--ink2)}
+.alloc-table .pct{text-align:right;font-family:var(--mono);font-weight:700}
+.alloc-table .kc{text-align:right;font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--ink)}
+.bar-wrap{height:5px;background:#efeee9;border-radius:6px;overflow:hidden;margin-top:7px;width:100%;max-width:180px}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 
-  /* ARTICLES */
-  .reads-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-  }
-  @media (max-width: 980px) { .reads-grid { grid-template-columns: 1fr; } }
-  .read {
-    display: flex;
-    flex-direction: column;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .read:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-2);
-  }
-  .read .thumb {
-    height: 110px;
-    position: relative;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .read .thumb::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 55%);
-    pointer-events: none;
-  }
-  .read .thumb.cz { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
-  .read .thumb.global { background: linear-gradient(135deg, #0f766e, #14b8a6); }
-  .read .thumb.youtube { background: linear-gradient(135deg, #b91c1c, #ef4444); }
-  .read .thumb.crypto { background: linear-gradient(135deg, #c2410c, #f59e0b); }
-  .read .thumb.etf { background: linear-gradient(135deg, #581c87, #9333ea); }
-  .read .thumb .icon { width: 44px; height: 44px; color: white; opacity: 0.95; }
-  .read .body {
-    padding: 14px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-  }
-  .read .source-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-  }
-  .read .src-badge {
-    font-size: 10.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-3);
-    font-family: var(--mono);
-  }
-  .read .type-badge {
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .read .type-badge.cz { background: #dbeafe; color: #1e3a8a; }
-  .read .type-badge.global { background: #ccfbf1; color: #0f766e; }
-  .read .type-badge.youtube { background: #fee2e2; color: #991b1b; }
-  .read .type-badge.crypto { background: #fed7aa; color: #9a3412; }
-  .read .type-badge.etf { background: #ede9fe; color: #6b21a8; }
-  .read .title {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.35;
-    color: var(--ink);
-    margin: 0;
-  }
-  .read .summary {
-    font-size: 13px;
-    color: var(--ink-2);
-    line-height: 1.5;
-    margin: 0;
-  }
-  .read .meta {
-    margin-top: auto;
-    padding-top: 8px;
-    font-size: 11px;
-    color: var(--ink-4);
-    font-family: var(--mono);
-    border-top: 1px dashed var(--border);
-  }
+/* ── BRIEFING LIST ── */
+.blist{list-style:none;margin:0;padding:0}
+.blist>li{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start}
+.blist>li:last-child{border-bottom:none}
+.bdot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px}
+.bdot.pos{background:var(--pos);box-shadow:0 0 0 4px var(--pos-bg)}
+.bdot.neg{background:var(--neg);box-shadow:0 0 0 4px var(--neg-bg)}
+.bdot.neu{background:var(--ink4);box-shadow:0 0 0 4px #f0efe9}
+.bcontent{flex:1;min-width:0}
+.bhead{font-weight:600;font-size:14.5px;color:var(--ink);margin:0 0 4px;line-height:1.4}
+.bbody{margin:0;font-size:13px;color:var(--ink2);line-height:1.55}
+.bimpact{font-size:12.5px;color:var(--ink2);margin:7px 0 0;padding:8px 12px;background:#fafaf7;border-radius:var(--rs);border-left:2px solid var(--border2)}
+.bimpact.pos{border-left-color:var(--pos)}
+.bimpact.neg{border-left-color:var(--neg)}
 
-  /* FOOTER */
-  .footer {
-    margin-top: 40px;
-    padding: 18px 22px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 12.5px;
-    color: var(--ink-3);
-    line-height: 1.6;
-  }
-  .footer strong { color: var(--ink); }
-  .footer-sources {
-    margin-top: 10px;
-    font-family: var(--mono);
-    font-size: 10.5px;
-    color: var(--ink-4);
-    letter-spacing: 0.02em;
-  }
+/* ── POLYMARKET ── */
+.pm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+@media(max-width:900px){.pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.pm-grid{grid-template-columns:1fr}}
+.pm-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:10px}
+.pm-card:hover{box-shadow:var(--shm)}
+.pm-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.pm-q{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35;flex:1}
+.pm-cat{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:4px;flex-shrink:0;white-space:nowrap;margin-top:1px}
+.pm-cat.macro{background:#dbeafe;color:#1e3a8a}
+.pm-cat.equity{background:#d1fae5;color:#065f46}
+.pm-cat.crypto{background:#fed7aa;color:#9a3412}
+.pm-cat.fx{background:#ede9fe;color:#5b21b6}
+.pm-bar-wrap{height:8px;background:#f0efe9;border-radius:999px;overflow:hidden}
+.pm-bar-fill{height:100%;border-radius:999px;transition:width .4s}
+.pm-bar-fill.bull{background:linear-gradient(90deg,var(--pos),#34d399)}
+.pm-bar-fill.bear{background:linear-gradient(90deg,var(--neg),#f87171)}
+.pm-bar-fill.neut{background:linear-gradient(90deg,#f59e0b,#fcd34d)}
+.pm-numbers{display:flex;justify-content:space-between;align-items:center}
+.pm-pct{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1}
+.pm-pct.bull{color:var(--pos)}
+.pm-pct.bear{color:var(--neg)}
+.pm-pct.neut{color:#b45309}
+.pm-label{font-size:11.5px;color:var(--ink3)}
+.pm-vol{font-size:10.5px;color:var(--ink4);font-family:var(--mono)}
+.pm-footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px dashed var(--border)}
+.pm-src{font-size:10px;color:var(--ink4);font-family:var(--mono)}
+.pm-link{font-size:10.5px;font-weight:600;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px}
+.pm-link:hover{text-decoration:underline}
+.pm-impact{font-size:12px;color:var(--ink3);line-height:1.45;padding:7px 10px;background:#fafaf7;border-radius:var(--rs);border-left:2px solid var(--border2)}
+
+/* ── INSIGHT ── */
+.insight{background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(217,119,6,.03)),var(--card);border:1px solid #fde68a;border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh)}
+.insight-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.insight-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#fbbf24,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:700;flex-shrink:0}
+.insight h3{font-family:var(--serif);font-size:18px;font-weight:700;margin:0;color:#78350f}
+.insight ul{margin:10px 0 0;padding-left:19px}
+.insight li{margin-bottom:7px;color:var(--ink);line-height:1.5;font-size:13.5px}
+.insight li strong{color:#78350f}
+
+/* ── ARTICLES ── */
+.reads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+@media(max-width:900px){.reads{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.reads{grid-template-columns:1fr}}
+.read{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--sh);transition:transform .18s,box-shadow .18s}
+.read:hover{transform:translateY(-2px);box-shadow:var(--shm)}
+.rthumb{height:100px;display:flex;align-items:center;justify-content:center;position:relative}
+.rthumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 28%,rgba(255,255,255,.22),transparent 55%)}
+.rthumb svg{width:40px;height:40px;color:#fff;opacity:.9;position:relative;z-index:1}
+.rthumb.cz{background:linear-gradient(135deg,#1e3a8a,#3b82f6)}
+.rthumb.gl{background:linear-gradient(135deg,#065f46,#10b981)}
+.rthumb.yt{background:linear-gradient(135deg,#991b1b,#ef4444)}
+.rthumb.cr{background:linear-gradient(135deg,#9a3412,#fb923c)}
+.rthumb.etf{background:linear-gradient(135deg,#4c1d95,#a855f7)}
+.rbody{padding:12px 14px 14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.rsource-row{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.rsrc{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink4);font-family:var(--mono)}
+.rtype{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
+.rtype.cz{background:#dbeafe;color:#1e3a8a}
+.rtype.gl{background:#ccfbf1;color:#065f46}
+.rtype.cr{background:#fed7aa;color:#9a3412}
+.rtype.etf{background:#ede9fe;color:#5b21b6}
+.rtitle{font-size:14px;font-weight:600;line-height:1.35;color:var(--ink);margin:0}
+.rsum{font-size:12.5px;color:var(--ink2);line-height:1.5;margin:0}
+.rmeta{margin-top:auto;padding-top:7px;font-size:10.5px;color:var(--ink4);font-family:var(--mono);border-top:1px dashed var(--border)}
+
+/* ── FOOTER ── */
+.footer{margin-top:36px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--ink3);line-height:1.6}
+.footer strong{color:var(--ink)}
+.fsrc{margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--ink4)}
 </style>
-<style id="pin-gate-style">body.pin-locked{overflow:hidden}body.pin-locked .wrap{filter:blur(18px);pointer-events:none;user-select:none;transition:filter .3s}.pin-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(800px 500px at 50% 30%,rgba(124,58,237,.10),transparent 60%),rgba(247,246,243,.92);backdrop-filter:blur(8px);font-family:-apple-system,BlinkMacSystemFont,Inter,sans-serif}.pin-box{background:#fff;border:1px solid #e7e5e0;border-radius:18px;padding:36px 32px;box-shadow:0 24px 60px -12px rgba(10,10,10,.18);text-align:center;width:min(360px,calc(100vw - 32px))}.pin-box .pin-icon{width:56px;height:56px;margin:0 auto 14px;border-radius:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff}.pin-box h2{font-family:"Iowan Old Style",Baskerville,serif;margin:0 0 6px;font-size:22px;color:#0a0a0a}.pin-box p{margin:0 0 18px;color:#737373;font-size:13.5px}.pin-input{width:100%;padding:14px 16px;font-size:22px;font-family:ui-monospace,Menlo,monospace;text-align:center;letter-spacing:.4em;border:1px solid #d4d4d4;border-radius:10px;background:#fafaf7;outline:none}.pin-input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.12)}.pin-input.error{border-color:#be123c;animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.pin-btn{margin-top:12px;width:100%;padding:12px;background:#0a0a0a;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}.pin-btn:hover{background:#262626}.pin-hint{margin-top:14px;font-size:11.5px;color:#a3a3a3}</style>
+<style id="pin-gate-style">
+body.pin-locked > .wrap { filter: blur(8px); pointer-events: none; user-select: none; }
+#pin-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
+  background: rgba(10,10,10,0.82); backdrop-filter: blur(4px); }
+#pin-box { background: #fff; border-radius: 18px; padding: 40px 44px; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,.3); min-width: 300px; }
+#pin-box h2 { margin: 0 0 6px; font-family: -apple-system, sans-serif; font-size: 22px; font-weight: 700; color: #0a0a0a; }
+#pin-box p { margin: 0 0 24px; font-size: 14px; color: #737373; }
+#pin-input { width: 100%; padding: 12px 16px; font-size: 22px; font-family: ui-monospace, monospace; letter-spacing: .25em; text-align: center;
+  border: 2px solid #e7e5e0; border-radius: 10px; outline: none; box-sizing: border-box; }
+#pin-input:focus { border-color: #4f46e5; }
+#pin-error { color: #be123c; font-size: 13px; margin-top: 10px; min-height: 18px; }
+</style>
 </head>
 <body>
-<div class="pin-overlay" id="pinOverlay"><div class="pin-box"><div class="pin-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h2>Finanční briefing</h2><p>Zadej PIN pro zobrazení</p><input id="pinInput" class="pin-input" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autofocus/><button class="pin-btn" id="pinSubmit">Odemknout</button><p class="pin-hint">Privátní obsah — Martin · Trading 212</p></div></div>
+<div id="pin-overlay">
+  <div id="pin-box">
+    <h2>Finanční briefing</h2>
+    <p>Zadej PIN pro přístup</p>
+    <input id="pin-input" type="password" inputmode="numeric" maxlength="8" placeholder="••••" autofocus autocomplete="off"/>
+    <div id="pin-error"></div>
+  </div>
+</div>
 <div class="wrap">
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-left">
-      <div class="meta-row">
-        <span class="pill">Týdenní briefing · týden 24 · 8. 6. 2026</span>
-        <span class="pill muted">Profil · 26 let · dlouhodobý růst</span>
-        <span class="pill muted">Budget 10 000 Kč / měsíc</span>
-      </div>
-      <h1>Finanční briefing</h1>
-      <p class="subtitle">Trhy, portfolio Trading 212 a doporučení pro tento týden — pondělní edice.</p>
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div>
+    <div class="meta-row">
+      <span class="pill live">Týden 24 · 8. 6. 2026</span>
+      <span class="pill muted">26 let · dlouhodobý růst</span>
+      <span class="pill muted">10 000 Kč / měsíc</span>
     </div>
-    <div class="hero-actions">
-      <span class="last-updated" id="lastUpdated"></span>
-      <button class="btn primary" id="refreshBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><polyline points="21 3 21 8 16 8"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><polyline points="3 21 3 16 8 16"/></svg>
-        Obnovit komentář
-      </button>
-    </div>
-  </header>
+    <h1>Finanční briefing</h1>
+    <p class="sub">Pondělní edice · Trading 212 · 5 ETF</p>
+  </div>
+  <div class="hero-right">
+    <span class="ts" id="ts"></span>
+    <button class="btn primary" id="refreshBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><polyline points="21 3 21 8 16 8"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><polyline points="3 21 3 16 8 16"/></svg>
+      Obnovit komentář
+    </button>
+  </div>
+</header>
 
-  <!-- TRŽNÍ PŘEHLED -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Tržní přehled</h2>
-      <span class="lead">Spotová data k 8. 6. 2026</span>
-    </div>
-
-    <div class="grid cols-3">
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">EUR / CZK</span>
-          <span class="source">ECB · 8. 6. 2026</span>
-        </div>
-        <div class="value">24.20</div>
-        <div class="row-sub">
-          <span class="delta down">0.4%</span>
-          <span class="ctx" style="margin:0;">EUR/CZK klesá; koridor týdne 24.17–24.22</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,12 25,13 50,14 75,15 100,16 125,18 150,19 175,21 200,22" fill="none" stroke="#be123c" stroke-width="1.5"/>
-        </svg>
-      </div>
-
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">USD / CZK</span>
-          <span class="source">ČNB cross · 8. 6. 2026</span>
-        </div>
-        <div class="value">20.87</div>
-        <div class="row-sub">
-          <span class="delta flat">0.1%</span>
-          <span class="ctx" style="margin:0;">USD stabilní; silný jobs report drží USD</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,20 25,20 50,19 75,19 100,18 125,18 150,18 175,18 200,17" fill="none" stroke="#737373" stroke-width="1.5"/>
-        </svg>
-      </div>
-
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">GBP / CZK</span>
-          <span class="source">ECB cross · 8. 6. 2026</span>
-        </div>
-        <div class="value">28.00</div>
-        <div class="row-sub">
-          <span class="delta flat">0.04%</span>
-          <span class="ctx" style="margin:0;">GBP stabilní; důležité pro VUAA &amp; VWRP</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,17 25,17 50,17 75,18 100,18 125,18 150,18 175,18 200,18" fill="none" stroke="#737373" stroke-width="1.5"/>
-        </svg>
-      </div>
-    </div>
-
-    <div class="grid cols-3" style="margin-top:14px;">
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">Bitcoin (BTC / USD)</span>
-          <span class="source">CoinDesk · 7. 6. 2026</span>
-        </div>
-        <div class="value">$63 000</div>
-        <div class="row-sub">
-          <span class="delta down">8.7%</span>
-          <span class="ctx" style="margin:0;">nejnižší od února; $4B ETF outflows za 12 dní</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,6 25,8 50,11 75,14 100,18 125,22 150,26 175,29 200,31" fill="none" stroke="#be123c" stroke-width="1.5"/>
-        </svg>
-      </div>
-
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">S&amp;P 500</span>
-          <span class="source">CNBC · 5. 6. 2026 close</span>
-        </div>
-        <div class="value">7 384</div>
-        <div class="row-sub">
-          <span class="delta down">2.6%</span>
-          <span class="ctx" style="margin:0;">první záporný týden za 10 — sell-off chipů + jobs</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,4 25,5 50,7 75,9 100,13 125,17 150,21 175,26 200,30" fill="none" stroke="#be123c" stroke-width="1.5"/>
-        </svg>
-      </div>
-
-      <div class="card market-card">
-        <div class="label">
-          <span class="label-text">Nasdaq Composite</span>
-          <span class="source">CNBC · 5. 6. 2026 close</span>
-        </div>
-        <div class="value">25 709</div>
-        <div class="row-sub">
-          <span class="delta down">4.2%</span>
-          <span class="ctx" style="margin:0;">nejhorší den od dubna 2025; Broadcom zklamal</span>
-        </div>
-        <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,3 25,5 50,7 75,10 100,14 125,19 150,24 175,28 200,33" fill="none" stroke="#be123c" stroke-width="1.5"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- AI KOMENTÁŘ -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Komentář k týdnu</h2>
-      <span class="lead">Sentiment + co to znamená pro tvé portfolio</span>
-    </div>
-    <div class="card comment-card">
-      <p id="aiComment" class="ai-comment">
-        Minulý týden přinesl první záporný výsledek S&amp;P 500 za deset týdnů (-2.6 % na 7 384) a Nasdaq ztratil 4.2 % — nejhorší den od dubna 2025 — po zklamání Broadcomu s výhledem AI čipů a silném zprávy o pracovních místech v květnu (172k vs. oček. 88k), která zvýšila obavy z možného hiku Fedu. EQQQ a tech složky CSPX/VUAA/VWRP utrpěly plnou sílu výprodeje; EIMI jako EM fond byl méně zasažen, což potvrzuje hodnotu diverzifikace. Bitcoin klesl na ~$63k (–50 % od říjnového vrcholu $126k) při rekordních 12 dnech ETF outflows ($4B) — institucionální derisking u rizikových aktiv pokračuje, ale nemáš přímou expozici. Pro DCA tento týden: Nasdaq pullback o ~4 % dává poprvé od března smysl zvýšit alokaci EQQQ mírně nad 10 %; VWRP a EIMI drž dle plánu — rotace z tech do defensivy byla přechodná a long-term výhled pasivní strategie zůstává nezměněn.
-      </p>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Tvé portfolio (Trading 212)</h2>
-      <span class="lead">5 ETF · pozor na překryv</span>
-    </div>
-
-    <div class="grid cols-2">
-      <div class="card">
-        <table class="holdings">
-          <thead>
-            <tr>
-              <th>ETF</th>
-              <th>Měna</th>
-              <th>Expozice</th>
-              <th class="num">Váha*</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="ticker">CSPX</div>
-                <div class="ticker-sub">iShares Core S&amp;P 500 Acc</div>
-              </td>
-              <td>EUR</td>
-              <td><span class="tag us">US Large Cap</span></td>
-              <td class="num">25 %</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="ticker">EIMI</div>
-                <div class="ticker-sub">iShares Core MSCI EM IMI Acc</div>
-              </td>
-              <td>USD</td>
-              <td><span class="tag em">Emerging Markets</span></td>
-              <td class="num">15 %</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="ticker">EQQQ</div>
-                <div class="ticker-sub">Invesco EQQQ Nasdaq 100 Acc</div>
-              </td>
-              <td>EUR</td>
-              <td><span class="tag tech">US Tech</span></td>
-              <td class="num">15 %</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="ticker">VUAA</div>
-                <div class="ticker-sub">Vanguard S&amp;P 500 Acc</div>
-              </td>
-              <td>GBP</td>
-              <td><span class="tag us">US Large Cap</span></td>
-              <td class="num">20 %</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="ticker">VWRP</div>
-                <div class="ticker-sub">Vanguard FTSE All-World Acc</div>
-              </td>
-              <td>GBP</td>
-              <td><span class="tag world">Celý svět</span></td>
-              <td class="num">25 %</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="source" style="margin-top:14px;">*Odhad — doplň skutečné váhy ze svého T212 exportu, já je v dashboardu nahradím.</p>
-      </div>
-
-      <div class="card">
-        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-          <strong style="font-size:14px;">Reálná expozice po průniku ETF</strong>
-        </div>
-        <div class="chart-host"><canvas id="exposureChart"></canvas></div>
-        <p class="source" style="margin-top:8px;">~70 % US, ~10 % EM, ~20 % zbytek světa — výrazně tech-heavy.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- INSIGHT -->
-  <section class="section">
-    <div class="insight">
-      <div class="insight-header">
-        <div class="insight-icon">!</div>
-        <h3>Klíčový insight — tvé portfolio je koncentrovanější, než vypadá</h3>
-      </div>
-      <ul>
-        <li><strong>CSPX a VUAA sledují stejný index (S&amp;P 500).</strong> Držíš 2 totožné fondy v různých měnách — 100% duplicita, jen dvojnásobné měnové riziko.</li>
-        <li><strong>VWRP (All-World) už obsahuje S&amp;P 500 (~60 %), Nasdaq i ~10 % EM.</strong> S CSPX/VUAA + EQQQ masivně přivažuješ US large cap a tech.</li>
-        <li><strong>EQQQ má 85 %+ překryv s top 100 firmami v S&amp;P 500.</strong> Apple, Microsoft, Nvidia, Alphabet držíš de facto čtyřikrát.</li>
-        <li><strong>Doporučení:</strong> zjednodušit na 2-3 fondy (VWRP jako core + EIMI jako EM tilt + případně EQQQ jako tech satellite).</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ALOKACE -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Měsíční alokace · 10 000 Kč</h2>
-      <span class="lead">Zjednodušení + diverzifikace</span>
-    </div>
-
-    <div class="grid cols-2">
-      <div class="card">
-        <table class="holdings allocation-table">
-          <thead>
-            <tr>
-              <th>ETF</th>
-              <th>Logika</th>
-              <th class="num">%</th>
-              <th class="num">Kč</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="sym">VWRP</td>
-              <td class="logic">Core globální, jeden fond = celý svět<div class="alloc-bar"><span style="width:60%;"></span></div></td>
-              <td class="num">60 %</td>
-              <td class="num">6 000</td>
-            </tr>
-            <tr>
-              <td class="sym">EIMI</td>
-              <td class="logic">Tilt na EM (VWRP má jen ~10 %), levnější valuace<div class="alloc-bar"><span style="width:25%;"></span></div></td>
-              <td class="num">25 %</td>
-              <td class="num">2 500</td>
-            </tr>
-            <tr>
-              <td class="sym">EQQQ</td>
-              <td class="logic">Tech satellite — Nasdaq -4.2 % minulý týden = dip opportunity<div class="alloc-bar"><span style="width:10%;"></span></div></td>
-              <td class="num">10 %</td>
-              <td class="num">1 000</td>
-            </tr>
-            <tr>
-              <td class="sym">Cash</td>
-              <td class="logic">CZK rezerva pro nákup při větším propadu<div class="alloc-bar"><span style="width:5%;"></span></div></td>
-              <td class="num">5 %</td>
-              <td class="num">500</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="source" style="margin-top:14px;">CSPX a VUAA <strong style="color:var(--ink);">dál neposiluj</strong> — překrývají VWRP. Nasdaq -4.2 % tento týden otevírá příležitost pro EQQQ DCA — <strong style="color:var(--ink);">lze investovat plných 1 000 Kč</strong>. Fed drží 3.50–3.75 %; příští klíčové daty: CPI za duben a červnové FOMC zasedání.</p>
-      </div>
-      <div class="card">
-        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-          <strong style="font-size:14px;">Vizuálně</strong>
-        </div>
-        <div class="chart-host"><canvas id="allocChart"></canvas></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TÝDENNÍ BRIEFING -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Týdenní briefing</h2>
-      <span class="lead">Co se děje a co to znamená pro tebe</span>
-    </div>
-
-    <div class="card" style="padding:0;">
-      <ul class="briefing-list" id="briefingList">
-        <li>
-          <span class="dot neg" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">Nasdaq -4.2 % (25 709), S&amp;P 500 -2.6 % (7 384) — první záporný týden za 10, wiped $1T z čipového sektoru.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Broadcom nezvedl výhled AI čipů a zklamal trh. PHLX Semiconductor Index (SOX) -10 % — nejhorší den od března 2020. Memory ETF -15 %. S&amp;P 500 byl ještě 2. 6. na ATH 7 617.</p>
-            <p class="impact neg"><strong>Dopad:</strong> EQQQ, tech složky CSPX/VUAA/VWRP citelně zasaženy. Krátkodobý šok, ale AI capex narrativ zůstává strukturálně neporušen. Příležitost pro DCA do EQQQ.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neg" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">Silný jobs report za květen: 172k nových míst vs. oček. 88k — zvyšuje riziko Fedova hiku v 2026.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Nezaměstnanost 4.3 %, stabilní. 10Y Treasury yield vyskočil na 4.54 %, 30Y překonal 5 %. FedWatch pricing se posunul z "no-change" ke scénáři potenciálního hiku. Fed drží 3.50–3.75 %.</p>
-            <p class="impact neg"><strong>Dopad:</strong> growth/tech multiples (EQQQ, Nasdaq podíl CSPX) citlivé na delší "higher for longer". EIMI s EM expozicí relativně odolnější — USD sílí jen mírně.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neg" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">Bitcoin propadl na ~$63k — pokles o 50 % z říjnového vrcholu $126k, 12 dní ETF outflows v řadě ($4B).</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Nejnižší úroveň od února (před eskalací íránského konfliktu). BlackRock IBIT a Fidelity FBTC nejvíce postiženy. Rekordní streak outflows v historii spot BTC ETF. MicroStrategy prodal část pozice.</p>
-            <p class="impact neg"><strong>Dopad:</strong> přímá expozice nulová. Sleduj: pokud derisking přeteče do tech akcií (historická korelace ~0.6), EQQQ dostane druhou vlnu tlaku. Zatím decoupling drží.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neutral" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">SEC Strategic Plan 2026–2030: digitální aktiva ve středu regulační reformy — příklon od enforcement k jasnému rámci.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Předseda Atkins: crypto technologie mají potenciál revolucionalizovat finanční infrastrukturu USA. SEC schválila zkrácení ETP schválení z 240 na 75 dní. Bitwise: 100+ nových crypto ETF v 2026. Nové BTCK (ESG Bitcoin ETF) listováno 5. 6.</p>
-            <p class="impact"><strong>Dopad:</strong> bez přímé expozice. Strukturálně pozitivní střednědobě — clear rámec = snazší adopce. Zatím nevede k akci v portfoliu.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neutral" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">ČNB drží repo 3.50 %, dubnová inflace 2.5 % — prognóza 2.2 % pro rok 2026, EUR/CZK cca 24.20.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">ČNB sazby neměnné od května 2025 (10+ měsíců). Inflace klesá ke 2% cíli, příštím krokem bude snižování — ale ne dříve než konec 2026. EUR/CZK mírně oslabilo z 24.29 na 24.20 v průběhu týdne.</p>
-            <p class="impact"><strong>Dopad:</strong> CZK lehce posiluje = mírně horší nákupní podmínky pro EUR/GBP ETF. Celkový efekt zanedbatelný — DCA plán drž beze změny.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot pos" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">S&amp;P 500 výprodej analytici hodnotí spíše jako rotaci než zhroucení — bull market strukturálně neporušen.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Investing.com analýza: sektor rotation z tech do defensivy. Valuace 21x forward EPS, mediánová firma přeceněna o 8 %. S&amp;P rally +20 % za 9 týdnů před korekcí. Seeking Alpha: OpenAI, SpaceX, Anthropic IPO v horizontu = možný nový catalyst.</p>
-            <p class="impact pos"><strong>Dopad:</strong> VWRP core pozice je správná strategie — nepanikař. Pullback je příležitost pro pravidelný DCA. Long-term pasivní přístup funguje.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ČLÁNKY TÝDNE -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Články týdne</h2>
-      <span class="lead">Kurátorský výběr · aktualizováno 8. 6. 2026</span>
-    </div>
-
-    <div class="reads-grid" id="readsGrid">
-      <a class="read" href="https://www.investicniweb.cz/akcie/323414-co-musite-dnes-vedet-8-cervna-2026" target="_blank" rel="noopener">
-        <div class="thumb cz">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Investiční web</span>
-            <span class="type-badge cz">CZ přehled</span>
-          </div>
-          <p class="title">Co musíte dnes vědět (8. 6.): Červen a burzovní almanach</p>
-          <p class="summary">Pondělní přehled klíčových témat: červen historicky silný měsíc pro S&amp;P 500, burzovní kalendář na nadcházející týden a kontext po minulotýdenním výprodaji.</p>
-          <div class="meta">5 min čtení · 8. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.cnbc.com/2026/06/04/stock-market-today-live-updates.html" target="_blank" rel="noopener">
-        <div class="thumb global">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">CNBC</span>
-            <span class="type-badge global">Live updates</span>
-          </div>
-          <p class="title">Nasdaq -4.2 % — nejhorší den od dubna 2025, chip stocks v čele výprodeje</p>
-          <p class="summary">Broadcom selhal s výhledem AI čipů → SOX ETF -10 %, SMCI -10 %. Jobs report 172k vs. 88k: 10Y yield na 4.54 %. EQQQ v centru turbulence.</p>
-          <div class="meta">10 min čtení · 5. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html" target="_blank" rel="noopener">
-        <div class="thumb global">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Yahoo Finance</span>
-            <span class="type-badge global">Analýza trhu</span>
-          </div>
-          <p class="title">S&amp;P -2.6 %, Nasdaq -4.2 % — jobs report pohřbil naděje na snížení sazeb</p>
-          <p class="summary">Silný trh práce USA (172k) + Broadcom = double hit. Treasury yields skočily, AI trade pozastaven. První záporný týden za 10 pro S&amp;P 500.</p>
-          <div class="meta">8 min čtení · 5. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.investing.com/analysis/sp-500-selloff-looks-more-like-rotation-than-market-breakdown-200681625" target="_blank" rel="noopener">
-        <div class="thumb global">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Investing.com</span>
-            <span class="type-badge global">Analýza</span>
-          </div>
-          <p class="title">Výprodej S&amp;P 500 vypadá spíš jako rotace než zhroucení trhu</p>
-          <p class="summary">Analytici: sektory mimo tech drží, valuace 21x forward EPS stále obhajitelné při silném EPS growth. Bull market strukturálně neporušen. Dip = buying opportunity.</p>
-          <div class="meta">6 min čtení · 6. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://seekingalpha.com/article/4910621-my-current-view-of-the-s-and-p-500-index-june-2026-edition-technical-analysis" target="_blank" rel="noopener">
-        <div class="thumb global">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Seeking Alpha</span>
-            <span class="type-badge global">Technická analýza</span>
-          </div>
-          <p class="title">S&amp;P 500 červen 2026: technická analýza po korekci ATH → 7 384</p>
-          <p class="summary">Rally +20 % za 9 týdnů, pak první korekce. Mediánová firma přeceněna o 8 %. Letní pullback pravděpodobn ý — ale IPO sezóna (OpenAI, SpaceX, Anthropic) může přinést nový catalyst.</p>
-          <div class="meta">9 min čtení · 6. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.investing.com/analysis/bitcoin-falls-as-record-etf-outflows-and-strategy-sale-hit-sentiment-200681446" target="_blank" rel="noopener">
-        <div class="thumb crypto">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9zm0 5h5a2.5 2.5 0 0 1 0 5H9zm2-9v2m2-2v2m-2 12v2m2-2v2"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Investing.com</span>
-            <span class="type-badge crypto">Krypto</span>
-          </div>
-          <p class="title">Bitcoin -50 % od vrcholu: rekordní ETF outflows + prodej MicroStrategy tlačí sentiment</p>
-          <p class="summary">$63k nejnižší od února. IBIT a FBTC: 12 dní outflows ($4B celkem) — rekord v historii spot BTC ETF. Strategy (ex-MicroStrategy) prodal část BTC pozice. Strukturální nebo cyklický pokles?</p>
-          <div class="meta">7 min čtení · 6. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://bitcoinmagazine.com/news/sec-highlights-crypto-in-strategic-plan" target="_blank" rel="noopener">
-        <div class="thumb crypto">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Bitcoin Magazine</span>
-            <span class="type-badge crypto">Regulace</span>
-          </div>
-          <p class="title">SEC Strategic Plan 2026–2030: krypto v centru regulační reformy Atkinse</p>
-          <p class="summary">Posun od regulation-by-enforcement k jasnému rámci. ETP schválení zkráceno z 240 na 75 dní. Bitwise: 100+ nových crypto ETF v 2026. Strukturálně bullish střednědobě.</p>
-          <div class="meta">6 min čtení · 4. 6. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.patria.cz/zpravodajstvi/6710791/investicni-vyhled-2026-v-ai-zustavame-ale-nove-se-divame-i-jinam.html" target="_blank" rel="noopener">
-        <div class="thumb cz">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">Patria.cz</span>
-            <span class="type-badge cz">CZ výhled</span>
-          </div>
-          <p class="title">Investiční výhled 2026: V AI zůstáváme, ale nově se díváme i jinam</p>
-          <p class="summary">Patria Analytics: AI tah trhu přetrvává, ale investoři začínají rotovat do komodit a defensivních sektorů. Komodity levné a s potenciálem. Context pro EIMI EM tilt.</p>
-          <div class="meta">8 min čtení · Patria 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.cnb.cz/cs/menova-politika/prognoza/" target="_blank" rel="noopener">
-        <div class="thumb cz">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">ČNB</span>
-            <span class="type-badge cz">CZ makro</span>
-          </div>
-          <p class="title">Aktuální prognóza ČNB — repo 3.50 %, inflace 2.5 % (duben), výhled 2.2 % pro 2026</p>
-          <p class="summary">ČNB drží sazby beze změny od května 2025. Inflace klesá ke 2% cíli. EUR/CZK 24.20 — stabilní prostředí pro DCA do EUR/GBP fondů bez kurzového šoku.</p>
-          <div class="meta">Reference · červen 2026</div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <strong>Disclaimer:</strong> Toto není investiční doporučení ani finanční poradenství.
-    Claude je jazykový model a analytický nástroj, ne licencovaný poradce. Zobrazená tržní data jsou orientační — pro reálné rozhodnutí si vždy ověř aktuální ceny u svého brokera.
-    Konečné rozhodnutí, kam pošleš peníze, je vždy na tobě.
-    <div class="footer-sources">Zdroje · ECB · CNBC · Yahoo Finance · Investing.com · Seeking Alpha · Bitcoin Magazine · Patria.cz · Investiční web · ČNB · CoinDesk</div>
+<!-- ═══ TRŽNÍ PŘEHLED ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Tržní přehled</h2>
+    <span class="lead">Spotová data · 8. 6. 2026 · FX signál: LEVNÉ / FAIR / DRAHÉ pro DCA</span>
   </div>
 
-</div>
+  <!-- FX row -->
+  <div class="g g3" style="margin-bottom:13px">
+    <!-- EUR/CZK -->
+    <div class="card mcard" id="card-eur">
+      <div class="mlabel">
+        <span class="mlt">EUR / CZK</span>
+        <span class="msrc">ECB · 8. 6. 2026</span>
+      </div>
+      <div class="val" id="val-eur">24.20</div>
+      <div class="sub">
+        <span class="delta down" id="d-eur">▼ 0.4%</span>
+        <span class="ctx">CSPX &amp; EQQQ · EUR hedged</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,10 30,11 60,13 90,15 120,17 150,19 180,21 200,22" fill="none" stroke="#be123c" stroke-width="1.5"/>
+      </svg>
+      <span class="fxsig fair" id="sig-eur">FAIR</span>
+    </div>
 
-<script>
-(function () {
-  // Stamp
-  var d = new Date();
-  document.getElementById("lastUpdated").textContent =
-    "Aktualizováno · " + d.toLocaleDateString("cs-CZ", { day: "numeric", month: "long", year: "numeric" }) +
-    " · " + d.toLocaleTimeString("cs-CZ", { hour: "2-digit", minute: "2-digit" });
+    <!-- USD/CZK -->
+    <div class="card mcard" id="card-usd">
+      <div class="mlabel">
+        <span class="mlt">USD / CZK</span>
+        <span class="msrc">ČNB cross · 8. 6. 2026</span>
+      </div>
+      <div class="val" id="val-usd">20.87</div>
+      <div class="sub">
+        <span class="delta flat" id="d-usd">— 0.1%</span>
+        <span class="ctx">EIMI · USD denominace</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,18 40,18 80,17 120,17 160,17 200,16" fill="none" stroke="#737373" stroke-width="1.5"/>
+      </svg>
+      <span class="fxsig fair" id="sig-usd">FAIR</span>
+    </div>
 
-  // Charts
-  var palette = ["#4f46e5", "#a855f7", "#f59e0b", "#10b981", "#94a3b8"];
+    <!-- GBP/CZK -->
+    <div class="card mcard" id="card-gbp">
+      <div class="mlabel">
+        <span class="mlt">GBP / CZK</span>
+        <span class="msrc">ECB cross · 8. 6. 2026</span>
+      </div>
+      <div class="val" id="val-gbp">28.00</div>
+      <div class="sub">
+        <span class="delta flat" id="d-gbp">— 0.04%</span>
+        <span class="ctx">VUAA &amp; VWRP · GBP</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,16 50,16 100,17 150,17 200,17" fill="none" stroke="#737373" stroke-width="1.5"/>
+      </svg>
+      <span class="fxsig fair" id="sig-gbp">FAIR</span>
+    </div>
+  </div>
 
-  if (window.Chart) {
-    Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif';
-    Chart.defaults.font.size = 12;
-    Chart.defaults.color = "#404040";
+  <!-- Indices + BTC row -->
+  <div class="g g3">
+    <!-- BTC -->
+    <div class="card mcard">
+      <div class="mlabel">
+        <span class="mlt">Bitcoin BTC/USD</span>
+        <span class="msrc">CoinDesk · 7. 6. 2026</span>
+      </div>
+      <div class="val">$63 000</div>
+      <div class="sub">
+        <span class="delta down">▼ 8.7%</span>
+        <span class="ctx">−50% od ATH $126k; 12 dní ETF outflows</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,5 30,7 60,10 90,14 120,18 150,23 180,27 200,29" fill="none" stroke="#be123c" stroke-width="1.5"/>
+      </svg>
+    </div>
 
-    new Chart(document.getElementById("exposureChart"), {
-      type: "doughnut",
-      data: {
-        labels: ["US Large Cap (vč. tech)", "US Tech extra (Nasdaq tilt)", "Emerging Markets", "Zbytek světa"],
-        datasets: [{
-          data: [45, 25, 12, 18],
-          backgroundColor: palette.slice(0, 4),
-          borderWidth: 2,
-          borderColor: "#ffffff"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "62%",
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { boxWidth: 10, padding: 12, font: { size: 11.5 } }
-          }
-        }
-      }
-    });
+    <!-- S&P 500 -->
+    <div class="card mcard">
+      <div class="mlabel">
+        <span class="mlt">S&amp;P 500</span>
+        <span class="msrc">CNBC · 5. 6. 2026 close</span>
+      </div>
+      <div class="val">7 384</div>
+      <div class="sub">
+        <span class="delta down">▼ 2.6%</span>
+        <span class="ctx">1. záporný týden za 10 · chips sell-off</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,5 40,7 80,10 110,14 140,18 170,23 200,28" fill="none" stroke="#be123c" stroke-width="1.5"/>
+      </svg>
+    </div>
 
-    new Chart(document.getElementById("allocChart"), {
-      type: "doughnut",
-      data: {
-        labels: ["VWRP — 6 000 Kč", "EIMI — 2 500 Kč", "EQQQ — 1 000 Kč", "Cash — 500 Kč"],
-        datasets: [{
-          data: [60, 25, 10, 5],
-          backgroundColor: ["#10b981", "#f59e0b", "#a855f7", "#94a3b8"],
-          borderWidth: 2,
-          borderColor: "#ffffff"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "62%",
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: { boxWidth: 10, padding: 12, font: { size: 11.5 } }
-          }
-        }
-      }
-    });
-  }
+    <!-- Nasdaq -->
+    <div class="card mcard">
+      <div class="mlabel">
+        <span class="mlt">Nasdaq Composite</span>
+        <span class="msrc">CNBC · 5. 6. 2026 close</span>
+      </div>
+      <div class="val">25 709</div>
+      <div class="sub">
+        <span class="delta down">▼ 4.2%</span>
+        <span class="ctx">nejhorší den od dubna 2025 · Broadcom</span>
+      </div>
+      <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <polyline points="0,4 35,6 70,9 100,13 130,18 160,23 200,29" fill="none" stroke="#be123c" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
 
-  // Refresh button
-  var refreshBtn = document.getElementById("refreshBtn");
-  var commentEl = document.getElementById("aiComment");
+<!-- ═══ KOMENTÁŘ K TÝDNU (strukturovaný) ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Komentář k týdnu</h2>
+    <span class="lead">Sentiment · Události · Akce</span>
+  </div>
 
-  refreshBtn.addEventListener("click", async function () {
-    if (!window.cowork || typeof window.cowork.askClaude !== "function") {
-      commentEl.textContent = "Funkce askClaude není v tomto prostředí dostupná. Týdenní refresh probíhá automaticky každé pondělí ráno přes scheduled task.";
-      return;
-    }
-    refreshBtn.disabled = true;
-    var origLabel = refreshBtn.innerHTML;
-    refreshBtn.innerHTML = "Obnovuji…";
-    commentEl.classList.add("loading");
-    commentEl.textContent = "Claude analyzuje aktuální tržní data…";
+  <div class="comment-wrap">
+    <!-- Sentiment bar -->
+    <div class="comment-sentiment">
+      <span class="sent-dot bear"></span>
+      <span class="sent-label bear">OPATRNÝ</span>
+      <span class="sent-title" id="sentTitle">Nasdaq koriguje po 9 týdnech rally — tech sell-off na fondech, ale rotace, ne zhroucení</span>
+    </div>
 
-    var ctx = [{
-      portfolio: ["CSPX (S&P 500 EUR)", "EIMI (MSCI EM IMI USD)", "EQQQ (Nasdaq 100 EUR)", "VUAA (S&P 500 GBP)", "VWRP (FTSE All-World GBP)"],
-      profile: "26 let, dlouhodobý růst, vyvážený–agresivní",
-      knownData: {
-        EURCZK: 24.20, USDCZK: 20.87, GBPCZK: 28.00,
-        BTC_USD: 63000, SP500: 7384, Nasdaq: 25709,
-        FedRate: "3.50–3.75 %, hold; jobs report 172k (vs. 88k expected) zvyšuje hike riziko; 10Y yield 4.54 %",
-        CNB: "3.50 % repo (beze změny od května 2025), dubnová inflace 2.5 %, prognóza 2.2 % pro 2026",
-        macro: "S&P 500 -2.6 % (7384, první záporný týden za 10), Nasdaq -4.2 % (25709, nejhorší den od dubna 2025); Broadcom zklamal s AI chip výhledem; SOX ETF -10 %; BTC $63k (-50 % od vrcholu $126k říjen 2025), 12 dní ETF outflows ($4B rekord); SEC Strategic Plan 2026-2030 krypto jako priorita; rotace z tech do defensivy."
-      },
-      keyInsight: "CSPX + VUAA = duplicita S&P 500. VWRP obsahuje S&P 500, Nasdaq i EM. EQQQ 85 % overlap s S&P 500 top. Reálná expozice ~70 % US, hodně tech. Nasdaq pullback -4.2 % = DCA příležitost pro EQQQ."
-    }];
+    <div class="comment-grid">
+      <!-- Zone 1: Co se stalo -->
+      <div class="czone">
+        <p class="czone-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Co se stalo
+        </p>
+        <ul id="eventsZone">
+          <li><strong>Broadcom</strong> zklamal s výhledem AI čipů → SOX ETF −10 %, wipe $1T z čipů</li>
+          <li><strong>Jobs report</strong> 172k (vs. 88k očekávaných) → 10Y yield +4.54 %, hike riziko roste</li>
+          <li><strong>BTC</strong> $63k, −50 % od říjnového vrcholu; 12 dní rekordních ETF outflows ($4B)</li>
+        </ul>
+      </div>
 
-    try {
-      var result = await window.cowork.askClaude(
-        "Jsi finanční analytik. Napiš 3-4 věty česky, jak v tomto týdnu vnímáš tržní sentiment a co to znamená pro portfolio CSPX/EIMI/EQQQ/VUAA/VWRP. Buď konkrétní, žádné obecné fráze. Zmiň konkrétní ETF.",
-        ctx
-      );
-      commentEl.classList.remove("loading");
-      commentEl.textContent = result;
-    } catch (e) {
-      commentEl.classList.remove("loading");
-      commentEl.textContent = "Nepodařilo se obnovit: " + (e && e.message ? e.message : "neznámá chyba");
-    }
-    refreshBtn.disabled = false;
-    refreshBtn.innerHTML = origLabel;
-  });
-})();
-</script>
-<script id="pin-gate-script">(function(){var PIN_HASH="5ca78d60306335e9cdf1efa886dd54cb3d06100d29c1099f11c1389e15ca0816";var KEY="briefingUnlockedV1";var b=document.body,o=document.getElementById("pinOverlay"),i=document.getElementById("pinInput"),btn=document.getElementById("pinSubmit");async function s(s){var u=new TextEncoder().encode(s),h=await crypto.subtle.digest("SHA-256",u);return Array.from(new Uint8Array(h)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")}function u(){o.style.display="none";b.classList.remove("pin-locked");try{localStorage.setItem(KEY,"1")}catch(e){}}async function t(){var v=i.value.trim();if(!v)return;var h=await s(v);if(h===PIN_HASH){u()}else{i.classList.add("error");setTimeout(function(){i.classList.remove("error");i.value="";i.focus()},400)}}b.classList.add("pin-locked");try{if(localStorage.getItem(KEY)==="1"){u();return}}catch(e){}btn.addEventListener("click",t);i.addEventListener("keypress",function(e){if(e.key==="Enter")t()})})()</script>
-</body>
-</html>
+      <!-- Zone 2: Dopad na portfolio -->
+      <div class="czone">
+        <p class="czone-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Dopad na portfolio
+        </p>
+        <ul id="impactZone">
+          <li><strong>EQQQ</strong> plná síla sell-offu: Nasdaq −4.2 % → první DCA příležitost od března</li>
+          <li><strong>CSPX / VUAA / VWRP</strong> S&amp;P složka −2.6 %; long-term bull market structurálně neporušen</li>
+          <li><strong>EIMI</strong> nejodolnější — EM fond méně zasažen tech výprodejem, potvrzuje hodnotu diverzifikace</li>
+        </ul>
+      </div>
+
+      <!-- Zone 3: Akce -->
+      <div class="czone">
+        <p class="czone-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          Tvá akce
+        </p>
+        <div id="actionZone">
+          <div class="akce-item">
+            <span class="arrow">→</span>
+            <span><strong>EQQQ 1 000 Kč</strong> — Nasdaq −4.2 % = první výraznější dip, investuj plnou alokaci</span>
+          </div>
+          <div class="akce-item">
+            <span class="arrow">→</span>
+            <span><strong>VWRP + EIMI</strong> drž plán — core pozice nekopíruj přes noise, DCA funguje</span>
+          </div>
+          <div class="akce-item">
+            <span class="arrow">→</span>
+            <span><strong>Sleduj</strong> FOMC zasedání + CPI — hlavní katalyzátory pro tech multiples</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO — FUND CARDS ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Tvé portfolio</h2>
+    <span class="lead">5 ETF · Trading 212 · přehled fondů</span>
+  </div>
+
+  <div class="g g5">
+
+    <!-- CSPX -->
+    <div class="fund-card">
+      <div class="fund-header fh-sp500eur">
+        <div class="fund-ticker">CSPX</div>
+        <div class="fund-name">iShares Core S&amp;P 500 UCITS ETF</div>
+        <div class="fund-tags">
+          <span class="fund-tag">EUR</span>
+          <span class="fund-tag">ACC</span>
+          <span class="fund-tag">US Large Cap</span>
+        </div>
+      </div>
+      <div class="fund-body">
+        <p class="fund-desc">Sleduje S&amp;P 500 — 500 největších US firem. Nízký TER 0.07 %, obchodováno v EUR. Překrývá se 100 % s VUAA (jiná měna).</p>
+        <div>
+          <div class="fund-holdings-label">Top holdings</div>
+          <div class="fund-chips">
+            <span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span>
+          </div>
+        </div>
+        <div class="fund-meta">
+          <span class="fund-meta-item">TER <span>0.07 %</span></span>
+          <span class="fund-meta-item">~500 firem</span>
+          <span class="fund-meta-item">iShares</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EIMI -->
+    <div class="fund-card">
+      <div class="fund-header fh-em">
+        <div class="fund-ticker">EIMI</div>
+        <div class="fund-name">iShares Core MSCI EM IMI UCITS ETF</div>
+        <div class="fund-tags">
+          <span class="fund-tag">USD</span>
+          <span class="fund-tag">ACC</span>
+          <span class="fund-tag">Emerging Markets</span>
+        </div>
+      </div>
+      <div class="fund-body">
+        <p class="fund-desc">Rozvíjející se trhy — přes 3 000 firem z Číny, Indie, Tchaj-wanu, Brazílie, Koreje. Unikátní expozice mimo VWRP tilt.</p>
+        <div>
+          <div class="fund-holdings-label">Top holdings</div>
+          <div class="fund-chips">
+            <span class="chip">TSMC</span><span class="chip">Samsung</span><span class="chip">Tencent</span><span class="chip">Alibaba</span><span class="chip">Reliance</span><span class="chip">HDFC</span>
+          </div>
+        </div>
+        <div class="fund-meta">
+          <span class="fund-meta-item">TER <span>0.18 %</span></span>
+          <span class="fund-meta-item">~3 087 firem</span>
+          <span class="fund-meta-item">iShares</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EQQQ -->
+    <div class="fund-card">
+      <div class="fund-header fh-nasdaq">
+        <div class="fund-ticker">EQQQ</div>
+        <div class="fund-name">Invesco EQQQ NASDAQ-100 UCITS ETF</div>
+        <div class="fund-tags">
+          <span class="fund-tag">EUR</span>
+          <span class="fund-tag">ACC</span>
+          <span class="fund-tag">US Tech</span>
+        </div>
+      </div>
+      <div class="fund-body">
+        <p class="fund-desc">100 největších nefinančních firem na Nasdaq. Tech satelit portfolia — 85 %+ překryv s S&amp;P 500 top, ale silnější tech tilt.</p>
+        <div>
+          <div class="fund-holdings-label">Top holdings</div>
+          <div class="fund-chips">
+            <span class="chip">MSFT</span><span class="chip">AAPL</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">ASML</span><span class="chip">TSLA</span>
+          </div>
+        </div>
+        <div class="fund-meta">
+          <span class="fund-meta-item">TER <span>0.30 %</span></span>
+          <span class="fund-meta-item">100 firem</span>
+          <span class="fund-meta-item">Invesco</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VUAA -->
+    <div class="fund-card">
+      <div class="fund-header fh-sp500gbp">
+        <div class="fund-ticker">VUAA</div>
+        <div class="fund-name">Vanguard S&amp;P 500 UCITS ETF</div>
+        <div class="fund-tags">
+          <span class="fund-tag">GBP</span>
+          <span class="fund-tag">ACC</span>
+          <span class="fund-tag">US Large Cap</span>
+        </div>
+      </div>
+      <div class="fund-body">
+        <p class="fund-desc">Identický index jako CSPX (S&amp;P 500), ale v britských librách — 100 % duplicita expozice, jiná měnová třída.</p>
+        <div>
+          <div class="fund-holdings-label">Top holdings</div>
+          <div class="fund-chips">
+            <span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span>
+          </div>
+        </div>
+        <div class="fund-meta">
+          <span class="fund-meta-item">TER <span>0.07 %</span></span>
+          <span class="fund-meta-item">~500 firem</span>
+          <span class="fund-meta-item">Vanguard</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VWRP -->
+    <div class="fund-card">
+      <div class="fund-header fh-world">
+        <div class="fund-ticker">VWRP</div>
+        <div class="fund-name">Vanguard FTSE All-World UCITS ETF</div>
+        <div class="fund-tags">
+          <span class="fund-tag">GBP</span>
+          <span class="fund-tag">ACC</span>
+          <span class="fund-tag">Global</span>
+        </div>
+      </div>
+      <div class="fund-body">
+        <p class="fund-desc">Celý svět v jednom fondě — ~3 600 firem, 49 zemí. US ~60 %, EM ~12 %. Obsahuje S&amp;P 500, Nasdaq i EM (výrazný CSPX/VUAA překryv).</p>
+        <div>
+          <div class="fund-holdings-label">Top holdings</div>
+          <div class="fund-chips">
+            <span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">TSMC</span>
+          </div>
+        </div>
+        <div class="fund-meta">
+          <span class="fund-meta-item">TER <span>0.22 %</span></span>
+          <span class="fund-meta-item">~3 600 firem</span>
+          <span class="fund-meta-item">Vanguard</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ INSIGHT ═══ -->
+<section class="section">
+  <div class="insight">
+    <div class="insight-hdr">
+      <div class="insight-icon">!</div>
+      <h3>Klíčový insight — portfolio je koncentrovanější, než vypadá</h3>
+    </div>
+    <ul>
+      <li><strong>CSPX a VUAA sledují identický index (S&amp;P 500)</strong> — 100% duplicita, jen dvojnásobné měnové riziko EUR vs. GBP.</li>
+      <li><strong>VWRP (All-World) již obsahuje S&amp;P 500 (~60 %), Nasdaq i ~12 % EM</strong> — CSPX/VUAA + EQQQ masivně přivažují US large cap &amp; tech.</li>
+      <li><strong>EQQQ má 85 %+ překryv s top 100 v S&amp;P 500</strong> — Apple, Microsoft, Nvidia, Alphabet držíš de facto čtyřikrát.</li>
+      <li><strong>Reálná expozice:</strong> ~70 % USA, silně tech-heavy. Zjednodušení na VWRP + EIMI + EQQQ by přineslo stejnou expozici s nižší složitostí.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ ALOKACE ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Měsíční alokace · 10 000 Kč</h2>
+    <span class="lead">Všech 5 fondů · čistě investiční budget</span>
+  </div>
+
+  <div class="g g2">
+    <div class="card">
+      <table class="alloc-table">
+        <thead>
+          <tr>
+            <th>ETF</th>
+            <th>Logika</th>
+            <th class="r">%</th>
+            <th class="r">Kč / měsíc</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sym">VWRP</td>
+            <td><span class="logic">Core — celý svět v jednom fondě</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:35%"></div></div></td>
+            <td class="pct">35 %</td>
+            <td class="kc">3 500</td>
+          </tr>
+          <tr>
+            <td class="sym">EIMI</td>
+            <td><span class="logic">EM tilt — doplňuje underweight EM ve VWRP</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:20%"></div></div></td>
+            <td class="pct">20 %</td>
+            <td class="kc">2 000</td>
+          </tr>
+          <tr>
+            <td class="sym">EQQQ</td>
+            <td><span class="logic">Tech satelit — Nasdaq 100, DCA při dipech 🟢</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td>
+            <td class="pct">15 %</td>
+            <td class="kc">1 500</td>
+          </tr>
+          <tr>
+            <td class="sym">VUAA</td>
+            <td><span class="logic">S&amp;P 500 GBP — měnová diverzifikace vs. CSPX</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td>
+            <td class="pct">15 %</td>
+            <td class="kc">1 500</td>
+          </tr>
+          <tr>
+            <td class="sym">CSPX</td>
+            <td><span class="logic">S&amp;P 500 EUR — twin VUAA, jiná měna</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td>
+            <td class="pct">15 %</td>
+            <td class="kc">1 500</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin:12px 0 0;font-size:12px;color:var(--ink4);font-family:var(--mono);">Celkem: 100 % · 10 000 Kč · bez hotovostní rezervy (tu vedeš samostatně)</p>
+    </div>
+    <div class="card">
+      <div style="font-size:13.5px;font-weight:700;margin-bottom:10px">Vizuálně</div>
+      <div style="position:relative;height:260px"><canvas id="allocChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POLYMARKET ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Polymarket predikce</h2>
+    <span class="lead">Relevantní trhy pro tvé portfolio · data 8. 6. 2026</span>
+  </div>
+
+  <div class="pm-grid">
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">Fed rate hike v roce 2026?</span>
+        <span class="pm-cat macro">Makro</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill neut" style="width:51%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct neut">51 %</div>
+          <div class="pm-label">pravděpodobnost ANO</div>
+        </div>
+        <div class="pm-vol">$1.69M objem</div>
+      </div>
+      <div class="pm-impact">Pokud Fed hike → tech multiples (EQQQ, CSPX/VUAA growth složky) pod tlakem. Jobs report 172k = hlavní spouštěč.</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/event/fed-rate-hike-in-2026" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">Kdo vydělá nejvíc v 2026: S&amp;P 500, Gold, nebo Bitcoin?</span>
+        <span class="pm-cat equity">Akcie</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:44%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct bull">44 %</div>
+          <div class="pm-label">S&amp;P 500 první · Gold 38 % · BTC 18 %</div>
+        </div>
+        <div class="pm-vol">aktivní trh</div>
+      </div>
+      <div class="pm-impact">Trh favorizuje S&amp;P 500 před zlatem a BTC — potvrzuje smysl VWRP/CSPX/VUAA jako core.</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/event/bitcoin-vs-gold-vs-sp-500-in-2026" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">Bitcoin dosáhne $100k před koncem 2026?</span>
+        <span class="pm-cat crypto">Krypto</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:21%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct bear">21 %</div>
+          <div class="pm-label">pravděpodobnost ANO</div>
+        </div>
+        <div class="pm-vol">aktivní trh</div>
+      </div>
+      <div class="pm-impact">Trh vidí BTC $100k jako nepravděpodobné — aktuální $63k vs. cíl +59 %. Přímá expozice nulová.</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/event/what-price-will-bitcoin-hit-before-2027" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">USA recese do konce roku 2026?</span>
+        <span class="pm-cat macro">Makro</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:15%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct bear">15 %</div>
+          <div class="pm-label">pravděpodobnost ANO</div>
+        </div>
+        <div class="pm-vol">NY Fed model</div>
+      </div>
+      <div class="pm-impact">Nízká recese pravděpodobnost → base case pro VWRP/CSPX/VUAA zůstává bull. Sahm Rule 0.10 (well below 0.5 threshold).</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">BTC klesne pod $60k v červnu 2026?</span>
+        <span class="pm-cat crypto">Krypto</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:62%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct bear">62 %</div>
+          <div class="pm-label">pravděpodobnost ANO</div>
+        </div>
+        <div class="pm-vol">cryptonews.net</div>
+      </div>
+      <div class="pm-impact">Trh anticipuje další pokles BTC. Pokud derisking přeteče do tech akcií → EQQQ pod krátkodobým tlakem. Zatím decoupling drží.</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/crypto/bitcoin" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+    <div class="pm-card">
+      <div class="pm-header">
+        <span class="pm-q">Fed drží sazby beze změny na červnovém zasedání?</span>
+        <span class="pm-cat macro">Makro</span>
+      </div>
+      <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:99%"></div></div>
+      <div class="pm-numbers">
+        <div>
+          <div class="pm-pct bull">99 %</div>
+          <div class="pm-label">no-change červen FOMC</div>
+        </div>
+        <div class="pm-vol">Polymarket consensus</div>
+      </div>
+      <div class="pm-impact">Červnové zasedání (16.–17. 6.) bude bez akce — klíčový bude dot plot a Powellova tiskova konference (signál pro Q3/Q4).</div>
+      <div class="pm-footer">
+        <span class="pm-src">polymarket.com</span>
+        <a class="pm-link" href="https://polymarket.com/event/fed-decision-in-june-825" target="_blank" rel="noopener">Otevřít →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TÝDENNÍ BRIEFING ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Týdenní briefing</h2>
+    <span class="lead">Co se děje a co to znamená</span>
+  </div>
+  <div class="card" style="padding:0">
+    <ul class="blist">
+      <li>
+        <span class="bdot neg"></span>
+        <div class="bcontent">
+          <p class="bhead">Nasdaq −4.2 %, S&amp;P −2.6 % — Broadcom zklamal s AI chip výhledem, SOX ETF −10 %, wipe $1T</p>
+          <p class="bbody">Broadcom nezvýšil výhled AI čipů → sell-off polouprostějšího. S&amp;P 500 byl ještě 2. 6. na ATH 7 617 — korekce rychlá a ostrá. Memory chip ETF −15 %. První záporný týden za 10.</p>
+          <p class="bimpact neg"><strong>Dopad:</strong> EQQQ + tech složky CSPX/VUAA/VWRP zasaženy. AI narrativ strukturálně neporušen, toto je sektorová korekce. DCA příležitost.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bdot neg"></span>
+        <div class="bcontent">
+          <p class="bhead">Jobs report: 172k nových míst (vs. 88k očekávaných) → 10Y yield 4.54 %, hike riziko roste na 51 %</p>
+          <p class="bbody">Nezaměstnanost stabilní 4.3 %. Silný trh práce = Fed nemá důvod snižovat, naopak může hike. Trh přecení sazby výš. 30Y yield překonal 5 %.</p>
+          <p class="bimpact neg"><strong>Dopad:</strong> Tech growth multiples citlivé. EQQQ + Nasdaq složky CSPX reagují první. EIMI odolnější — EM jiný cycle.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bdot neg"></span>
+        <div class="bcontent">
+          <p class="bhead">Bitcoin $63k — −50 % od ATH $126k (říjen 2025); rekordních 12 dní ETF outflows ($4B)</p>
+          <p class="bbody">BlackRock IBIT a Fidelity FBTC nejvíce zasaženy. MicroStrategy prodal část pozice. Nejnižší úroveň od únorové íránské eskalace.</p>
+          <p class="bimpact neg"><strong>Dopad:</strong> Přímá expozice nulová. Sleduj decoupling BTC vs. tech — pokud selže, EQQQ dostane druhou vlnu.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bdot neu"></span>
+        <div class="bcontent">
+          <p class="bhead">SEC Strategic Plan 2026–2030: krypto v centru reformy — od enforcement k jasným pravidlům</p>
+          <p class="bbody">Předseda Atkins: zkrácení ETP schválení z 240 na 75 dní. Bitwise: 100+ nových crypto ETF v 2026. BTCK (ESG Bitcoin ETF) listováno 5. 6.</p>
+          <p class="bimpact"><strong>Dopad:</strong> Bez přímé expozice. Strukturálně bullish pro sektor střednědobě. Žádná okamžitá akce.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bdot neu"></span>
+        <div class="bcontent">
+          <p class="bhead">ČNB: repo 3.50 % beze změny (10+ měsíců), dubnová inflace 2.5 %, EUR/CZK 24.20 stabilní</p>
+          <p class="bbody">Inflace klesá ke 2% cíli. Příštím krokem snižování — ale ne dříve než konec 2026. EUR/CZK mírně oslabilo z 24.29. FX signál: FAIR pásmo.</p>
+          <p class="bimpact"><strong>Dopad:</strong> DCA plán bez kurzového šoku. Mírné posílení CZK = o procento horší nákupní podmínky. Zanedbatelné.</p>
+        </div>
+      </li>
+      <li>
+        <span class="bdot pos"></span>
+        <div class="bcontent">
+          <p class="bhead">Sell-off analytici hodnotí jako rotaci, ne zhroucení — bull market strukturálně neporušen</p>
+          <p class="bbody">Investing.com: sektory mimo tech drží. Valuace 21× forward EPS obhajitelné při silném EPS growth. S&amp;P rally +20 % za 9 týdnů před korekcí. IPO pipeline: OpenAI, SpaceX, Anthropic = nový catalyst.</p>
+          <p class="bimpact pos"><strong>Dopad:</strong> VWRP core strategie správná. Pullback = příležitost pro DCA. Long-term pasivní přístup funguje.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ ČLÁNKY TÝDNE ═══ -->
+<section class="section">
+  <div class="sec-head">
+    <h2>Články týdne</h2>
+    <span class="lead">Kurátorský výběr · 8. 6. 2026</span>
+  </div>
+  <div class="reads">
+    <a class="read" href="https://www.investicniweb.cz/akcie/323414-co-musite-dnes-vedet-8-cervna-2026" target="_blank" rel="noopener">
+      <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">CZ přehled</span></div><p class="rtitle">Co musíte vědět (8. 6.): červen a burzovní almanach</p><p class="rsum">Pondělní přehled: červen historicky silný pro S&amp;P 500, kontext po výprodeji a kalendář na týden.</p><div class="rmeta">5 min · 8. 6. 2026</div></div>
+    </a>
+    <a class="read" href="https://www.cnbc.com/2026/06/04/stock-market-today-live-updates.html" target="_blank" rel="noopener">
+      <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">CNBC</span><span class="rtype gl">Live updates</span></div><p class="rtitle">Nasdaq −4.2 % — nejhorší den od dubna 2025, chip stocks v čele</p><p class="rsum">Broadcom, SOX ETF −10 %, jobs report 172k → 10Y yield 4.54 %. EQQQ v centru turbulence.</p><div class="rmeta">10 min · 5. 6. 2026</div></div>
+    </a>
+    <a class="read" href="https://www.investing.com/analysis/sp-500-selloff-looks-more-like-rotation-than-market-breakdown-200681625" target="_blank" rel="noopener">
+      <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investing.com</span><span class="rtype gl">Analýza</span></div><p class="rtitle">S&amp;P 500 výprodej = rotace, ne zhroucení trhu</p><p class="rsum">Sektory mimo tech drží, 21× forward EPS obhajitelné. Bull market neporušen, dip = příležitost.</p><div class="rmeta">6 min · 6. 6. 2026</div></div>
+    </a>
+    <a class="read" href="https://seekingalpha.com/article/4910621-my-current-view-of-the-s-and-p-500-index-june-2026-edition-technical-analysis" target="_blank" rel="noopener">
+      <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Seeking Alpha</span><span class="rtype gl">TA</span></div><p class="rt
