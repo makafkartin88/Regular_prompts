@@ -64,7 +64,7 @@
     padding: 28px 28px 56px;
   }
 
-  /* ── HERO ───────────────────────────── */
+  /* HERO */
   .hero {
     display: flex;
     flex-wrap: wrap;
@@ -161,10 +161,8 @@
     font-family: var(--mono);
   }
 
-  /* ── SECTION HEADERS ───────────────── */
-  .section {
-    margin-top: 36px;
-  }
+  /* SECTION HEADERS */
+  .section { margin-top: 36px; }
   .section-head {
     display: flex;
     align-items: baseline;
@@ -185,7 +183,7 @@
     font-size: 14px;
   }
 
-  /* ── GRID & CARDS ──────────────────── */
+  /* GRID & CARDS */
   .grid { display: grid; gap: 14px; }
   .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -207,11 +205,8 @@
   }
   .card:hover { box-shadow: var(--shadow-md); }
 
-  /* ── MARKET CARD ───────────────────── */
-  .market-card {
-    position: relative;
-    overflow: hidden;
-  }
+  /* MARKET CARD */
+  .market-card { position: relative; overflow: hidden; }
   .market-card .label {
     display: flex;
     align-items: center;
@@ -278,12 +273,9 @@
     margin-top: 8px;
     letter-spacing: 0.02em;
   }
-  .sparkline {
-    margin-top: 14px;
-    height: 36px;
-  }
+  .sparkline { margin-top: 14px; height: 36px; }
 
-  /* ── COMMENT CARD ──────────────────── */
+  /* COMMENT CARD */
   .comment-card {
     background: linear-gradient(180deg, #fefefe 0%, #faf9f6 100%);
     border-left: 3px solid var(--accent);
@@ -296,12 +288,8 @@
   }
   .comment-card .ai-comment.loading { color: var(--ink-3); font-style: italic; }
 
-  /* ── PORTFOLIO TABLE ───────────────── */
-  table.holdings {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
+  /* PORTFOLIO TABLE */
+  table.holdings { width: 100%; border-collapse: collapse; font-size: 14px; }
   table.holdings th {
     text-align: left;
     padding: 10px 8px 8px;
@@ -348,7 +336,7 @@
   .tag.world { background: #d1fae5; color: #047857; }
   .tag.warn { background: #fee2e2; color: #b91c1c; }
 
-  /* ── INSIGHT BOX ───────────────────── */
+  /* INSIGHT BOX */
   .insight {
     background:
       linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(217,119,6,0.04) 100%),
@@ -385,10 +373,7 @@
     color: #78350f;
     letter-spacing: -0.005em;
   }
-  .insight ul {
-    margin: 12px 0 0;
-    padding-left: 20px;
-  }
+  .insight ul { margin: 12px 0 0; padding-left: 20px; }
   .insight li {
     margin-bottom: 8px;
     color: var(--ink);
@@ -396,17 +381,14 @@
   }
   .insight li strong { color: #78350f; }
 
-  /* ── ALLOCATION ────────────────────── */
+  /* ALLOCATION */
   .allocation-table td.sym {
     font-weight: 700;
     font-family: var(--mono);
     color: var(--ink);
     letter-spacing: 0.02em;
   }
-  .allocation-table .logic {
-    font-size: 13px;
-    color: var(--ink-2);
-  }
+  .allocation-table .logic { font-size: 13px; color: var(--ink-2); }
   .alloc-bar {
     height: 6px;
     background: #efeee9;
@@ -421,17 +403,10 @@
     background: linear-gradient(90deg, #4f46e5, #7c3aed);
     border-radius: 6px;
   }
-  .chart-host {
-    position: relative;
-    height: 260px;
-  }
+  .chart-host { position: relative; height: 260px; }
 
-  /* ── BRIEFING ──────────────────────── */
-  .briefing-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  /* BRIEFING */
+  .briefing-list { list-style: none; margin: 0; padding: 0; }
   .briefing-list > li {
     padding: 16px 18px;
     border-bottom: 1px solid var(--border);
@@ -469,7 +444,7 @@
   .briefing-list .impact.pos { border-left-color: var(--pos); }
   .briefing-list .impact.neg { border-left-color: var(--neg); }
 
-  /* ── ARTICLES / WEEKLY READS ───────── */
+  /* ARTICLES */
   .reads-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -514,11 +489,7 @@
   .read .thumb.youtube { background: linear-gradient(135deg, #b91c1c, #ef4444); }
   .read .thumb.crypto { background: linear-gradient(135deg, #c2410c, #f59e0b); }
   .read .thumb.etf { background: linear-gradient(135deg, #581c87, #9333ea); }
-  .read .thumb .icon {
-    width: 44px; height: 44px;
-    color: white;
-    opacity: 0.95;
-  }
+  .read .thumb .icon { width: 44px; height: 44px; color: white; opacity: 0.95; }
   .read .body {
     padding: 14px 16px 16px;
     display: flex;
@@ -575,7 +546,7 @@
     border-top: 1px dashed var(--border);
   }
 
-  /* ── FOOTER ────────────────────────── */
+  /* FOOTER */
   .footer {
     margin-top: 40px;
     padding: 18px 22px;
@@ -605,7 +576,7 @@
   <header class="hero">
     <div class="hero-left">
       <div class="meta-row">
-        <span class="pill">Týdenní briefing · týden 23</span>
+        <span class="pill">Týdenní briefing · týden 24 · 8. 6. 2026</span>
         <span class="pill muted">Profil · 26 let · dlouhodobý růst</span>
         <span class="pill muted">Budget 10 000 Kč / měsíc</span>
       </div>
@@ -625,52 +596,52 @@
   <section class="section">
     <div class="section-head">
       <h2>Tržní přehled</h2>
-      <span class="lead">Spotová data k 1. 6. 2026</span>
+      <span class="lead">Spotová data k 8. 6. 2026</span>
     </div>
 
     <div class="grid cols-3">
       <div class="card market-card">
         <div class="label">
           <span class="label-text">EUR / CZK</span>
-          <span class="source">ECB · 1. 6. 2026</span>
+          <span class="source">ECB · 8. 6. 2026</span>
         </div>
-        <div class="value">24.29</div>
+        <div class="value">24.20</div>
         <div class="row-sub">
-          <span class="delta flat">0.0%</span>
-          <span class="ctx" style="margin:0;">CZK stabilní, ČNB čeká hike Q3</span>
+          <span class="delta down">0.4%</span>
+          <span class="ctx" style="margin:0;">EUR/CZK klesá; koridor týdne 24.17–24.22</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,18 25,17 50,18 75,19 100,18 125,17 150,18 175,18 200,18" fill="none" stroke="#737373" stroke-width="1.5"/>
+          <polyline points="0,12 25,13 50,14 75,15 100,16 125,18 150,19 175,21 200,22" fill="none" stroke="#be123c" stroke-width="1.5"/>
         </svg>
       </div>
 
       <div class="card market-card">
         <div class="label">
           <span class="label-text">USD / CZK</span>
-          <span class="source">exchange-rates.org · 1. 6. 2026</span>
+          <span class="source">ČNB cross · 8. 6. 2026</span>
         </div>
-        <div class="value">20.83</div>
+        <div class="value">20.87</div>
         <div class="row-sub">
-          <span class="delta down">0.2%</span>
-          <span class="ctx" style="margin:0;">slabý USD pomáhá EM</span>
+          <span class="delta flat">0.1%</span>
+          <span class="ctx" style="margin:0;">USD stabilní; silný jobs report drží USD</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,16 25,17 50,18 75,19 100,20 125,21 150,22 175,23 200,24" fill="none" stroke="#be123c" stroke-width="1.5"/>
+          <polyline points="0,20 25,20 50,19 75,19 100,18 125,18 150,18 175,18 200,17" fill="none" stroke="#737373" stroke-width="1.5"/>
         </svg>
       </div>
 
       <div class="card market-card">
         <div class="label">
           <span class="label-text">GBP / CZK</span>
-          <span class="source">ECB cross · 1. 6. 2026</span>
+          <span class="source">ECB cross · 8. 6. 2026</span>
         </div>
-        <div class="value">28.05</div>
+        <div class="value">28.00</div>
         <div class="row-sub">
-          <span class="delta up">0.1%</span>
-          <span class="ctx" style="margin:0;">důležité pro VUAA &amp; VWRP</span>
+          <span class="delta flat">0.04%</span>
+          <span class="ctx" style="margin:0;">GBP stabilní; důležité pro VUAA &amp; VWRP</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,22 25,21 50,20 75,19 100,18 125,17 150,16 175,15 200,14" fill="none" stroke="#047857" stroke-width="1.5"/>
+          <polyline points="0,17 25,17 50,17 75,18 100,18 125,18 150,18 175,18 200,18" fill="none" stroke="#737373" stroke-width="1.5"/>
         </svg>
       </div>
     </div>
@@ -679,45 +650,45 @@
       <div class="card market-card">
         <div class="label">
           <span class="label-text">Bitcoin (BTC / USD)</span>
-          <span class="source">CoinDesk · 1. 6. 2026</span>
+          <span class="source">CoinDesk · 7. 6. 2026</span>
         </div>
-        <div class="value">$73 303</div>
+        <div class="value">$63 000</div>
         <div class="row-sub">
-          <span class="delta down">4.6%</span>
-          <span class="ctx" style="margin:0;">$2.3B ETF outflows v květnu — nejhorší od listopadu</span>
+          <span class="delta down">8.7%</span>
+          <span class="ctx" style="margin:0;">nejnižší od února; $4B ETF outflows za 12 dní</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,10 25,12 50,15 75,17 100,20 125,22 150,24 175,26 200,28" fill="none" stroke="#be123c" stroke-width="1.5"/>
+          <polyline points="0,6 25,8 50,11 75,14 100,18 125,22 150,26 175,29 200,31" fill="none" stroke="#be123c" stroke-width="1.5"/>
         </svg>
       </div>
 
       <div class="card market-card">
         <div class="label">
           <span class="label-text">S&amp;P 500</span>
-          <span class="source">CNBC · 29. 5. 2026</span>
+          <span class="source">CNBC · 5. 6. 2026 close</span>
         </div>
-        <div class="value">7 580</div>
+        <div class="value">7 384</div>
         <div class="row-sub">
-          <span class="delta up">1.4%</span>
-          <span class="ctx" style="margin:0;">9. týden růstu — nový rekord, květen +5 %</span>
+          <span class="delta down">2.6%</span>
+          <span class="ctx" style="margin:0;">první záporný týden za 10 — sell-off chipů + jobs</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,30 25,26 50,23 75,20 100,17 125,14 150,11 175,8 200,5" fill="none" stroke="#047857" stroke-width="1.5"/>
+          <polyline points="0,4 25,5 50,7 75,9 100,13 125,17 150,21 175,26 200,30" fill="none" stroke="#be123c" stroke-width="1.5"/>
         </svg>
       </div>
 
       <div class="card market-card">
         <div class="label">
           <span class="label-text">Nasdaq Composite</span>
-          <span class="source">CNBC · 29. 5. 2026</span>
+          <span class="source">CNBC · 5. 6. 2026 close</span>
         </div>
-        <div class="value">26 972</div>
+        <div class="value">25 709</div>
         <div class="row-sub">
-          <span class="delta up">2.4%</span>
-          <span class="ctx" style="margin:0;">květen +8 %, Dell +33 % v pátek po výsledcích</span>
+          <span class="delta down">4.2%</span>
+          <span class="ctx" style="margin:0;">nejhorší den od dubna 2025; Broadcom zklamal</span>
         </div>
         <svg class="sparkline" viewBox="0 0 200 36" preserveAspectRatio="none">
-          <polyline points="0,28 25,24 50,21 75,18 100,15 125,12 150,10 175,7 200,4" fill="none" stroke="#047857" stroke-width="1.5"/>
+          <polyline points="0,3 25,5 50,7 75,10 100,14 125,19 150,24 175,28 200,33" fill="none" stroke="#be123c" stroke-width="1.5"/>
         </svg>
       </div>
     </div>
@@ -731,7 +702,7 @@
     </div>
     <div class="card comment-card">
       <p id="aiComment" class="ai-comment">
-        Risk-on rally pokračuje — S&amp;P 500 zavřel devátý týden růstu v řadě na 7 580, květen +5 %, Nasdaq +8 % (nejlepší měsíc roku) díky AI earnings (Dell +33 % v pátek). CSPX, VUAA a hlavně EQQQ jedou na nových maximech, ale headline PCE 3.8 % a core 3.3 % (oba elevated) plus Fed držený na 3.50–3.75 % říkají, že rally běží navzdory horké inflaci — pokud Fed bude muset eskalovat, tech multiples jsou první v ranně. Bitcoin -4.6 % na $73k s $2.3B ETF výprodejem v květnu signalizuje rotaci ven z rizikových aktiv navzdory akciovým rekordům, sleduj jestli se nepřelije do tech. Pro tvé DCA: indexy na ATH, EQQQ tento týden raději neposiluj, drž alokační plán s VWRP/EIMI core.
+        Minulý týden přinesl první záporný výsledek S&amp;P 500 za deset týdnů (-2.6 % na 7 384) a Nasdaq ztratil 4.2 % — nejhorší den od dubna 2025 — po zklamání Broadcomu s výhledem AI čipů a silném zprávy o pracovních místech v květnu (172k vs. oček. 88k), která zvýšila obavy z možného hiku Fedu. EQQQ a tech složky CSPX/VUAA/VWRP utrpěly plnou sílu výprodeje; EIMI jako EM fond byl méně zasažen, což potvrzuje hodnotu diverzifikace. Bitcoin klesl na ~$63k (–50 % od říjnového vrcholu $126k) při rekordních 12 dnech ETF outflows ($4B) — institucionální derisking u rizikových aktiv pokračuje, ale nemáš přímou expozici. Pro DCA tento týden: Nasdaq pullback o ~4 % dává poprvé od března smysl zvýšit alokaci EQQQ mírně nad 10 %; VWRP a EIMI drž dle plánu — rotace z tech do defensivy byla přechodná a long-term výhled pasivní strategie zůstává nezměněn.
       </p>
     </div>
   </section>
@@ -864,7 +835,7 @@
             </tr>
             <tr>
               <td class="sym">EQQQ</td>
-              <td class="logic">Tech satellite — jen při poklesech Nasdaq<div class="alloc-bar"><span style="width:10%;"></span></div></td>
+              <td class="logic">Tech satellite — Nasdaq -4.2 % minulý týden = dip opportunity<div class="alloc-bar"><span style="width:10%;"></span></div></td>
               <td class="num">10 %</td>
               <td class="num">1 000</td>
             </tr>
@@ -876,7 +847,7 @@
             </tr>
           </tbody>
         </table>
-        <p class="source" style="margin-top:14px;">CSPX a VUAA <strong style="color:var(--ink);">dál neposiluj</strong> — překrývají VWRP. Indexy na ATH (9. týden růstu) — EQQQ tento týden raději <strong style="color:var(--ink);">neposiluj</strong>, počkej na pullback.</p>
+        <p class="source" style="margin-top:14px;">CSPX a VUAA <strong style="color:var(--ink);">dál neposiluj</strong> — překrývají VWRP. Nasdaq -4.2 % tento týden otevírá příležitost pro EQQQ DCA — <strong style="color:var(--ink);">lze investovat plných 1 000 Kč</strong>. Fed drží 3.50–3.75 %; příští klíčové daty: CPI za duben a červnové FOMC zasedání.</p>
       </div>
       <div class="card">
         <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
@@ -897,59 +868,51 @@
     <div class="card" style="padding:0;">
       <ul class="briefing-list" id="briefingList">
         <li>
-          <span class="dot pos" aria-hidden="true"></span>
+          <span class="dot neg" aria-hidden="true"></span>
           <div class="content">
-            <p class="headline">S&amp;P 500 zavřel devátý týden růstu v řadě na rekordních 7 580 — nejdelší šňůra od roku 2023.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Květen +5 %, Nasdaq +8 % (nejlepší měsíc roku), Dell +33 % v pátek po výsledcích, Snowflake a Micron táhly AI rally.</p>
-            <p class="impact pos"><strong>Dopad:</strong> CSPX, VUAA i EQQQ na ATH (+). EQQQ z květnového +8 % má největší pozitivní impact, ale i nejvyšší korekční riziko.</p>
+            <p class="headline">Nasdaq -4.2 % (25 709), S&amp;P 500 -2.6 % (7 384) — první záporný týden za 10, wiped $1T z čipového sektoru.</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Broadcom nezvedl výhled AI čipů a zklamal trh. PHLX Semiconductor Index (SOX) -10 % — nejhorší den od března 2020. Memory ETF -15 %. S&amp;P 500 byl ještě 2. 6. na ATH 7 617.</p>
+            <p class="impact neg"><strong>Dopad:</strong> EQQQ, tech složky CSPX/VUAA/VWRP citelně zasaženy. Krátkodobý šok, ale AI capex narrativ zůstává strukturálně neporušen. Příležitost pro DCA do EQQQ.</p>
           </div>
         </li>
         <li>
           <span class="dot neg" aria-hidden="true"></span>
           <div class="content">
-            <p class="headline">PCE inflace v dubnu 3.8 % (nejvyšší od 09/2023), core PCE 3.3 % — nad cílem Fedu.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Headline PCE +0.4 % m/m, růst tažený energetikou kvůli konfliktu na Blízkém východě. CPI také 3.8 % v dubnu.</p>
-            <p class="impact neg"><strong>Dopad:</strong> riziko, že Fed bude muset eskalovat (hike). Pro CSPX/VUAA/EQQQ negativní v případě hawkish překvapení — tech multiples jsou citlivé na sazby.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neutral" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">Fed drží 3.50–3.75 %, červnové zasedání 16.–17. 6. — trh oceňuje 98% no-change.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Dubnové FOMC minutes ukazují rostoucí support pro případný hike později. Trh-implikované odds: 98.2 % no-change v červnu.</p>
-            <p class="impact"><strong>Dopad:</strong> krátkodobě neutrální. Sleduj červnové dot plot — pokud Fed posune hike scenario do oficiální projekce, US ETF (CSPX/VUAA/EQQQ) tě cítí.</p>
+            <p class="headline">Silný jobs report za květen: 172k nových míst vs. oček. 88k — zvyšuje riziko Fedova hiku v 2026.</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Nezaměstnanost 4.3 %, stabilní. 10Y Treasury yield vyskočil na 4.54 %, 30Y překonal 5 %. FedWatch pricing se posunul z "no-change" ke scénáři potenciálního hiku. Fed drží 3.50–3.75 %.</p>
+            <p class="impact neg"><strong>Dopad:</strong> growth/tech multiples (EQQQ, Nasdaq podíl CSPX) citlivé na delší "higher for longer". EIMI s EM expozicí relativně odolnější — USD sílí jen mírně.</p>
           </div>
         </li>
         <li>
           <span class="dot neg" aria-hidden="true"></span>
           <div class="content">
-            <p class="headline">Bitcoin -4.6 % na $73 303 — květnové ETF outflows $2.3B (nejhorší od listopadu 2025).</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Institucionální výprodej navzdory akciovým rekordům. Historická červnová mediánová návratnost je +2.58 %, ale momentum je negativní.</p>
-            <p class="impact"><strong>Dopad:</strong> nemáš přímou expozici. Riziko, že rotace ven z BTC se přelije do tech — sleduj EQQQ jako early warning.</p>
+            <p class="headline">Bitcoin propadl na ~$63k — pokles o 50 % z říjnového vrcholu $126k, 12 dní ETF outflows v řadě ($4B).</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Nejnižší úroveň od února (před eskalací íránského konfliktu). BlackRock IBIT a Fidelity FBTC nejvíce postiženy. Rekordní streak outflows v historii spot BTC ETF. MicroStrategy prodal část pozice.</p>
+            <p class="impact neg"><strong>Dopad:</strong> přímá expozice nulová. Sleduj: pokud derisking přeteče do tech akcií (historická korelace ~0.6), EQQQ dostane druhou vlnu tlaku. Zatím decoupling drží.</p>
+          </div>
+        </li>
+        <li>
+          <span class="dot neutral" aria-hidden="true"></span>
+          <div class="content">
+            <p class="headline">SEC Strategic Plan 2026–2030: digitální aktiva ve středu regulační reformy — příklon od enforcement k jasnému rámci.</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Předseda Atkins: crypto technologie mají potenciál revolucionalizovat finanční infrastrukturu USA. SEC schválila zkrácení ETP schválení z 240 na 75 dní. Bitwise: 100+ nových crypto ETF v 2026. Nové BTCK (ESG Bitcoin ETF) listováno 5. 6.</p>
+            <p class="impact"><strong>Dopad:</strong> bez přímé expozice. Strukturálně pozitivní střednědobě — clear rámec = snazší adopce. Zatím nevede k akci v portfoliu.</p>
+          </div>
+        </li>
+        <li>
+          <span class="dot neutral" aria-hidden="true"></span>
+          <div class="content">
+            <p class="headline">ČNB drží repo 3.50 %, dubnová inflace 2.5 % — prognóza 2.2 % pro rok 2026, EUR/CZK cca 24.20.</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">ČNB sazby neměnné od května 2025 (10+ měsíců). Inflace klesá ke 2% cíli, příštím krokem bude snižování — ale ne dříve než konec 2026. EUR/CZK mírně oslabilo z 24.29 na 24.20 v průběhu týdne.</p>
+            <p class="impact"><strong>Dopad:</strong> CZK lehce posiluje = mírně horší nákupní podmínky pro EUR/GBP ETF. Celkový efekt zanedbatelný — DCA plán drž beze změny.</p>
           </div>
         </li>
         <li>
           <span class="dot pos" aria-hidden="true"></span>
           <div class="content">
-            <p class="headline">EIMI NAV $53.51, YTD +19 % — slabší USD a EM rally pokračují.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">52w range $36.88–$55.13. AUM $43 mld. USD/CZK -0.2 % wtd, USD slabne strukturálně — hlavní driver pro EM výnosy.</p>
-            <p class="impact pos"><strong>Dopad:</strong> tvůj EIMI tilt (15 % portfolio, 25 % nové alokace) jede skvěle. Dál držet, případně mírně přiložit při sell-offech.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neutral" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">CLARITY Act prošel Senátním bankovním výborem 14. 5. — kompromis o stablecoin yield.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Coinbase a Circle backují deal. Polymarket: 75 % pravděpodobnost přijetí v 2026. Jamie Dimon kritizuje, ale industry tlačí dál.</p>
-            <p class="impact"><strong>Dopad:</strong> přímo na tvé portfolio nepůsobí. Strukturálně pozitivní pro krypto adopci a sentiment — pokud držíš BTC mimo T212, sleduj.</p>
-          </div>
-        </li>
-        <li>
-          <span class="dot neutral" aria-hidden="true"></span>
-          <div class="content">
-            <p class="headline">ČNB drží repo 3.50 % desátý měsíc, dubnová inflace 2.5 %, květen 2.4 %.</p>
-            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Trh zaceňuje hike na 4.00–4.25 % do konce roku, hiking scenario možná až ve Q3. EUR/CZK 24.29 stabilní.</p>
-            <p class="impact"><strong>Dopad:</strong> CZK stabilní = bez kurzového bonusu/penalty pro nové DCA. Levnější Kč při budoucím hiku by mohla snížit CZK-výnos z USD/EUR/GBP pozic.</p>
+            <p class="headline">S&amp;P 500 výprodej analytici hodnotí spíše jako rotaci než zhroucení — bull market strukturálně neporušen.</p>
+            <p style="margin:0; font-size:13.5px; color:var(--ink-2);">Investing.com analýza: sektor rotation z tech do defensivy. Valuace 21x forward EPS, mediánová firma přeceněna o 8 %. S&amp;P rally +20 % za 9 týdnů před korekcí. Seeking Alpha: OpenAI, SpaceX, Anthropic IPO v horizontu = možný nový catalyst.</p>
+            <p class="impact pos"><strong>Dopad:</strong> VWRP core pozice je správná strategie — nepanikař. Pullback je příležitost pro pravidelný DCA. Long-term pasivní přístup funguje.</p>
           </div>
         </li>
       </ul>
@@ -960,142 +923,142 @@
   <section class="section">
     <div class="section-head">
       <h2>Články týdne</h2>
-      <span class="lead">Kurátorský výběr · aktualizováno 1. 6. 2026</span>
+      <span class="lead">Kurátorský výběr · aktualizováno 8. 6. 2026</span>
     </div>
 
     <div class="reads-grid" id="readsGrid">
-      <a class="read" href="https://www.cnbc.com/2026/05/27/stock-market-today-live-updates.html" target="_blank" rel="noopener">
-        <div class="thumb global">
+      <a class="read" href="https://www.investicniweb.cz/akcie/323414-co-musite-dnes-vedet-8-cervna-2026" target="_blank" rel="noopener">
+        <div class="thumb cz">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">CNBC</span>
-            <span class="type-badge global">Global analýza</span>
+            <span class="src-badge">Investiční web</span>
+            <span class="type-badge cz">CZ přehled</span>
           </div>
-          <p class="title">S&amp;P 500 a Nasdaq nové rekordy díky tech rally</p>
-          <p class="summary">9. týden růstu v řadě. Květen +5 % (S&amp;P), +8 % (Nasdaq). AI earnings (Dell +33 %, Snowflake, Micron) jako fundamentální floor.</p>
-          <div class="meta">4 min čtení · 29. 5. 2026</div>
+          <p class="title">Co musíte dnes vědět (8. 6.): Červen a burzovní almanach</p>
+          <p class="summary">Pondělní přehled klíčových témat: červen historicky silný měsíc pro S&amp;P 500, burzovní kalendář na nadcházející týden a kontext po minulotýdenním výprodaji.</p>
+          <div class="meta">5 min čtení · 8. 6. 2026</div>
         </div>
       </a>
 
-      <a class="read" href="https://www.foxbusiness.com/economy/april-2026-pce-inflation" target="_blank" rel="noopener">
+      <a class="read" href="https://www.cnbc.com/2026/06/04/stock-market-today-live-updates.html" target="_blank" rel="noopener">
         <div class="thumb global">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">Fox Business</span>
-            <span class="type-badge global">Makro</span>
+            <span class="src-badge">CNBC</span>
+            <span class="type-badge global">Live updates</span>
           </div>
-          <p class="title">Dubnová PCE inflace 3.8 % — Fedův favorit zůstává nad cílem</p>
-          <p class="summary">Headline +0.4 % m/m, core 3.3 %. Energetika táhla růst kvůli Blízkému východu. Klíčové pro červnové FOMC.</p>
-          <div class="meta">5 min čtení · 30. 5. 2026</div>
+          <p class="title">Nasdaq -4.2 % — nejhorší den od dubna 2025, chip stocks v čele výprodeje</p>
+          <p class="summary">Broadcom selhal s výhledem AI čipů → SOX ETF -10 %, SMCI -10 %. Jobs report 172k vs. 88k: 10Y yield na 4.54 %. EQQQ v centru turbulence.</p>
+          <div class="meta">10 min čtení · 5. 6. 2026</div>
         </div>
       </a>
 
-      <a class="read" href="https://www.investicniweb.cz/aktuality/322029-cnb-zasedani-kveten-2026" target="_blank" rel="noopener">
-        <div class="thumb cz">
+      <a class="read" href="https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html" target="_blank" rel="noopener">
+        <div class="thumb global">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+        </div>
+        <div class="body">
+          <div class="source-row">
+            <span class="src-badge">Yahoo Finance</span>
+            <span class="type-badge global">Analýza trhu</span>
+          </div>
+          <p class="title">S&amp;P -2.6 %, Nasdaq -4.2 % — jobs report pohřbil naděje na snížení sazeb</p>
+          <p class="summary">Silný trh práce USA (172k) + Broadcom = double hit. Treasury yields skočily, AI trade pozastaven. První záporný týden za 10 pro S&amp;P 500.</p>
+          <div class="meta">8 min čtení · 5. 6. 2026</div>
+        </div>
+      </a>
+
+      <a class="read" href="https://www.investing.com/analysis/sp-500-selloff-looks-more-like-rotation-than-market-breakdown-200681625" target="_blank" rel="noopener">
+        <div class="thumb global">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">Investiční web</span>
-            <span class="type-badge cz">CZ článek</span>
+            <span class="src-badge">Investing.com</span>
+            <span class="type-badge global">Analýza</span>
           </div>
-          <p class="title">ČNB drží 3.50 % — inflace blízko 3 % na konci roku</p>
-          <p class="summary">10. měsíc v řadě beze změny. Dubnová CPI 2.5 %, květen 2.4 %. Trh zaceňuje hike na 4.00–4.25 % do konce roku.</p>
-          <div class="meta">6 min čtení · květen 2026</div>
+          <p class="title">Výprodej S&amp;P 500 vypadá spíš jako rotace než zhroucení trhu</p>
+          <p class="summary">Analytici: sektory mimo tech drží, valuace 21x forward EPS stále obhajitelné při silném EPS growth. Bull market strukturálně neporušen. Dip = buying opportunity.</p>
+          <div class="meta">6 min čtení · 6. 6. 2026</div>
         </div>
       </a>
 
-      <a class="read" href="https://beincrypto.com/bitcoin-price-prediction-june-2026/" target="_blank" rel="noopener">
-        <div class="thumb crypto">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9zm0 5h5a2.5 2.5 0 0 1 0 5H9zm2-9v2m2-2v2m-2 12v2m2-2v2"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">BeInCrypto</span>
-            <span class="type-badge crypto">Krypto</span>
-          </div>
-          <p class="title">Bitcoin červen 2026: institucionální výprodej napovídá crash?</p>
-          <p class="summary">$2.3B ETF outflows v květnu (nejhorší od 11/2025). BTC -4.6 % na $73k. Historicky červen +2.58 % medián — momentum je ale slabé.</p>
-          <div class="meta">7 min čtení · 31. 5. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.coindesk.com/policy/2026/05/02/crypto-industry-backs-clarity-act-yield-compromise-pushes-senate-banking-for-markup" target="_blank" rel="noopener">
-        <div class="thumb crypto">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">CoinDesk</span>
-            <span class="type-badge crypto">Regulace</span>
-          </div>
-          <p class="title">CLARITY Act prošel — kompromis o stablecoin yield odemyká cestu</p>
-          <p class="summary">Senátní bankovní výbor schválil 14. 5. Coinbase a Circle backují deal. Polymarket: 75 % pravděpodobnost přijetí v 2026.</p>
-          <div class="meta">8 min čtení · 14. 5. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.ishares.com/uk/individual/en/products/264659/ishares-msci-emerging-markets-imi-ucits-etf" target="_blank" rel="noopener">
-        <div class="thumb etf">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </div>
-        <div class="body">
-          <div class="source-row">
-            <span class="src-badge">iShares (BlackRock)</span>
-            <span class="type-badge etf">ETF factsheet</span>
-          </div>
-          <p class="title">EIMI factsheet — YTD +19 %, AUM $43 mld, NAV $53.51</p>
-          <p class="summary">3 121 pozic v EM, TER 0.18 %. 52w range $36.88–$55.13. Klíčový dokument pro tvůj EM tilt — porovnej s benchmark MSCI EM IMI.</p>
-          <div class="meta">Reference · 21. 5. 2026</div>
-        </div>
-      </a>
-
-      <a class="read" href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-29-2026" target="_blank" rel="noopener">
+      <a class="read" href="https://seekingalpha.com/article/4910621-my-current-view-of-the-s-and-p-500-index-june-2026-edition-technical-analysis" target="_blank" rel="noopener">
         <div class="thumb global">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">TheStreet</span>
-            <span class="type-badge global">Global analýza</span>
+            <span class="src-badge">Seeking Alpha</span>
+            <span class="type-badge global">Technická analýza</span>
           </div>
-          <p class="title">9. týden v plusu po Memorial Day — sedmý vítězný den</p>
-          <p class="summary">S&amp;P 7 580.06, ceasefire optimismus na Blízkém východě, AI earnings jako fundament. Pohled na rizika koncentrované rally.</p>
-          <div class="meta">6 min čtení · 29. 5. 2026</div>
+          <p class="title">S&amp;P 500 červen 2026: technická analýza po korekci ATH → 7 384</p>
+          <p class="summary">Rally +20 % za 9 týdnů, pak první korekce. Mediánová firma přeceněna o 8 %. Letní pullback pravděpodobn ý — ale IPO sezóna (OpenAI, SpaceX, Anthropic) může přinést nový catalyst.</p>
+          <div class="meta">9 min čtení · 6. 6. 2026</div>
         </div>
       </a>
 
-      <a class="read" href="https://www.e15.cz/byznys/burzy-a-trhy/deset-nejlepsich-investic-pro-rok-2026-stare-trendy-si-vynuti-nove-pojeti-jinak-bude-zle-1429511" target="_blank" rel="noopener">
+      <a class="read" href="https://www.investing.com/analysis/bitcoin-falls-as-record-etf-outflows-and-strategy-sale-hit-sentiment-200681446" target="_blank" rel="noopener">
+        <div class="thumb crypto">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9zm0 5h5a2.5 2.5 0 0 1 0 5H9zm2-9v2m2-2v2m-2 12v2m2-2v2"/></svg>
+        </div>
+        <div class="body">
+          <div class="source-row">
+            <span class="src-badge">Investing.com</span>
+            <span class="type-badge crypto">Krypto</span>
+          </div>
+          <p class="title">Bitcoin -50 % od vrcholu: rekordní ETF outflows + prodej MicroStrategy tlačí sentiment</p>
+          <p class="summary">$63k nejnižší od února. IBIT a FBTC: 12 dní outflows ($4B celkem) — rekord v historii spot BTC ETF. Strategy (ex-MicroStrategy) prodal část BTC pozice. Strukturální nebo cyklický pokles?</p>
+          <div class="meta">7 min čtení · 6. 6. 2026</div>
+        </div>
+      </a>
+
+      <a class="read" href="https://bitcoinmagazine.com/news/sec-highlights-crypto-in-strategic-plan" target="_blank" rel="noopener">
+        <div class="thumb crypto">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="body">
+          <div class="source-row">
+            <span class="src-badge">Bitcoin Magazine</span>
+            <span class="type-badge crypto">Regulace</span>
+          </div>
+          <p class="title">SEC Strategic Plan 2026–2030: krypto v centru regulační reformy Atkinse</p>
+          <p class="summary">Posun od regulation-by-enforcement k jasnému rámci. ETP schválení zkráceno z 240 na 75 dní. Bitwise: 100+ nových crypto ETF v 2026. Strukturálně bullish střednědobě.</p>
+          <div class="meta">6 min čtení · 4. 6. 2026</div>
+        </div>
+      </a>
+
+      <a class="read" href="https://www.patria.cz/zpravodajstvi/6710791/investicni-vyhled-2026-v-ai-zustavame-ale-nove-se-divame-i-jinam.html" target="_blank" rel="noopener">
         <div class="thumb cz">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">e15.cz</span>
-            <span class="type-badge cz">CZ článek</span>
+            <span class="src-badge">Patria.cz</span>
+            <span class="type-badge cz">CZ výhled</span>
           </div>
-          <p class="title">Deset nejlepších investic pro rok 2026 — AI ovládá Wall Street</p>
-          <p class="summary">Polovina top investic směřuje k akciím (zejména US). AI jako dominantní téma. Užitečné pro pohled na alokaci — VWRP + EQQQ kombo.</p>
-          <div class="meta">10 min čtení · květen 2026</div>
+          <p class="title">Investiční výhled 2026: V AI zůstáváme, ale nově se díváme i jinam</p>
+          <p class="summary">Patria Analytics: AI tah trhu přetrvává, ale investoři začínají rotovat do komodit a defensivních sektorů. Komodity levné a s potenciálem. Context pro EIMI EM tilt.</p>
+          <div class="meta">8 min čtení · Patria 2026</div>
         </div>
       </a>
 
-      <a class="read" href="https://www.youtube.com/@BenFelixCSI" target="_blank" rel="noopener">
-        <div class="thumb youtube">
-          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.8-2.3c-.8-.9-1.7-.9-2.1-1C16.8 3.5 12 3.5 12 3.5h0s-4.8 0-8.1.2c-.4 0-1.3 0-2.1 1C1.2 5.4 1 7 1 7S.8 8.9.8 10.8v1.4C.8 14 1 16 1 16s.2 1.6.8 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.8.2 7.8.2s4.8 0 8.1-.2c.4 0 1.3 0 2.1-1C22.8 17.6 23 16 23 16s.2-2 .2-3.9v-1.4C23.2 8.9 23 7 23 7z"/><polygon points="9.7,14.6 14.7,12 9.7,9.4" fill="white"/></svg>
+      <a class="read" href="https://www.cnb.cz/cs/menova-politika/prognoza/" target="_blank" rel="noopener">
+        <div class="thumb cz">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
         <div class="body">
           <div class="source-row">
-            <span class="src-badge">Ben Felix</span>
-            <span class="type-badge youtube">YouTube</span>
+            <span class="src-badge">ČNB</span>
+            <span class="type-badge cz">CZ makro</span>
           </div>
-          <p class="title">Common Sense Investing — Myth of Outperforming Funds</p>
-          <p class="summary">PWL Capital CIO o tom, proč aktivní fondy průměrně podhází index. Reference pro pasivní VWRP-core strategii — relevantní zejména při ATH.</p>
-          <div class="meta">14 min · 2026</div>
+          <p class="title">Aktuální prognóza ČNB — repo 3.50 %, inflace 2.5 % (duben), výhled 2.2 % pro 2026</p>
+          <p class="summary">ČNB drží sazby beze změny od května 2025. Inflace klesá ke 2% cíli. EUR/CZK 24.20 — stabilní prostředí pro DCA do EUR/GBP fondů bez kurzového šoku.</p>
+          <div class="meta">Reference · červen 2026</div>
         </div>
       </a>
     </div>
@@ -1106,20 +1069,20 @@
     <strong>Disclaimer:</strong> Toto není investiční doporučení ani finanční poradenství.
     Claude je jazykový model a analytický nástroj, ne licencovaný poradce. Zobrazená tržní data jsou orientační — pro reálné rozhodnutí si vždy ověř aktuální ceny u svého brokera.
     Konečné rozhodnutí, kam pošleš peníze, je vždy na tobě.
-    <div class="footer-sources">Zdroje · ECB · CNBC · TheStreet · Fox Business · CoinDesk · BeInCrypto · iShares (BlackRock) · Investiční web · e15.cz · ČNB · Ben Felix</div>
+    <div class="footer-sources">Zdroje · ECB · CNBC · Yahoo Finance · Investing.com · Seeking Alpha · Bitcoin Magazine · Patria.cz · Investiční web · ČNB · CoinDesk</div>
   </div>
 
 </div>
 
 <script>
 (function () {
-  // ─── Stamp ─────────────────────────
+  // Stamp
   var d = new Date();
   document.getElementById("lastUpdated").textContent =
     "Aktualizováno · " + d.toLocaleDateString("cs-CZ", { day: "numeric", month: "long", year: "numeric" }) +
     " · " + d.toLocaleTimeString("cs-CZ", { hour: "2-digit", minute: "2-digit" });
 
-  // ─── Charts ────────────────────────
+  // Charts
   var palette = ["#4f46e5", "#a855f7", "#f59e0b", "#10b981", "#94a3b8"];
 
   if (window.Chart) {
@@ -1176,7 +1139,7 @@
     });
   }
 
-  // ─── Refresh button ────────────────
+  // Refresh button
   var refreshBtn = document.getElementById("refreshBtn");
   var commentEl = document.getElementById("aiComment");
 
@@ -1195,13 +1158,13 @@
       portfolio: ["CSPX (S&P 500 EUR)", "EIMI (MSCI EM IMI USD)", "EQQQ (Nasdaq 100 EUR)", "VUAA (S&P 500 GBP)", "VWRP (FTSE All-World GBP)"],
       profile: "26 let, dlouhodobý růst, vyvážený–agresivní",
       knownData: {
-        EURCZK: 24.29, USDCZK: 20.83, GBPCZK: 28.05,
-        BTC_USD: 73303, SP500: 7580, Nasdaq: 26972,
-        FedRate: "3.50–3.75 %, hold, PCE 3.8 % (nad cílem), core PCE 3.3 %",
-        CNB: "3.50 % repo (10. měsíc v řadě), CPI 2.4 % květen, trh čeká hike na 4.00–4.25 %",
-        macro: "S&P 500 9. týden růstu v řadě (rekord 7 580), Nasdaq +8 % v květnu, BTC -4.6 % týden ($2.3B ETF outflows), CLARITY Act prošel SBC"
+        EURCZK: 24.20, USDCZK: 20.87, GBPCZK: 28.00,
+        BTC_USD: 63000, SP500: 7384, Nasdaq: 25709,
+        FedRate: "3.50–3.75 %, hold; jobs report 172k (vs. 88k expected) zvyšuje hike riziko; 10Y yield 4.54 %",
+        CNB: "3.50 % repo (beze změny od května 2025), dubnová inflace 2.5 %, prognóza 2.2 % pro 2026",
+        macro: "S&P 500 -2.6 % (7384, první záporný týden za 10), Nasdaq -4.2 % (25709, nejhorší den od dubna 2025); Broadcom zklamal s AI chip výhledem; SOX ETF -10 %; BTC $63k (-50 % od vrcholu $126k říjen 2025), 12 dní ETF outflows ($4B rekord); SEC Strategic Plan 2026-2030 krypto jako priorita; rotace z tech do defensivy."
       },
-      keyInsight: "CSPX + VUAA = duplicita S&P 500. VWRP obsahuje S&P 500, Nasdaq i EM. EQQQ 85 % overlap s S&P 500 top. Reálná expozice ~70 % US, hodně tech."
+      keyInsight: "CSPX + VUAA = duplicita S&P 500. VWRP obsahuje S&P 500, Nasdaq i EM. EQQQ 85 % overlap s S&P 500 top. Reálná expozice ~70 % US, hodně tech. Nasdaq pullback -4.2 % = DCA příležitost pro EQQQ."
     }];
 
     try {
