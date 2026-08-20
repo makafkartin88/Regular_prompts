@@ -214,6 +214,58 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
 .footer{margin-top:36px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--ink3);line-height:1.6}
 .footer strong{color:var(--ink)}
 .fsrc{margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--ink4)}
+
+/* ---------- readability layer ---------- */
+.tldr{margin:0 0 34px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shm);overflow:hidden}
+.tldr-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 22px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(79,70,229,.06),rgba(124,58,237,.02))}
+.tldr-head h2{margin:0;font-family:var(--serif);font-size:17px;font-weight:700}
+.tldr-head .tldr-when{font-size:11px;font-family:var(--mono);color:var(--ink4)}
+.tldr-row{display:flex;gap:16px;align-items:flex-start;padding:15px 22px;border-bottom:1px solid var(--border)}
+.tldr-row:last-child{border-bottom:none}
+.tldr-tag{flex-shrink:0;width:88px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 0;color:var(--ink4)}
+.tldr-tag span{display:inline-block;padding:3px 9px;border-radius:999px}
+.tldr-tag.t1 span{background:#dbeafe;color:#1e3a8a}
+.tldr-tag.t2 span{background:#d1fae5;color:#065f46}
+.tldr-tag.t3 span{background:#ede9fe;color:#5b21b6}
+.tldr-row p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink);max-width:82ch}
+.tldr-row p b{font-weight:700}
+@media(max-width:640px){.tldr-row{flex-direction:column;gap:7px;padding:14px 18px}.tldr-tag{width:auto}}
+
+.navchips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 34px}
+.navchip{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:var(--ink2);text-decoration:none;transition:all .15s}
+.navchip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+
+.mcard .ctx{font-size:12px;color:var(--ink3);line-height:1.45}
+.mnote{margin-top:11px;padding-top:10px;border-top:1px dashed var(--border);font-size:11.5px;color:var(--ink3);line-height:1.5}
+.mcard .sp{margin-top:11px}
+
+.czone li{font-size:13px;line-height:1.55}
+.czone ul{gap:11px}
+
+.pm-verdict{font-size:13px;font-weight:600;color:var(--ink);line-height:1.5;margin:0}
+.pmfacts{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pmfacts li{font-size:12px;color:var(--ink2);line-height:1.5;display:flex;gap:7px;align-items:flex-start}
+.pmfacts li::before{content:"";flex-shrink:0;width:4px;height:4px;border-radius:50%;background:var(--border2);margin-top:.5em}
+.pmfacts li b{color:var(--ink);font-weight:700}
+
+.blist>li{padding:20px 22px;gap:15px}
+.bhead{font-size:15px;line-height:1.4;margin:0 0 11px}
+.bfacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px;margin:0 0 13px}
+.bfact{background:#fafaf7;border:1px solid var(--border);border-radius:var(--rs);padding:9px 11px}
+.bfl{font-size:9.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--ink4);line-height:1.3}
+.bfv{font-family:var(--mono);font-size:14.5px;font-weight:700;margin-top:3px;letter-spacing:-.01em;color:var(--ink)}
+.bfv.pos{color:var(--pos)}
+.bfv.neg{color:var(--neg)}
+.bfv small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink3);letter-spacing:0}
+.bbody{font-size:13.5px;line-height:1.65;max-width:76ch}
+.bimpact{margin-top:11px;padding:10px 13px;font-size:12.5px;line-height:1.6}
+
+.rsum{font-size:12.5px;line-height:1.55}
+.rtitle{font-size:13.5px;line-height:1.4}
+
+.alloc-table .logic{font-size:12px;line-height:1.5}
+.sec-head{margin-bottom:18px}
+.section{margin-top:46px}
 </style>
 <style id="pin-gate-style">body.pin-locked{overflow:hidden}body.pin-locked .wrap{filter:blur(18px);pointer-events:none;user-select:none;transition:filter .3s}.pin-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(800px 500px at 50% 30%,rgba(124,58,237,.10),transparent 60%),rgba(247,246,243,.92);backdrop-filter:blur(8px);font-family:-apple-system,BlinkMacSystemFont,Inter,sans-serif}.pin-box{background:#fff;border:1px solid #e7e5e0;border-radius:18px;padding:36px 32px;box-shadow:0 24px 60px -12px rgba(10,10,10,.18);text-align:center;width:min(360px,calc(100vw - 32px))}.pin-box .pin-icon{width:56px;height:56px;margin:0 auto 14px;border-radius:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff}.pin-box h2{font-family:"Iowan Old Style",Baskerville,serif;margin:0 0 6px;font-size:22px;color:#0a0a0a}.pin-box p{margin:0 0 18px;color:#737373;font-size:13.5px}.pin-input{width:100%;padding:14px 16px;font-size:22px;font-family:ui-monospace,Menlo,monospace;text-align:center;letter-spacing:.4em;border:1px solid #d4d4d4;border-radius:10px;background:#fafaf7;outline:none}.pin-input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.12)}.pin-input.error{border-color:#be123c;animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.pin-btn{margin-top:12px;width:100%;padding:12px;background:#0a0a0a;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}.pin-btn:hover{background:#262626}.pin-hint{margin-top:14px;font-size:11.5px;color:#a3a3a3}</style>
 </head>
@@ -240,7 +292,36 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
   </div>
 </header>
 
-<section class="section">
+<section class="tldr">
+  <div class="tldr-head">
+    <h2>Týden ve třech řádcích</h2>
+    <span class="tldr-when">10.–14. 8. 2026</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-tag t1"><span>Trhy</span></span>
+    <p>S&amp;P 500 poprvé v historii zavřel nad 7 800 a týden končí na <b>7 785,76 (+0,36 %)</b>. Pomohla červencová inflace, která zpomalila na 3,4 %, a nulový PPI. Bitcoin šel proti trhu a spadl pod $63 000.</p>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-tag t2"><span>Portfolio</span></span>
+    <p>Rekord kopírují <b>CSPX a VUAA</b> přímo, <b>VWRP</b> přes svou americkou váhu. <b>EQQQ</b> po předchozích +5,2 % stagnoval na +0,14 %. Dolar zpět pod 21 Kč (20,936) mírně zlevňuje nákup <b>EIMI</b>.</p>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-tag t3"><span>Akce</span></span>
+    <p><b>Kup podle plánu, nic neměň.</b> Největší týdenní pohyb byl +0,36 %, trigger na úpravu alokace je 10 %. Do zářiového zasedání Fedu přijdou srpnové payrolls (4. 9.) a srpnová inflace.</p>
+  </div>
+</section>
+
+<nav class="navchips">
+  <a class="navchip" href="#trhy">Tržní přehled</a>
+  <a class="navchip" href="#komentar">Komentář k týdnu</a>
+  <a class="navchip" href="#portfolio">Tvé portfolio</a>
+  <a class="navchip" href="#alokace">Alokace 10 000 Kč</a>
+  <a class="navchip" href="#polymarket">Polymarket</a>
+  <a class="navchip" href="#briefing">Týdenní briefing</a>
+  <a class="navchip" href="#clanky">Články týdne</a>
+</nav>
+
+<section class="section" id="trhy">
   <div class="sec-head">
     <h2>Tržní přehled</h2>
     <span class="lead">Spotová data · 14. 8. 2026 · FX signál: LEVNÉ / FAIR / DRAHÉ pro DCA</span>
@@ -253,6 +334,7 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
         <span class="delta down" id="d-eur">▼ 0.23%</span>
         <span class="ctx">CSPX &amp; EQQQ · nákup v EUR</span>
       </div>
+      <div class="mnote">Koruna proti euru o kousek silnější. Pásmo FAIR je 24,0–24,5 Kč.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,14 40,15 80,16 120,17 160,18 200,19" fill="none" stroke="#047857" stroke-width="1.5"/>
       </svg>
@@ -265,6 +347,7 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
         <span class="delta down" id="d-usd">▼ 0.49%</span>
         <span class="ctx">EIMI · USD denominace</span>
       </div>
+      <div class="mnote">Zpět pod 21 Kč. Letošní pásmo je 20,44–21,43 Kč, takže dolní polovina — ne extrém.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,11 50,13 100,16 150,19 200,22" fill="none" stroke="#047857" stroke-width="1.5"/>
       </svg>
@@ -277,6 +360,7 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
         <span class="delta up" id="d-gbp">▲ 0.17%</span>
         <span class="ctx">VUAA &amp; VWRP · GBP</span>
       </div>
+      <div class="mnote">Libra o kousek dražší, VUAA a VWRP tím nepatrně nahoru. Pásmo FAIR je 27,5–29,0 Kč.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,18 40,18 80,17 120,16 160,15 200,15" fill="none" stroke="#be123c" stroke-width="1.5"/>
       </svg>
@@ -289,8 +373,9 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
       <div class="val">$62 570</div>
       <div class="sub">
         <span class="delta down">▼ 3.7%</span>
-        <span class="ctx">propad zpět pod 200týdenní průměr (~$63 800) i pod klíčovou hranici $63 000; z US spot ETF odteklo za týden 389,7 mil. USD — nejvíc za šest týdnů, po +850 mil. v prvním srpnovém týdnu</span>
+        <span class="ctx">pod $63 000 i pod 200týdenním průměrem</span>
       </div>
+      <div class="mnote">Z amerických spot ETF odteklo za týden 389,7 mil. USD, nejvíc za šest týdnů. V prvním srpnovém týdnu přitom nateklo přes 850 mil.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,11 30,12 60,15 90,17 120,20 150,23 175,25 200,26" fill="none" stroke="#be123c" stroke-width="1.5"/>
       </svg>
@@ -300,8 +385,9 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
       <div class="val">7 785.76</div>
       <div class="sub">
         <span class="delta up">▲ 0.36%</span>
-        <span class="ctx">třetí růstový týden v řadě; ve čtvrtek poprvé v historii zavřel nad 7 800 (7 798,99), v pátek si trh vzal část zpět. Rekord drží zchlazená inflace</span>
+        <span class="ctx">ve čtvrtek poprvé nad 7 800 (7 798,99)</span>
       </div>
+      <div class="mnote">Třetí kladný týden v řadě. V pátek si trh část zisku vzal zpět, rekord ale drží zchlazená inflace.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,12 35,10 70,9 100,7 130,5 165,3 200,6" fill="none" stroke="#047857" stroke-width="1.5"/>
       </svg>
@@ -311,8 +397,9 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
       <div class="val">26 729.16</div>
       <div class="sub">
         <span class="delta up">▲ 0.14%</span>
-        <span class="ctx">rovněž třetí kladný týden, ale téměř na nule — po +5,19 % z předchozího týdne si tech vybral pauzu. AI capex drží sentiment, momentum polevilo</span>
+        <span class="ctx">třetí kladný týden, ale téměř na nule</span>
       </div>
+      <div class="mnote">Po +5,19 % z předchozího týdne si tech vybral pauzu. AI capex sentiment drží, momentum polevilo.</div>
       <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none">
         <polyline points="0,13 35,11 70,10 100,8 130,7 165,5 200,9" fill="none" stroke="#047857" stroke-width="1.5"/>
       </svg>
@@ -320,13 +407,13 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="komentar">
   <div class="sec-head"><h2>Komentář k týdnu</h2><span class="lead">Sentiment · Události · Akce</span></div>
   <div class="comment-wrap">
     <div class="comment-sentiment">
       <span class="sent-dot neut"></span>
       <span class="sent-label neut">BÝČÍ, ALE VYDÝCHANÝ</span>
-      <span class="sent-title" id="sentTitle">CSPX/VUAA drží rekord (S&amp;P 500 7 785,76, +0,36 % za týden) díky červencové inflaci 3,4 % a nulovému PPI — EQQQ ale po předchozích +5,2 % stagnoval na +0,14 %, takže tahákem týdne byla makrodata, ne tech. Dolar na 20,936 Kč je nejlevnější letos a zlevňuje nákup EIMI.</span>
+      <span class="sent-title" id="sentTitle">Rekord drží makrodata, ne tech: inflace 3,4 % a PPI 0,0 % pomohly CSPX/VUAA na nové maximum, EQQQ ale po předchozích +5,2 % stagnoval na +0,14 %.</span>
     </div>
     <div class="comment-grid">
       <div class="czone">
@@ -335,9 +422,10 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
           Co se stalo
         </p>
         <ul id="eventsZone">
-          <li><strong>Červencová CPI zpomalila na 3,4 % r/r (z 3,5 %), jádrová na 2,5 % (z 2,6 %)</strong> — meziměsíčně jen +0,1 %. Jádro je nejníž od března 2021. Ve čtvrtek pak PPI meziměsíčně 0,0 % místo očekávaných +0,2 %</li>
-          <li><strong>S&amp;P 500 poprvé zavřel nad 7 800</strong> — ve čtvrtek 13. 8. na 7 798,99, v pátek klesl na 7 785,76. Týdenní zisk +0,36 %, třetí kladný týden v řadě. Nasdaq Composite 26 729,16 (+0,14 %)</li>
-          <li><strong>Sázka na zářiové zvýšení sazeb spadla na 42 %</strong> — dle CME FedWatch po CPI. Fed drží pásmo 3,50–3,75 %, nejbližší zasedání je až v září. Bitcoin naopak propadl pod $63 000 na $62 570 (-3,7 %) při odtoku 389,7 mil. USD z ETF</li>
+          <li><strong>Inflace 3,4 % r/r, jádrová 2,5 %</strong> — meziměsíčně jen +0,1 %. Jádro je nejníž od března 2021</li>
+          <li><strong>PPI 0,0 % m/m</strong> místo očekávaných +0,2 %. Druhý příznivý údaj v jednom týdnu</li>
+          <li><strong>S&amp;P 500 poprvé zavřel nad 7 800</strong> (7 798,99 ve čtvrtek), týden končí na 7 785,76</li>
+          <li><strong>Zářiový hike má 42 %</strong> dle CME FedWatch. Fed drží pásmo 3,50–3,75 %</li>
         </ul>
       </div>
       <div class="czone">
@@ -346,9 +434,9 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
           Dopad na portfolio
         </p>
         <ul id="impactZone">
-          <li><strong>CSPX / VUAA</strong> — nakupuješ druhý měsíc v řadě na historickém maximu. Euro zlevnilo na 24,210 Kč (-0,23 %), libra zdražila na 28,339 Kč (+0,17 %), takže CSPX vychází o vlásek lépe než VUAA. Rozdíl je v desetinách procenta, nemá cenu ho řešit</li>
-          <li><strong>EQQQ</strong> — +0,14 % za týden po předchozích +5,2 %. Nižší inflace mu pomáhá přes diskontní sazbu, ale ten efekt už trh z většiny vybral minulý týden. Nejcitlivější položka portfolia zůstává, jen se právě nehýbe</li>
-          <li><strong>EIMI / VWRP</strong> — dolar zpět pod 21 Kč (20,936) je v dolní polovině letošního pásma 20,44–21,43 Kč, takže vstup do EIMI je mírně výhodnější než v posledních týdnech. MSCI EM prorazil maxima z roku 2021 a přes dvě třetiny složek je nad 200denním průměrem — EM tilt je zatím ta lepší část portfolia</li>
+          <li><strong>CSPX / VUAA</strong> — druhý měsíc v řadě nakupuješ na maximu. Euro 24,210 Kč, libra 28,339 Kč, rozdíl v desetinách procenta</li>
+          <li><strong>EQQQ</strong> — +0,14 % za týden. Sázku na nižší sazby odpracoval už minulý týden, teď stojí</li>
+          <li><strong>EIMI / VWRP</strong> — dolar pod 21 Kč a MSCI EM nad maximy z roku 2021. Zatím lepší část portfolia</li>
         </ul>
       </div>
       <div class="czone">
@@ -357,16 +445,16 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
           Tvá akce
         </p>
         <div id="actionZone">
-          <div class="akce-item"><span class="arrow">→</span><span><strong>Standard DCA beze změny</strong> — nejvyšší týdenní pohyb byl +0,36 % (S&amp;P 500), tedy nikde blízko 10% triggeru. Alokace: VWRP 3 500 + EIMI 2 000 + EQQQ 1 500 + VUAA 1 500 + CSPX 1 500 Kč</span></div>
-          <div class="akce-item"><span class="arrow">→</span><span><strong>Dolar 20,936 Kč zvaž jako mírný argument pro EIMI</strong> — ne jako důvod přehazovat váhy. Pokud chceš na kurz reagovat, udělej to jednou pravidlem (např. „při USD pod 21 Kč jde EIMI 2 500 místo 2 000“), ne ad hoc podle nálady</span></div>
-          <div class="akce-item"><span class="arrow">→</span><span><strong>Klíčové datum: zasedání Fedu v září</strong> — do té doby přijdou srpnové payrolls (4. 9.) a srpnová CPI. Trh dává hiku 42 %, tedy to není vyřešená věc. Nekupuj EQQQ navíc jen proto, že inflace jeden měsíc zpomalila</span></div>
+          <div class="akce-item"><span class="arrow">→</span><span><strong>Kup podle plánu.</strong> VWRP 3 500 + EIMI 2 000 + EQQQ 1 500 + VUAA 1 500 + CSPX 1 500 Kč</span></div>
+          <div class="akce-item"><span class="arrow">→</span><span><strong>Dolar pod 21 Kč řeš pravidlem, ne náladou.</strong> Třeba „USD pod 21 Kč → EIMI 2 500 místo 2 000“ — a pak už u toho zůstaň</span></div>
+          <div class="akce-item"><span class="arrow">→</span><span><strong>Do září nic nepřehazuj.</strong> Payrolls 4. 9. a srpnová inflace rozhodnou o sazbách; hike má pořád 42 %</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="portfolio">
   <div class="sec-head"><h2>Tvé portfolio</h2><span class="lead">5 ETF · Trading 212 · přehled fondů</span></div>
   <div class="g g5">
     <div class="fund-card">
@@ -432,7 +520,7 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="insight">
   <div class="insight">
     <div class="insight-hdr">
       <div class="insight-icon">!</div>
@@ -447,7 +535,7 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="alokace">
   <div class="sec-head"><h2>Měsíční alokace · 10 000 Kč</h2><span class="lead">Všech 5 fondů · čistě investiční budget</span></div>
   <div class="g g2">
     <div class="card">
@@ -470,148 +558,154 @@ body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="polymarket">
   <div class="sec-head"><h2>Polymarket predikce</h2><span class="lead">Pravděpodobnosti z 22. 6. 2026 (neaktualizováno) · komentář k 17. 8. 2026</span></div>
   <div class="pm-grid">
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">Fed rate hike do konce roku 2026?</span><span class="pm-cat macro">Makro</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill neut" style="width:52%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct neut">52 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">riziko klesá</div></div>
-      <div class="pm-impact">Červencová CPI 3,4 % a jádrová 2,5 % ubraly jestřábům další argument — CME FedWatch dává zářiové zvýšení 42 % (před dvěma týdny 44 %, před měsícem výrazně víc). Tři jestřábí disenty z července ale nezmizely a Fed má do září ještě jednu inflaci a jedny payrolls. Pro EQQQ/CSPX zatím pozitivní.</div>
+      <div class="pm-impact"><p class="pm-verdict">Inflační data ubrala jestřábům další argument.</p><ul class="pmfacts"><li>CME FedWatch dává zářiové zvýšení <b>42 %</b>, před dvěma týdny 44 %</li><li>Tři jestřábí disenty z července (Hammack, Kashkari, Logan) nezmizely</li><li>Do září přijde ještě jedna inflace a jedny payrolls</li></ul></div>
       <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/fed-rate-hike-in-2026" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">Kdo vydělá nejvíc v 2026: S&amp;P 500, Gold, nebo Bitcoin?</span><span class="pm-cat equity">Akcie</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:44%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct bull">44 %</div><div class="pm-label">S&amp;P 500 první · Gold 36 % · BTC 20 %</div></div><div class="pm-vol">S&amp;P na rekordu</div></div>
-      <div class="pm-impact">S&amp;P 500 poprvé zavřel nad 7 800 a týden uzavřel na 7 785,76. Bitcoin naopak spadl pod $63 000 na $62 570 a je ~50 % pod vrcholem $126k — ze soutěže o nejlepší aktivum roku je fakticky venku. Core teze VWRP/CSPX/VUAA drží.</div>
+      <div class="pm-impact"><p class="pm-verdict">Core teze VWRP/CSPX/VUAA drží, krypto je ze soutěže venku.</p><ul class="pmfacts"><li>S&amp;P 500 poprvé zavřel nad 7 800, týden na <b>7 785,76</b></li><li>Bitcoin <b>$62 570</b>, tedy ~50 % pod vrcholem $126k</li></ul></div>
       <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/bitcoin-vs-gold-vs-sp-500-in-2026" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">Bitcoin dosáhne $100k před koncem 2026?</span><span class="pm-cat crypto">Krypto</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:20%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct bear">20 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">stabilizace</div></div>
-      <div class="pm-impact">BTC se propadl zpět pod 200týdenní klouzavý průměr (~$63 800) a týden zavřel na $62 570 (-3,7 %). Z US spot ETF odteklo 389,7 mil. USD, nejvíc za šest týdnů, IBIT samotný -55,5 mil. v pátek. Na $100k by bylo potřeba +60 % za čtyři a půl měsíce. Přímá expozice v portfoliu nulová — barometr rizikového apetitu se tento týden rozešel s akciemi.</div>
+      <div class="pm-impact"><p class="pm-verdict">Barometr rizikového apetitu se tento týden rozešel s akciemi.</p><ul class="pmfacts"><li>BTC <b>$62 570</b> (-3,7 %), pod 200týdenním průměrem (~$63 800)</li><li>Z US spot ETF odteklo <b>389,7 mil. USD</b>, IBIT samotný -55,5 mil. v pátek</li><li>Na $100k by bylo potřeba <b>+60 %</b> za čtyři a půl měsíce</li><li>Přímá expozice v portfoliu nulová</li></ul></div>
       <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/what-price-will-bitcoin-hit-before-2027" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">USA recese do konce roku 2026?</span><span class="pm-cat macro">Makro</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:18%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct bear">18 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">rozporná data</div></div>
-      <div class="pm-impact">Kombinace, kterou trh čte jako ideální: inflace zpomaluje (CPI 3,4 %, jádrová 2,5 %, PPI 0,0 % m/m), přitom ISM z předchozího týdne (Manufacturing 55,6, Services 54,1) ukazuje expanzi. Slabina zůstává na trhu práce — červencový zánik 23 tis. míst nikdo nevyvrátil, jen ho překryla lepší inflační data.</div>
+      <div class="pm-impact"><p class="pm-verdict">Inflace zpomaluje, reálná ekonomika roste — slabina zůstává na trhu práce.</p><ul class="pmfacts"><li>CPI <b>3,4 %</b>, jádrová <b>2,5 %</b>, PPI <b>0,0 %</b> m/m</li><li>ISM Manufacturing <b>55,6</b>, Services <b>54,1</b> (data z předchozího týdne)</li><li>Červencový zánik <b>23 tis.</b> pracovních míst nikdo nevyvrátil</li></ul></div>
       <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">S&amp;P 500 uzavře rok 2026 nad 8 000?</span><span class="pm-cat equity">Akcie</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:55%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct bull">55 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">blíž</div></div>
-      <div class="pm-impact">Index je na 7 785,76 a do 8 000 zbývá +2,8 % za čtyři a půl měsíce. Thomas Lee (Fundstrat) vidí 7 900–8 000 už během srpna, šéf Infrastructure Capital Advisors mluví o 8 100 do konce roku. Protiargument je pořád stejný: rekordní marže, korporátní páka, margin debt a nízká volatilita jako známka sebeuspokojení.</div>
+      <div class="pm-impact"><p class="pm-verdict">Do 8 000 zbývá +2,8 % za čtyři a půl měsíce.</p><ul class="pmfacts"><li>Thomas Lee (Fundstrat) vidí <b>7 900–8 000</b> už během srpna</li><li>Šéf Infrastructure Capital Advisors mluví o <b>8 100</b> do konce roku</li><li>Protiargument: rekordní marže, korporátní páka, margin debt a nízká volatilita</li></ul></div>
       <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/sp500-end-2026" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
     <div class="pm-card">
       <div class="pm-header"><span class="pm-q">Zvýší Fed sazby na zářiovém zasedání?</span><span class="pm-cat macro">Makro</span></div>
       <div class="pm-bar-wrap"><div class="pm-bar-fill neut" style="width:42%"></div></div>
       <div class="pm-numbers"><div><div class="pm-pct neut">42 %</div><div class="pm-label">CME FedWatch po CPI</div></div><div class="pm-vol">dál klesá</div></div>
-      <div class="pm-impact">Po červencové CPI spadla dle CME FedWatch pravděpodobnost zářiového zvýšení na 42 %. Rozhodnou srpnové payrolls 4. 9. a srpnová CPI. Pásmo zůstává 3,50–3,75 %, projekce členů Fedu na konec roku 3,6–4,1 %.</div>
+      <div class="pm-impact"><p class="pm-verdict">Rozhodnou srpnové payrolls 4. 9. a srpnová inflace.</p><ul class="pmfacts"><li>Pravděpodobnost zářiového zvýšení <b>42 %</b> (po CPI)</li><li>Pásmo zůstává <b>3,50–3,75 %</b>, projekce členů na konec roku 3,6–4,1 %</li></ul></div>
       <div class="pm-footer"><span class="pm-src">cnbc.com</span><a class="pm-link" href="https://www.cnbc.com/2026/08/12/cpi-inflation-report-july-2026.html" target="_blank" rel="noopener">Otevřít →</a></div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="briefing">
   <div class="sec-head"><h2>Týdenní briefing</h2><span class="lead">Co se děje a co to znamená · Týden 34 · 17. 8. 2026</span></div>
   <div class="card" style="padding:0">
     <ul class="blist">
       <li>
         <span class="bdot pos"></span>
         <div class="bcontent">
-          <p class="bhead">Červencová inflace v USA zpomalila na 3,4 %, jádrová na 2,5 % — nejníž od března 2021</p>
-          <p class="bbody">Spotřebitelské ceny vzrostly ve středu zveřejněnou statistikou za červenec meziměsíčně o 0,1 % (v souladu s očekáváním) a meziročně zpomalily na 3,4 % z červnových 3,5 %. Jádrová inflace se snížila na 2,5 % z 2,6 %, což je nejnižší hodnota od března 2021. Ve čtvrtek přišel druhý příznivý údaj: index cen výrobců meziměsíčně stagnoval na 0,0 %, zatímco ekonomové čekali +0,2 %, a jádrový PPI přidal 0,2 % místo očekávaných 0,3 %.</p>
-          <p class="bimpact pos"><strong>Dopad:</strong> Dva inflační údaje pod odhadem jsou přímá podpora pro celý akciový blok — nižší tlak na sazby znamená nižší diskontní sazbu pro budoucí zisky. Nejvíc na tom teoreticky vydělává EQQQ, který ale reagoval jen +0,14 %, protože tuhle sázku už z většiny odpracoval v předchozím týdnu.</p>
+          <p class="bhead">Červencová inflace zpomalila na 3,4 %, jádrová na 2,5 % — nejníž od března 2021</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">CPI r/r</div><div class="bfv pos">3,4 %</div></div><div class="bfact"><div class="bfl">CPI m/m</div><div class="bfv">+0,1 %</div></div><div class="bfact"><div class="bfl">Jádrová CPI</div><div class="bfv pos">2,5 %</div></div><div class="bfact"><div class="bfl">PPI m/m</div><div class="bfv pos">0,0 % <small>vs. +0,2 % oček.</small></div></div></div>
+          <p class="bbody">Ve středu přišla spotřebitelská inflace pod hranicí očekávání, ve čtvrtek ji potvrdil index cen výrobců, který meziměsíčně vůbec nevzrostl. Jádrový PPI přidal 0,2 % místo očekávaných 0,3 %.</p>
+          <p class="bimpact pos"><strong>Dopad:</strong> Dva inflační údaje pod odhadem znamenají nižší tlak na sazby a nižší diskontní sazbu pro budoucí zisky. Teoreticky na tom nejvíc vydělává EQQQ — ten ale reagoval jen +0,14 %, protože tuhle sázku odpracoval už v předchozím týdnu.</p>
         </div>
       </li>
       <li>
         <span class="bdot pos"></span>
         <div class="bcontent">
           <p class="bhead">S&amp;P 500 poprvé v historii zavřel nad 7 800, třetí kladný týden v řadě</p>
-          <p class="bbody">Ve čtvrtek 13. 8. index uzavřel na 7 798,99 bodu — první závěr nad hranicí 7 800 v jeho historii. V pátek pak část zisku vrátil a týden skončil na 7 785,76 (+0,36 % za týden). Nasdaq Composite se posunul na 26 729,16 (+0,14 %). Oba indexy tak mají za sebou třetí kladný týden, ale tempo se výrazně zpomalilo z +3,58 % a +5,19 % z týdne předchozího.</p>
-          <p class="bimpact pos"><strong>Dopad:</strong> CSPX a VUAA sledují rekord přímo, VWRP ho zachytil přes ~60% americkou váhu. Zpomalení tempa je zdravější než pokračování +3,5% týdnů — u DCA je nejlepší scénář nudný trh, protože nakupuješ pravidelně bez pokušení něco měnit.</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">S&amp;P 500</div><div class="bfv">7 785,76</div></div><div class="bfact"><div class="bfl">Za týden</div><div class="bfv pos">+0,36 %</div></div><div class="bfact"><div class="bfl">Čtvrteční rekord</div><div class="bfv pos">7 798,99</div></div><div class="bfact"><div class="bfl">Nasdaq Composite</div><div class="bfv">26 729,16</div></div></div>
+          <p class="bbody">Čtvrteční závěr na 7 798,99 byl první nad hranicí 7 800. V pátek index část zisku vrátil. Tempo se výrazně zpomalilo z +3,58 % a +5,19 %, které oba indexy udělaly týden předtím.</p>
+          <p class="bimpact pos"><strong>Dopad:</strong> CSPX a VUAA sledují rekord přímo, VWRP ho zachytil přes svou americkou váhu. Zpomalení tempa je zdravější než další +3,5% týden — u pravidelného nákupu je nudný trh ten nejlepší scénář, protože nesvádí k improvizaci.</p>
         </div>
       </li>
       <li>
         <span class="bdot neg"></span>
         <div class="bcontent">
-          <p class="bhead">Bitcoin propadl pod $63 000 na $62 570, z ETF odteklo 389,7 mil. USD</p>
-          <p class="bbody">BTC se v pátek 14. 8. snížil o 1,3 % na $62 570 a udržel se pod hranicí $63 000 i o víkendu. Klíčové je chování institucí: z amerických spot ETF odteklo za týden 10.–14. 8. celkem 389,7 mil. USD, což je největší týdenní odtok za šest týdnů a plný obrat proti více než 850 mil. USD, které do fondů natekly v prvním srpnovém týdnu. Nejvíc ubral pondělní obchodní den (-144,7 mil.), v pátek IBIT samotný -55,5 mil. Solana ETF šly proti trendu (+10,3 mil., nejvíc od května).</p>
-          <p class="bimpact neg"><strong>Dopad:</strong> Přímou expozici nemáš žádnou, takže na portfolio to nemá dopad. Signální hodnota je ale zajímavá: krypto a akcie se tento týden rozešly. Když rizikový apetit slábne v nejcitlivější třídě aktiv a akcie zároveň dělají rekord, je to obvykle věc, kterou stojí za to sledovat, ne ignorovat.</p>
+          <p class="bhead">Bitcoin propadl pod $63 000, z ETF odteklo 389,7 mil. USD</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">BTC/USD</div><div class="bfv neg">$62 570</div></div><div class="bfact"><div class="bfl">Za týden</div><div class="bfv neg">-3,7 %</div></div><div class="bfact"><div class="bfl">Odtok z ETF</div><div class="bfv neg">-389,7 mil. $</div></div><div class="bfact"><div class="bfl">Předchozí týden</div><div class="bfv pos">+850 mil. $</div></div></div>
+          <p class="bbody">V pátek BTC klesl o 1,3 % a pod hranicí $63 000 zůstal i o víkendu. Zajímavější je chování institucí: nejvíc ubralo pondělí (-144,7 mil.), v pátek odešlo z IBIT samotného 55,5 mil. Solana ETF šly proti trendu (+10,3 mil., nejvíc od května).</p>
+          <p class="bimpact neg"><strong>Dopad:</strong> Přímou expozici nemáš, takže na portfolio to nemá vliv. Signální hodnota ale je: krypto a akcie se tento týden rozešly. Když rizikový apetit slábne v nejcitlivější třídě aktiv a akcie zároveň dělají rekord, vyplatí se to sledovat.</p>
         </div>
       </li>
       <li>
         <span class="bdot pos"></span>
         <div class="bcontent">
           <p class="bhead">Dolar zpět pod 21 Kč na 20,936 — mírně výhodnější vstup do EIMI, MSCI EM na maximech</p>
-          <p class="bbody">Kurzy ČNB k 14. 8.: euro 24,210 Kč (-0,23 % za týden), dolar 20,936 Kč (-0,49 %), libra 28,339 Kč (+0,17 %). Dolar tím klesl pod hranici 21 Kč; letošní minimum je ale 20,44 Kč (16. 2.) a maximum 21,43 Kč (14. 3.), takže jde o dolní polovinu pásma, ne o extrém. Souvisí to i s globálním obrázkem: index DXY oslabil zhruba o 8 % v roce 2025 a další pokles se čeká i letos, což je jeden z důvodů, proč MSCI EM prorazil maxima z roku 2021 a přes dvě třetiny jeho složek se obchoduje nad 200denním průměrem. Doma ČNB v srpnu ponechala repo sazbu na 3,75 % a česká inflace v červenci vzrostla na 1,7 % r/r z 1,5 %.</p>
-          <p class="bimpact pos"><strong>Dopad:</strong> EIMI je denominované v dolarech, takže slabší dolar zlevňuje samotný nákup a zároveň pomáhá EM aktivům jako třídě — dvojitý tailwind, který se v portfoliu projeví právě v té části, kterou drží jen EIMI a částečně VWRP. Všechny tři páry ale zůstávají v pásmu FAIR, takže to není důvod měnit váhy, jen kontext.</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">EUR/CZK</div><div class="bfv">24,210 <small>-0,23 %</small></div></div><div class="bfact"><div class="bfl">USD/CZK</div><div class="bfv pos">20,936 <small>-0,49 %</small></div></div><div class="bfact"><div class="bfl">GBP/CZK</div><div class="bfv">28,339 <small>+0,17 %</small></div></div><div class="bfact"><div class="bfl">ČNB repo</div><div class="bfv">3,75 %</div></div><div class="bfact"><div class="bfl">Inflace ČR</div><div class="bfv">1,7 % r/r</div></div></div>
+          <p class="bbody">Letošní minimum dolaru je 20,44 Kč (16. 2.) a maximum 21,43 Kč (14. 3.), takže 20,936 je dolní polovina pásma, ne extrém. Globálně index DXY oslabil v roce 2025 zhruba o 8 % a další pokles se čeká i letos — jeden z důvodů, proč MSCI EM prorazil maxima z roku 2021 a přes dvě třetiny jeho složek je nad 200denním průměrem. ČNB doma ponechala repo sazbu na 3,75 % a česká inflace v červenci stoupla na 1,7 % z 1,5 %.</p>
+          <p class="bimpact pos"><strong>Dopad:</strong> EIMI je denominované v dolarech, takže slabší dolar zlevňuje samotný nákup a zároveň pomáhá EM aktivům jako třídě. Všechny tři páry ale zůstávají v pásmu FAIR — kontext, ne důvod měnit váhy.</p>
         </div>
       </li>
       <li>
         <span class="bdot neu"></span>
         <div class="bcontent">
           <p class="bhead">Krypto regulace: SEC hlasovala o „Regulation Crypto“, CLARITY Act uvízl do 15. září</p>
-          <p class="bbody">SEC měla 14. 8. na programu hlasování o tom, zda pošle do veřejné konzultace návrh nazvaný Regulation Crypto — ten by vytvořil samostatný režim pro nabídku krypto aktiv podle Securities Actu a nahradil dosavadní roztříštěná stanoviska personálu trvalejšími pravidly. Zákon o struktuře trhu (Digital Asset Market Clarity Act) naopak neprošel před srpnovými prázdninami: procedurální hlasování z 8. 8. věc nepohnulo dál a plénum Senátu má o něm rozhodovat 15. 9. Návrh by dal CFTC výlučnou jurisdikci nad spotovými trhy „digitálních komodit“ a SEC ponechal investiční kontrakty.</p>
-          <p class="bimpact"><strong>Dopad:</strong> Bez přímé relevance pro tvých pět ETF. Nepřímo to je jedna z příčin odtoků z krypto ETF — dokud není jasné, kdo co reguluje, institucionální peníze čekají. Pro tebe je to argument pro to zůstat u širokých akciových indexů, kde tenhle typ nejistoty neexistuje.</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">SEC hlasování</div><div class="bfv">14. 8. 2026</div></div><div class="bfact"><div class="bfl">CLARITY Act</div><div class="bfv">plénum 15. 9.</div></div><div class="bfact"><div class="bfl">Jurisdikce</div><div class="bfv">CFTC vs. SEC</div></div></div>
+          <p class="bbody">SEC měla 14. 8. na programu rozhodnutí, zda pošle do veřejné konzultace návrh Regulation Crypto — samostatný režim pro nabídku krypto aktiv podle Securities Actu místo dosavadních roztříštěných stanovisek. Zákon o struktuře trhu neprošel před prázdninami: procedurální hlasování z 8. 8. věc nepohnulo a plénum Senátu o něm rozhodne 15. 9. Návrh by dal CFTC výlučnou jurisdikci nad spotovými trhy digitálních komodit.</p>
+          <p class="bimpact"><strong>Dopad:</strong> Pro tvých pět ETF bez přímé relevance. Nepřímo je to jedna z příčin odtoků z krypto ETF — dokud není jasné, kdo co reguluje, institucionální peníze čekají. U širokých akciových indexů tenhle typ nejistoty neexistuje.</p>
         </div>
       </li>
       <li>
         <span class="bdot pos"></span>
         <div class="bcontent">
           <p class="bhead">Evropské ETF překonaly 3 bil. EUR pod správou, v červenci přiteklo 47,3 mld. EUR</p>
-          <p class="bbody">Podle dat Morningstar nabraly evropské ETF a ETC v červenci 47,3 mld. EUR, což je nárůst z červnových 36,8 mld. a posouvá letošní přítok k téměř 266 mld. EUR — víc než celý předchozí rekordní rok. Objem majetku pod správou v evropském ETF průmyslu poprvé přesáhl 3 bil. EUR. Vedoucím poskytovatelem byl v červenci iShares s bezmála 15 mld. EUR, následovaný Xtrackers (7,3 mld.) a Vanguardem (7,0 mld.). Peníze mířily hlavně do AI témat a americké akciové expozice.</p>
-          <p class="bimpact pos"><strong>Dopad:</strong> Pro tvé fondy to znamená rostoucí likviditu a tlak na TER dolů — u velkých produktů jako CSPX (0,07 %), VUAA (0,07 %) a VWRP (0,22 %) je to dlouhodobě pozitivní. Zároveň je ale koncentrace toků do amerických akcií a AI přesně ten trend, ke kterému už tvé portfolio přiváženo je.</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">Červenec</div><div class="bfv pos">+47,3 mld. €</div></div><div class="bfact"><div class="bfl">Červen</div><div class="bfv">+36,8 mld. €</div></div><div class="bfact"><div class="bfl">Letos (YTD)</div><div class="bfv pos">~266 mld. €</div></div><div class="bfact"><div class="bfl">AUM celkem</div><div class="bfv">&gt; 3 bil. €</div></div><div class="bfact"><div class="bfl">iShares v 7/26</div><div class="bfv">~15 mld. €</div></div></div>
+          <p class="bbody">Data Morningstar: letošní přítok už překonal celý předchozí rekordní rok a majetek pod správou v evropském ETF průmyslu poprvé přesáhl 3 bil. EUR. Za iSharesem následoval Xtrackers (7,3 mld.) a Vanguard (7,0 mld.). Peníze mířily hlavně do AI témat a americké akciové expozice.</p>
+          <p class="bimpact pos"><strong>Dopad:</strong> Rostoucí likvidita a tlak na TER dolů je pro velké fondy jako CSPX (0,07 %), VUAA (0,07 %) a VWRP (0,22 %) dlouhodobě dobrá zpráva. Koncentrace toků do amerických akcií a AI je zároveň přesně ten trend, ke kterému už tvé portfolio přiváženo je.</p>
         </div>
       </li>
     </ul>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="clanky">
   <div class="sec-head"><h2>Články týdne</h2><span class="lead">Kurátorský výběr · 17. 8. 2026</span></div>
   <div class="reads">
     <a class="read" href="https://www.cnbc.com/2026/08/12/cpi-inflation-report-july-2026.html" target="_blank" rel="noopener">
       <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">CNBC</span><span class="rtype gl">Makro</span></div><p class="rtitle">CPI inflation report July 2026: prices rose 0.1 %, annual rate 3.4 %</p><p class="rsum">Primární čtení k nejdůležitějšímu číslu týdne: meziměsíčně +0,1 %, meziročně 3,4 %, jádrová 2,5 % — nejníž od března 2021. Přečti si rozpad po položkách, než uděláš závěr o sazbách.</p><div class="rmeta">6 min · 12. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">CNBC</span><span class="rtype gl">Makro</span></div><p class="rtitle">CPI inflation report July 2026: prices rose 0.1 %, annual rate 3.4 %</p><p class="rsum">Primární čtení k číslu týdne: meziměsíčně +0,1 %, meziročně 3,4 %, jádrová 2,5 % — a rozpad po jednotlivých položkách.</p><div class="rmeta">6 min · 12. 8. 2026</div></div>
     </a>
     <a class="read" href="https://www.investicniweb.cz/aktuality/327459-americke-akcie-13-srpna-2026" target="_blank" rel="noopener">
       <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">Wall Street ve čtvrtek rostla a S&amp;P 500 je na rekordu. Tenhle graf je hřebíček do rakve pesimistů</p><p class="rsum">Den, kdy index poprvé zavřel nad 7 800 (7 798,99). České rozebrání toho, co rally táhlo, plus data k PPI, který ve čtvrtek meziměsíčně stagnoval na 0,0 %.</p><div class="rmeta">5 min · 13. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">Wall Street ve čtvrtek rostla a S&amp;P 500 je na rekordu. Tenhle graf je hřebíček do rakve pesimistů</p><p class="rsum">Den, kdy index poprvé zavřel nad 7 800, plus data k PPI, který meziměsíčně vůbec nevzrostl.</p><div class="rmeta">5 min · 13. 8. 2026</div></div>
     </a>
     <a class="read" href="https://www.investicniweb.cz/aktuality/327460-americke-akcie-14-srpna-2026" target="_blank" rel="noopener">
       <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">S&amp;P 500 prodloužil růstovou sérii na tři týdny. Letos může padnout meta 8 100, věří investor</p><p class="rsum">Uzávěrka týdne na 7 785,76 a přehled cílů: Thomas Lee (Fundstrat) vidí 7 900–8 000 už během srpna, šéf Infrastructure Capital Advisors mluví o 8 100. Ber jako mapu očekávání, ne jako predikci.</p><div class="rmeta">5 min · 14. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">S&amp;P 500 prodloužil růstovou sérii na tři týdny. Letos může padnout meta 8 100, věří investor</p><p class="rsum">Uzávěrka týdne na 7 785,76 a cíle analytiků: Tom Lee 7 900–8 000 během srpna, Infrastructure Capital Advisors 8 100.</p><div class="rmeta">5 min · 14. 8. 2026</div></div>
     </a>
     <a class="read" href="https://www.investicniweb.cz/akcie/327696-technicka-analyza-sp-500-vix-14-8-2026" target="_blank" rel="noopener">
       <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Technika</span></div><p class="rtitle">Týden v grafech: Americký index S&amp;P 500 je na rekordu. Znamená nízká volatilita hrozbu?</p><p class="rsum">Nejužitečnější otázka týdne — nízký VIX při rekordu se často čte jako sebeuspokojení trhu. Grafický pohled na to, jak potvrzený průlom nad 7 800 vlastně je.</p><div class="rmeta">6 min · 14. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Technika</span></div><p class="rtitle">Týden v grafech: Americký index S&amp;P 500 je na rekordu. Znamená nízká volatilita hrozbu?</p><p class="rsum">Otázka, kterou stojí za to si položit: co znamená nízký VIX při rekordu a jak potvrzený je průlom nad 7 800.</p><div class="rmeta">6 min · 14. 8. 2026</div></div>
     </a>
     <a class="read" href="https://www.investicniweb.cz/akcie/327404-zadne-fomo-ale-femo-zamiri-sp-500-k-8-000-jeste-v-lete" target="_blank" rel="noopener">
       <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Analýza</span></div><p class="rtitle">FEMO namísto FOMO, Fed v pasti a technická síla: Zamíří index S&amp;P 500 k 8 000 ještě v létě?</p><p class="rsum">Protiváha k euforii: proč je Fed mezi zpomalující inflací a slabým trhem práce v nezáviděníhodné pozici a co to znamená pro další čtvrtletí. Relevantní hlavně pro EQQQ.</p><div class="rmeta">8 min · srpen 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Analýza</span></div><p class="rtitle">FEMO namísto FOMO, Fed v pasti a technická síla: Zamíří index S&amp;P 500 k 8 000 ještě v létě?</p><p class="rsum">Proč je Fed mezi zpomalující inflací a slabým trhem práce v nezáviděníhodné pozici — a co z toho plyne pro EQQQ.</p><div class="rmeta">8 min · srpen 2026</div></div>
     </a>
     <a class="read" href="https://www.coindesk.com/markets/2026/08/14/bitcoin-slips-as-u-s-inflation-fails-to-spark-gains-etfs-see-august-s-first-two-day-drawdown" target="_blank" rel="noopener">
       <div class="rthumb cr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9zm0 5h5a2.5 2.5 0 0 1 0 5H9zm2-9v2m2-2v2m-2 12v2m2-2v2"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">CoinDesk</span><span class="rtype cr">Krypto</span></div><p class="rtitle">Bitcoin slips as U.S. inflation fails to spark gains, ETFs see August's first two-day drawdown</p><p class="rsum">BTC $62 570 (-1,3 % v pátek, -3,7 % za týden), pod 200týdenním průměrem. Za týden 389,7 mil. USD odtoku z US spot ETF — nejvíc za šest týdnů. Zajímavé jako signál rizikového apetitu.</p><div class="rmeta">5 min · 14. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">CoinDesk</span><span class="rtype cr">Krypto</span></div><p class="rtitle">Bitcoin slips as U.S. inflation fails to spark gains, ETFs see August's first two-day drawdown</p><p class="rsum">BTC $62 570 pod 200týdenním průměrem a 389,7 mil. USD odtoku z US spot ETF za jediný týden.</p><div class="rmeta">5 min · 14. 8. 2026</div></div>
     </a>
     <a class="read" href="https://www.coindesk.com/policy/2026/08/08/u-s-senate-opens-first-stage-of-crypto-clarity-act-voting-to-give-bill-a-chance-next-month" target="_blank" rel="noopener">
       <div class="rthumb cr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7h18M6 7l-3 7h6zM18 7l-3 7h6z"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">CoinDesk</span><span class="rtype cr">Regulace</span></div><p class="rtitle">U.S. Senate opens first stage of crypto CLARITY Act voting to give bill a chance next month</p><p class="rsum">Kde přesně zákon o struktuře krypto trhu uvízl a proč se plénum Senátu vrací k věci až 15. 9. Podstatná část vysvětlení, proč institucionální peníze z krypta zatím odtékají.</p><div class="rmeta">6 min · 8. 8. 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">CoinDesk</span><span class="rtype cr">Regulace</span></div><p class="rtitle">U.S. Senate opens first stage of crypto CLARITY Act voting to give bill a chance next month</p><p class="rsum">Kde přesně zákon o struktuře krypto trhu uvízl a proč se Senát vrací k věci až 15. 9.</p><div class="rmeta">6 min · 8. 8. 2026</div></div>
     </a>
     <a class="read" href="https://funds-europe.com/european-etf-flows-climb-to-e266bn-ytd-as-investors-double-down-on-ai-and-us-equity-exposure/" target="_blank" rel="noopener">
       <div class="rthumb etf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h4l3-10 4 14 3-8h4"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Funds Europe</span><span class="rtype etf">ETF</span></div><p class="rtitle">European ETP flows climb to €266bn YTD as investors double down on AI and US equity exposure</p><p class="rsum">Červenec 47,3 mld. EUR (z 36,8 mld. v červnu), AUM poprvé nad 3 bil. EUR, iShares vedoucí s ~15 mld. Zároveň data o tom, jak koncentrovaně peníze míří do US akcií a AI.</p><div class="rmeta">6 min · srpen 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Funds Europe</span><span class="rtype etf">ETF</span></div><p class="rtitle">European ETP flows climb to €266bn YTD as investors double down on AI and US equity exposure</p><p class="rsum">Červenec 47,3 mld. EUR, AUM poprvé nad 3 bil. EUR — a jak koncentrovaně peníze míří do US akcií a AI.</p><div class="rmeta">6 min · srpen 2026</div></div>
     </a>
     <a class="read" href="https://www.kavout.com/market-lens/why-are-emerging-markets-suddenly-soaring" target="_blank" rel="noopener">
       <div class="rthumb etf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div>
-      <div class="rbody"><div class="rsource-row"><span class="rsrc">Kavout</span><span class="rtype etf">EM / EIMI</span></div><p class="rtitle">Why are emerging markets suddenly soaring</p><p class="rsum">Nejrelevantnější čtení k EIMI: MSCI EM prorazil maxima z 2021, přes dvě třetiny složek nad 200denním průměrem, hlavní tahouny jsou slabý dolar, AI capex a zrychlující zisky.</p><div class="rmeta">7 min · srpen 2026</div></div>
+      <div class="rbody"><div class="rsource-row"><span class="rsrc">Kavout</span><span class="rtype etf">EM / EIMI</span></div><p class="rtitle">Why are emerging markets suddenly soaring</p><p class="rsum">K EIMI: MSCI EM prorazil maxima z 2021, tahouny jsou slabý dolar, AI capex a zrychlující zisky.</p><div class="rmeta">7 min · srpen 2026</div></div>
     </a>
   </div>
 </section>
