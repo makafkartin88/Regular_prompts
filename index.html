@@ -2,531 +2,286 @@
 {
   "name": "Finance Briefing",
   "schemaVersion": 1,
-  "description": "Týdenní finanční briefing Martina: forex, BTC, indexy s horizonty 1T/1M/YTD/1R, alokace 10 000 Kč do 5 ETF, briefing, Grahamovo sítko, články, Polymarket. Postranní obsah a vysvětlivky zkratek."
+  "description": "Týdenní finanční briefing Martina: shrnutí týdne, nákup 10 000 Kč, trhy s horizonty 1T/1M/YTD/1R, Grahamův shortlist, briefing, Polymarket, články a fondy."
 }
 </script>
 <html lang="cs">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<meta name="theme-color" content="#f7f6f3"/>
-<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#f4f6f8"/>
 <title>Finanční briefing — týden 42</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"/>
 <style>
-:root {
-  --bg: #f7f6f3; --bg2: #ecebe5;
-  --card: #fff; --ink: #0a0a0a; --ink2: #404040; --ink3: #737373; --ink4: #a3a3a3;
-  --border: #e7e5e0; --border2: #d4d4d4;
-  --accent: #4f46e5; --accent2: #7c3aed;
-  --pos: #047857; --pos-bg: #ecfdf5;
-  --neg: #be123c; --neg-bg: #fff1f2;
-  --warn: #b45309; --warn-bg: #fffbeb;
-  --r: 14px; --rs: 8px;
-  --sh: 0 1px 3px rgba(10,10,10,.05);
-  --shm: 0 4px 14px -2px rgba(10,10,10,.08), 0 2px 4px rgba(10,10,10,.04);
-  --sans: -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
-  --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  --serif: "Iowan Old Style","Apple Garamond",Baskerville,Georgia,serif;
-  --safe-l: env(safe-area-inset-left, 0px);
-  --safe-r: env(safe-area-inset-right, 0px);
-  --safe-b: env(safe-area-inset-bottom, 0px);
+/* Layout: jeden sloupec pro čtení (max 1080 px), lepkavá lišta sekcí, karty jen tam, kde jde o samostatný objekt (trhy, akcie, fondy). */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --sunk:#eceff3;
+  --ink:#141a22; --ink2:#3d4752; --ink3:#66717d; --line:#dde2e8; --line2:#c7ced6;
+  --accent:#1f4fa3; --accent-soft:#e3ebf8;
+  --pos:#0d7a4c; --pos-soft:#e2f3ea; --neg:#b42330; --neg-soft:#fbe7e8; --warn:#9a5a00; --warn-soft:#fbf0dc;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Public Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:12px; --gut:16px;
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1318; --surface:#171c23; --sunk:#1d242c;
+  --ink:#e8edf2; --ink2:#c0c8d1; --ink3:#8d98a4; --line:#28313b; --line2:#36414d;
+  --accent:#7aa5ee; --accent-soft:#1c2a40;
+  --pos:#4cc48b; --pos-soft:#14291f; --neg:#f07b84; --neg-soft:#331a1d; --warn:#e3a94d; --warn-soft:#2f2412;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1318; --surface:#171c23; --sunk:#1d242c;
+  --ink:#e8edf2; --ink2:#c0c8d1; --ink3:#8d98a4; --line:#28313b; --line2:#36414d;
+  --accent:#7aa5ee; --accent-soft:#1c2a40;
+  --pos:#4cc48b; --pos-soft:#14291f; --neg:#f07b84; --neg-soft:#331a1d; --warn:#e3a94d; --warn-soft:#2f2412;
+  color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden}
-/* body must not become its own scroll container, otherwise sticky TOC and chip bar stop sticking */
 body{overflow-x:clip}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
-body{font-family:var(--sans);background:radial-gradient(1000px 500px at 100% -5%,rgba(124,58,237,.07),transparent 55%),radial-gradient(800px 400px at -5% 5%,rgba(79,70,229,.05),transparent 50%),linear-gradient(180deg,var(--bg2) 0%,var(--bg) 220px);background-attachment:fixed;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1280px;margin:0 auto;padding:28px 24px 64px}
-.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.hero h1{margin:0;font-family:var(--serif);font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:32px calc(var(--gut) + var(--safe-r)) calc(56px + var(--safe-b)) calc(var(--gut) + var(--safe-l))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+.num,.mono{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.label{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.up{color:var(--pos)} .down{color:var(--neg)}
+
+/* ---------- hero ---------- */
+.hero{display:grid;gap:22px;padding-block:8px 28px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em}
+.pill.live{background:var(--accent);color:var(--surface)}
+.pill.muted{background:var(--sunk);color:var(--ink2)}
+.hero h1{font-size:clamp(34px,6vw,54px);line-height:1.02}
 .hero .sub{margin:8px 0 0;color:var(--ink3);font-size:15px}
-.meta-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
-.pill.live{background:rgba(79,70,229,.09);color:var(--accent)}
-.pill.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
-.pill.muted{background:#f0efe9;color:var(--ink2)}
-.section{margin-top:40px}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.sec-head h2{margin:0;font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:-.01em}
-.sec-head .lead{color:var(--ink3);font-size:13.5px}
-.g{display:grid;gap:13px}
-.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
-.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.span2{grid-column:span 2}
-@media(max-width:1000px){.g3,.g5,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:1fr}.span2{grid-column:auto}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
-.card:hover{box-shadow:var(--shm)}
-.mcard{position:relative;overflow:hidden}
-.mcard .mlabel{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-.mcard .mlt{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
-.mcard .msrc{font-size:10px;color:var(--ink4);font-family:var(--mono);text-align:right}
-.mcard .val{font-family:var(--mono);font-size:28px;font-weight:600;letter-spacing:-.015em;line-height:1}
-.mcard .sub{display:flex;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap}
-.mcard .ctx{font-size:12px;color:var(--ink3)}
-.mcard .sp{margin-top:12px;height:32px;display:block;width:100%}
-.mcard .fxsig{position:absolute;bottom:14px;right:16px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
-.fxsig.cheap{background:var(--pos-bg);color:var(--pos)}
-.fxsig.fair{background:#f0efe9;color:var(--ink3)}
-.fxsig.pricey{background:var(--neg-bg);color:var(--neg)}
-.delta{display:inline-flex;align-items:center;gap:2px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;font-family:var(--mono)}
-.delta.up{background:var(--pos-bg);color:var(--pos)}
-.delta.down{background:var(--neg-bg);color:var(--neg)}
-.delta.flat{background:#f0efe9;color:var(--ink2)}
-.delta::before{content:"";width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent}
-.delta.up::before{border-bottom:5px solid currentColor}
-.delta.down::before{border-top:5px solid currentColor}
-.delta.flat::before{border:none;width:7px;height:1.5px;background:currentColor;border-radius:1px}
-.comment-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-.comment-sentiment{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(79,70,229,.04),transparent);flex-wrap:wrap}
-.sent-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.sent-dot.bull{background:var(--pos)}
-.sent-dot.bear{background:var(--neg)}
-.sent-dot.neut{background:#f59e0b}
-.sent-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.sent-label.bear{color:var(--neg)}
-.sent-label.bull{color:var(--pos)}
-.sent-label.neut{color:#b45309}
-.sent-title{font-size:15px;font-weight:600;color:var(--ink);margin-left:4px;flex:1 1 100%}
-.comment-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.czone{padding:20px 22px;border-right:1px solid var(--border)}
-.czone:last-child{border-right:none}
-.czone-title{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink4);margin:0 0 12px;display:flex;align-items:center;gap:6px}
-.czone-title svg{width:13px;height:13px;opacity:.7;flex-shrink:0}
-.czone ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
-.czone li strong{color:var(--ink)}
-.akce-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#fafaf7;border-radius:var(--rs);border-left:2.5px solid var(--accent);margin-bottom:8px;font-size:13.5px;line-height:1.5}
-.akce-item:last-child{margin-bottom:0}
-.akce-item .arrow{color:var(--accent);font-weight:700;flex-shrink:0}
-.fund-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
-.fund-card:hover{box-shadow:var(--shm);transform:translateY(-1px)}
-.fund-header{padding:18px 18px 14px;position:relative}
-.fund-ticker{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:-.01em;color:#fff;margin:0 0 2px}
-.fund-name{font-size:11.5px;color:rgba(255,255,255,.8);line-height:1.3;margin:0}
-.fund-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.fund-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.03em;text-transform:uppercase;background:rgba(255,255,255,.18);color:#fff}
-.fund-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:10px}
-.fund-desc{font-size:13px;color:var(--ink2);line-height:1.5;margin:0}
-.fund-holdings-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink4);margin-bottom:6px}
-.fund-chips{display:flex;flex-wrap:wrap;gap:5px}
-.chip{font-size:11px;font-family:var(--mono);font-weight:600;padding:2px 7px;border-radius:5px;background:#f5f4f0;color:var(--ink2);letter-spacing:.01em}
-.fund-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
-.fund-meta-item{font-size:11px;color:var(--ink4);font-family:var(--mono)}
-.fund-meta-item span{color:var(--ink2);font-weight:600}
-.fh-sp500eur{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
-.fh-em{background:linear-gradient(135deg,#b45309,#f59e0b)}
-.fh-nasdaq{background:linear-gradient(135deg,#6d28d9,#a78bfa)}
-.fh-sp500gbp{background:linear-gradient(135deg,#065f46,#10b981)}
-.fh-world{background:linear-gradient(135deg,#0f766e,#2dd4bf)}
-.alloc-table{width:100%;border-collapse:collapse;font-size:14px}
-.alloc-table th{text-align:left;padding:9px 10px 8px;font-size:10.5px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
-.alloc-table th.r{text-align:right}
-.alloc-table td{padding:11px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
-.alloc-table tr:last-child td{border-bottom:none}
-.alloc-table .sym{font-family:var(--mono);font-weight:700;font-size:13.5px;letter-spacing:.02em}
-.alloc-table .logic{font-size:12.5px;color:var(--ink2)}
-.alloc-table .pct{text-align:right;font-family:var(--mono);font-weight:700}
-.alloc-table .kc{text-align:right;font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--ink)}
-.bar-wrap{height:5px;background:#efeee9;border-radius:6px;overflow:hidden;margin-top:7px;width:100%;max-width:180px}
-.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.blist{list-style:none;margin:0;padding:0}
-.blist>li{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start}
-.blist>li:last-child{border-bottom:none}
-.bdot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px}
-.bdot.pos{background:var(--pos);box-shadow:0 0 0 4px var(--pos-bg)}
-.bdot.neg{background:var(--neg);box-shadow:0 0 0 4px var(--neg-bg)}
-.bdot.neu{background:var(--ink4);box-shadow:0 0 0 4px #f0efe9}
-.bcontent{flex:1;min-width:0}
-.bhead{font-weight:600;font-size:14.5px;color:var(--ink);margin:0 0 4px;line-height:1.4}
-.bbody{margin:0;font-size:13px;color:var(--ink2);line-height:1.55}
-.bimpact{font-size:12.5px;color:var(--ink2);margin:7px 0 0;padding:8px 12px;background:#fafaf7;border-radius:var(--rs);border-left:2px solid var(--border2)}
-.bimpact.pos{border-left-color:var(--pos)}
-.bimpact.neg{border-left-color:var(--neg)}
-.pm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-@media(max-width:900px){.pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.pm-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:10px}
-.pm-card:hover{box-shadow:var(--shm)}
-.pm-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.pm-q{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35;flex:1}
-.pm-cat{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:4px;flex-shrink:0;white-space:nowrap;margin-top:1px}
-.pm-cat.macro{background:#dbeafe;color:#1e3a8a}
-.pm-cat.equity{background:#d1fae5;color:#065f46}
-.pm-cat.crypto{background:#fed7aa;color:#9a3412}
-.pm-cat.fx{background:#ede9fe;color:#5b21b6}
-.pm-bar-wrap{height:8px;background:#f0efe9;border-radius:999px;overflow:hidden}
-.pm-bar-fill{height:100%;border-radius:999px;transition:width .4s}
-.pm-bar-fill.bull{background:linear-gradient(90deg,var(--pos),#34d399)}
-.pm-bar-fill.bear{background:linear-gradient(90deg,var(--neg),#f87171)}
-.pm-bar-fill.neut{background:linear-gradient(90deg,#f59e0b,#fcd34d)}
-.pm-numbers{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.pm-pct{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1}
-.pm-pct.bull{color:var(--pos)}
-.pm-pct.bear{color:var(--neg)}
-.pm-pct.neut{color:#b45309}
-.pm-label{font-size:11.5px;color:var(--ink3)}
-.pm-vol{font-size:10.5px;color:var(--ink4);font-family:var(--mono);text-align:right;flex-shrink:0}
-.pm-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px dashed var(--border)}
-.pm-src{font-size:10px;color:var(--ink4);font-family:var(--mono)}
-.pm-link{font-size:10.5px;font-weight:600;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px;min-height:24px}
-.pm-link:hover{text-decoration:underline}
-.pm-impact{font-size:12px;color:var(--ink3);line-height:1.45;padding:7px 10px;background:#fafaf7;border-radius:var(--rs);border-left:2px solid var(--border2)}
-.reads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-@media(max-width:900px){.reads{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.read{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--sh);transition:transform .18s,box-shadow .18s}
-.read:hover{transform:translateY(-2px);box-shadow:var(--shm)}
-.rthumb{height:100px;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
-.rthumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 28%,rgba(255,255,255,.22),transparent 55%)}
-.rthumb svg{width:40px;height:40px;color:#fff;opacity:.9;position:relative;z-index:1}
-.rthumb.cz{background:linear-gradient(135deg,#1e3a8a,#3b82f6)}
-.rthumb.gl{background:linear-gradient(135deg,#065f46,#10b981)}
-.rthumb.yt{background:linear-gradient(135deg,#991b1b,#ef4444)}
-.rthumb.cr{background:linear-gradient(135deg,#9a3412,#fb923c)}
-.rthumb.etf{background:linear-gradient(135deg,#4c1d95,#a855f7)}
-.rbody{padding:12px 14px 14px;display:flex;flex-direction:column;gap:7px;flex:1;min-width:0}
-.rsource-row{display:flex;align-items:center;justify-content:space-between;gap:5px}
-.rsrc{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink4);font-family:var(--mono)}
-.rtype{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.rtype.cz{background:#dbeafe;color:#1e3a8a}
-.rtype.gl{background:#ccfbf1;color:#065f46}
-.rtype.cr{background:#fed7aa;color:#9a3412}
-.rtype.etf{background:#ede9fe;color:#5b21b6}
-.rtype.yt{background:#fee2e2;color:#991b1b}
-.rtitle{font-size:14px;font-weight:600;line-height:1.35;color:var(--ink);margin:0}
-.rsum{font-size:12.5px;color:var(--ink2);line-height:1.5;margin:0}
-.rmeta{margin-top:auto;padding-top:7px;font-size:10.5px;color:var(--ink4);font-family:var(--mono);border-top:1px dashed var(--border)}
-.footer{margin-top:36px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--ink3);line-height:1.6}
-.footer strong{color:var(--ink)}
-.fsrc{margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--ink4);word-break:break-word}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.kpi{background:var(--surface);padding:14px 16px;min-width:0}
+.kpi .v{font-family:var(--f-data);font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .d{font-family:var(--f-data);font-size:13px;font-weight:600}
 
-/* ---------- readability layer ---------- */
-.tldr{margin:0 0 34px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shm);overflow:hidden}
-.tldr-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 22px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(79,70,229,.06),rgba(124,58,237,.02))}
-.tldr-head h2{margin:0;font-family:var(--serif);font-size:17px;font-weight:700}
-.tldr-head .tldr-when{font-size:11px;font-family:var(--mono);color:var(--ink4)}
-.tldr-row{display:flex;gap:16px;align-items:flex-start;padding:15px 22px;border-bottom:1px solid var(--border)}
-.tldr-row:last-child{border-bottom:none}
-.tldr-tag{flex-shrink:0;width:88px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 0;color:var(--ink4)}
-.tldr-tag span{display:inline-block;padding:3px 9px;border-radius:999px}
-.tldr-tag.t1 span{background:#dbeafe;color:#1e3a8a}
-.tldr-tag.t2 span{background:#d1fae5;color:#065f46}
-.tldr-tag.t3 span{background:#ede9fe;color:#5b21b6}
-.tldr-tag.t4 span{background:#fef3c7;color:#92400e}
-.tldr-row p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink);max-width:82ch}
-.tldr-row p b{font-weight:700}
+/* ---------- nav ---------- */
+.navchips{position:sticky;top:0;z-index:40;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--gut));padding:10px var(--gut);background:var(--bg);border-bottom:1px solid var(--line)}
+.navchips::-webkit-scrollbar{display:none}
+.navchip{flex-shrink:0;display:inline-flex;align-items:center;min-height:36px;padding:6px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink2);text-decoration:none;border:1px solid transparent}
+.navchip:hover{background:var(--sunk)}
+.navchip.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft)}
+.navchip:focus-visible,.tk:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.navchips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 34px}
-.navchip{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:var(--ink2);text-decoration:none;transition:all .15s;display:inline-flex;align-items:center}
-.navchip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
-.navchip.active{border-color:var(--accent);color:var(--accent);background:#eef0ff}
-
-.mcard .ctx{font-size:12px;color:var(--ink3);line-height:1.45}
-.mnote{margin-top:11px;padding-top:10px;border-top:1px dashed var(--border);font-size:11.5px;color:var(--ink3);line-height:1.5}
-.mcard .sp{margin-top:11px}
-
-.czone ul{gap:11px}
-
-.pm-verdict{font-size:13px;font-weight:600;color:var(--ink);line-height:1.5;margin:0}
-.pmfacts{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
-.pmfacts li b{color:var(--ink);font-weight:700}
-
-.blist>li{padding:20px 22px;gap:15px}
-.bhead{font-size:15px;line-height:1.4;margin:0 0 11px}
-.bfacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px;margin:0 0 13px}
-.bfact{background:#fafaf7;border:1px solid var(--border);border-radius:var(--rs);padding:9px 11px;min-width:0}
-.bfl{font-size:9.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;color:var(--ink4);line-height:1.3}
-.bfv{font-family:var(--mono);font-size:14.5px;font-weight:700;margin-top:3px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bfv.pos{color:var(--pos)}
-.bfv.neg{color:var(--neg)}
-.bfv small{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink3);letter-spacing:0;white-space:normal}
-.bbody{font-size:13.5px;line-height:1.65;max-width:76ch}
-.bimpact{margin-top:11px;padding:10px 13px;font-size:12.5px;line-height:1.6}
-
-.rsum{font-size:12.5px;line-height:1.55}
-.rtitle{font-size:13.5px;line-height:1.4}
-
-.alloc-table .logic{font-size:12px;line-height:1.5}
-.sec-head{margin-bottom:18px}
-.section{margin-top:46px;scroll-margin-top:24px}
-
-/* ---------- inline-flow fixes (strong/b must not become a flex column) ---------- */
-.czone li{display:block;position:relative;padding-left:15px;font-size:13px;line-height:1.55;color:var(--ink2)}
-.czone li::before{position:absolute;left:0;top:0;margin-top:0;content:"\2022";color:var(--accent);font-weight:900}
-.pmfacts li{display:block;position:relative;padding-left:13px;font-size:12px;color:var(--ink2);line-height:1.5}
-.pmfacts li::before{position:absolute;left:0;top:.55em;width:4px;height:4px;border-radius:50%;background:var(--border2);content:""}
-.delta{gap:5px}
-
-.alloc-table .pct,.alloc-table .kc{white-space:nowrap}
-
-/* ---------- time horizons (1T / 1M / YTD / 1R) ---------- */
-.hz-legend{margin:0 0 12px;font-size:11.5px;color:var(--ink3);line-height:1.5}
-.hz-legend b{color:var(--ink2);font-family:var(--mono)}
-.hz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:11px;padding-top:9px;border-top:1px dashed var(--border)}
-.hz span{display:flex;flex-direction:column;gap:1px;min-width:0}
-.hz i{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.05em;color:var(--ink4);text-transform:uppercase}
-.hz b{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink2)}
-.hz b.up{color:var(--pos)}
-.hz b.down{color:var(--neg)}
-
-/* ---------- side table of contents (desktop) ---------- */
-.layout{display:block}
-.toc{display:none}
-.toc-title{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink4);margin:0 0 10px 14px}
-.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--border)}
-.toc a{display:flex;align-items:center;gap:9px;min-height:36px;padding:6px 12px;margin-left:-1px;border-left:2px solid transparent;border-radius:0 8px 8px 0;font-size:13px;font-weight:600;color:var(--ink3);text-decoration:none;transition:color .15s,background .15s}
-.toc a:hover{color:var(--ink);background:rgba(255,255,255,.7)}
-.toc a.active{color:var(--accent);border-left-color:var(--accent);background:#eef0ff}
-.toc a small{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--ink4);width:16px;flex-shrink:0}
-.toc a.active small{color:var(--accent)}
-.toc-meta{margin:16px 0 0 14px;font-size:11px;font-family:var(--mono);color:var(--ink4);line-height:1.55}
-@media(min-width:1100px){
-  .wrap{max-width:1440px}
-  .layout{display:grid;grid-template-columns:184px minmax(0,1fr);gap:36px;align-items:start}
-  .toc{display:block;position:sticky;top:24px;max-height:calc(100vh - 48px);overflow-y:auto}
-  .navchips{display:none}
-}
-@media(min-width:721px) and (max-width:1099px){
-  .navchips{position:sticky;top:0;z-index:40;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:9px 0;margin-bottom:24px;background:rgba(247,246,243,.96);border-bottom:1px solid var(--border)}
-  .navchips::-webkit-scrollbar{display:none}
-  .navchip{flex-shrink:0;min-height:36px}
-  .section{scroll-margin-top:64px}
-}
-
-/* ---------- glossary tooltips ---------- */
-.tk{border-bottom:1px dotted currentColor;cursor:help}
-.tk:focus{outline:2px solid var(--accent);outline-offset:1px;border-radius:2px}
-#tip{position:fixed;left:0;top:0;z-index:100;max-width:290px;padding:10px 12px;background:#141414;color:#f5f5f5;font:500 12.5px/1.5 var(--sans);letter-spacing:0;text-transform:none;white-space:normal;text-align:left;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s}
-#tip.show{opacity:1;visibility:visible}
-#tip b{display:block;margin-bottom:3px;color:#c7d2fe;font-family:var(--mono);font-size:12px}
-
-/* ---------- Graham screen ---------- */
-.gr-intro{margin:0 0 14px;font-size:13px;color:var(--ink2);line-height:1.6;max-width:92ch}
-.gr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-@media(max-width:900px){.gr-grid{grid-template-columns:1fr}}
-.gr-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-.gr-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 18px 12px}
-.gr-tk{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1.1}
-.gr-name{margin-top:3px;font-size:12.5px;color:var(--ink3)}
-.gr-drop{display:inline-block;margin-top:8px;padding:2px 8px;border-radius:999px;background:var(--neg-bg);color:var(--neg);font-family:var(--mono);font-size:11px;font-weight:700}
-.gr-score{flex-shrink:0;text-align:right}
-.gr-score b{font-family:var(--mono);font-size:28px;font-weight:700;line-height:1}
-.gr-score b small{font-size:15px;color:var(--ink4)}
-.gr-score span{display:block;margin-top:4px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4)}
-.gr-bar{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:0 18px}
-.gr-bar i{height:6px;border-radius:3px;background:#fde4e8}
-.gr-bar i.ok{background:var(--pos)}
-.gr-type{margin:12px 18px 0;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--warn)}
-.gr-sub{margin:14px 18px 0;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4)}
-.gr-list{list-style:none;margin:4px 0 0;padding:0 18px}
-.gr-list li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--border);font-size:12.5px;line-height:1.4;color:var(--ink2)}
-.gr-list li:last-child{border-bottom:none}
-.gr-list .m{font-weight:800;text-align:center}
-.gr-list li.ok .m{color:var(--pos)}
-.gr-list li.no .m{color:var(--neg)}
-.gr-list li.na .m{color:var(--ink4)}
-.gr-list .v{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap}
-.gr-list .v small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink4)}
-.gr-verdict{margin:12px 18px 18px;padding:10px 12px;background:#fafaf7;border-left:2px solid var(--border2);border-radius:var(--rs);font-size:12.5px;line-height:1.6;color:var(--ink2)}
-.gr-verdict.neg{border-left-color:var(--neg)}
-.gr-empty{padding:22px;text-align:center;background:var(--card);border:1px dashed var(--border2);border-radius:var(--r);color:var(--ink3);font-size:13.5px;line-height:1.6}
-.gr-empty b{display:block;margin-bottom:4px;font-family:var(--serif);font-size:16px;color:var(--ink)}
-
-/* ============================================================
-   COLLAPSIBLE SECTIONS
-   Desktop: summary is inert, everything stays open.
-   Mobile: summary becomes a tappable header with a chevron.
-   ============================================================ */
+/* ---------- sections ---------- */
+.section{margin-top:52px;scroll-margin-top:70px}
 details.sec{margin:0}
 details.sec>summary{list-style:none;cursor:default;pointer-events:none}
 details.sec>summary::-webkit-details-marker{display:none}
 details.sec>summary::marker{content:""}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:18px}
+.sec-head h2{font-size:28px;line-height:1.15}
+.sec-head .lead{color:var(--ink3);font-size:14.5px;flex:1 1 280px}
 .chev{display:none}
+.prose{max-width:68ch;color:var(--ink2)}
 
-/* ============================================================
-   MOBILE LAYER  (<= 720px)
-   ============================================================ */
+/* ---------- týden ve zkratce ---------- */
+.week{display:grid;gap:0;border-top:1px solid var(--line)}
+.week-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+.week-row .label{padding-top:3px}
+.week-row p{margin:0;max-width:72ch;font-size:16.5px;line-height:1.6}
+.week-row b{font-weight:700}
+
+/* ---------- akce ---------- */
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:20px}
+.plan h3{font-size:24px}
+.plan .why{margin:6px 0 0;color:var(--ink2);max-width:66ch}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px}
+.stack span{display:block;height:100%}
+.alloc{width:100%;border-collapse:collapse;font-size:15px}
+.alloc td{padding:11px 8px;border-top:1px solid var(--line);vertical-align:top}
+.alloc .sym{font-family:var(--f-data);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.alloc .sym i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.alloc .logic{color:var(--ink2)}
+.alloc .pct,.alloc .kc{font-family:var(--f-data);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.alloc .kc{font-weight:600}
+.notes{display:grid;gap:10px}
+.note{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:12px 14px;border-radius:10px;background:var(--sunk);font-size:15px;color:var(--ink2)}
+.note .tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;height:fit-content}
+.tag.warn{background:var(--warn-soft);color:var(--warn)} .tag.info{background:var(--accent-soft);color:var(--accent)}
+
+/* ---------- trhy ---------- */
+.hz-legend{margin:0 0 14px;font-size:13.5px;color:var(--ink3)}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.mcard{display:grid;gap:8px;position:relative}
+.mlabel{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.mlt{font-weight:700;font-size:14px}
+.msrc{font-family:var(--f-data);font-size:11px;color:var(--ink3)}
+.mrow{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.val{font-family:var(--f-data);font-size:28px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.delta{font-family:var(--f-data);font-size:13px;font-weight:600;padding:2px 8px;border-radius:999px}
+.delta.up{background:var(--pos-soft)} .delta.down{background:var(--neg-soft)}
+.fxsig{font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:6px;margin-left:auto}
+.fxsig.cheap{background:var(--pos-soft);color:var(--pos)} .fxsig.fair{background:var(--sunk);color:var(--ink3)} .fxsig.pricey{background:var(--neg-soft);color:var(--neg)}
+.sp{width:100%;height:40px;display:block}
+.hz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding-top:10px;border-top:1px solid var(--line)}
+.hz span{display:flex;flex-direction:column;min-width:0}
+.hz i{font-style:normal;font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.04em}
+.hz b{font-family:var(--f-data);font-size:13px;font-weight:600;white-space:nowrap}
+.hz b.up{color:var(--pos)} .hz b.down{color:var(--neg)}
+.mnote{margin:0;font-size:14px;color:var(--ink2);line-height:1.5}
+.swipe-hint{display:none}
+
+/* ---------- graham ---------- */
+.method{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;padding:20px;border:1px dashed var(--line2);border-radius:var(--r);margin-bottom:18px}
+.method p{margin:0;font-size:15px;color:var(--ink2)}
+.method ol{margin:8px 0 0;padding-left:20px;font-size:15px;color:var(--ink2);display:grid;gap:4px}
+.method .stat{display:grid;gap:6px;align-content:start}
+.method .stat div{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.method .stat b{font-family:var(--f-data)}
+.picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pick{display:grid;gap:14px;align-content:start}
+.pick-top{display:flex;justify-content:space-between;gap:10px}
+.rank{font-family:var(--f-display);font-size:13px;font-weight:700;color:var(--accent)}
+.pick .tk{font-family:var(--f-data);font-size:22px;font-weight:600;border:0}
+.pick .nm{font-size:13.5px;color:var(--ink3);line-height:1.4}
+.cushion{text-align:right}
+.cushion b{display:block;font-family:var(--f-data);font-size:26px;font-weight:600;color:var(--pos);line-height:1.1}
+.cushion span{font-size:11px;color:var(--ink3);font-weight:600}
+.prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:var(--sunk);border-radius:10px;padding:10px 12px}
+.prices div{min-width:0}
+.prices small{display:block;font-size:11px;color:var(--ink3);font-weight:600}
+.prices b{font-family:var(--f-data);font-size:14px;font-weight:600;white-space:nowrap}
+.score{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink2)}
+.score b{font-family:var(--f-data);font-size:15px;color:var(--ink)}
+.bar7{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;flex:1}
+.bar7 i{height:6px;border-radius:3px;background:var(--neg-soft)}
+.bar7 i.ok{background:var(--pos)} .bar7 i.na{background:var(--line2)}
+.crit{list-style:none;margin:0;padding:0;font-size:13.5px}
+.crit li{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);color:var(--ink2)}
+.crit .m{font-weight:800;text-align:center}
+.crit li.ok .m{color:var(--pos)} .crit li.no .m{color:var(--neg)} .crit li.na .m{color:var(--ink3)}
+.crit .v{font-family:var(--f-data);font-size:12.5px;font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
+.why2{display:grid;gap:8px;font-size:14.5px;line-height:1.55}
+.why2 p{margin:0;color:var(--ink2)}
+.why2 b{color:var(--ink);font-weight:700}
+.others{margin-top:18px;overflow-x:auto}
+.others table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+.others th{text-align:left;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding:8px;border-bottom:1px solid var(--line2)}
+.others td{padding:9px 8px;border-bottom:1px solid var(--line);color:var(--ink2)}
+.others td.n{font-family:var(--f-data);text-align:right;white-space:nowrap;color:var(--ink)}
+.others th.n{text-align:right}
+.fails{margin:14px 0 0;font-size:14.5px;color:var(--ink2);max-width:80ch}
+.caveat{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:80ch}
+
+/* ---------- briefing ---------- */
+.blist{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.blist>li{display:grid;grid-template-columns:10px minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.bdot{width:10px;height:10px;border-radius:50%;margin-top:9px}
+.bdot.neg{background:var(--neg)} .bdot.pos{background:var(--pos)} .bdot.neu{background:var(--line2)}
+.bhead{font-family:var(--f-display);font-size:20px;font-weight:700;line-height:1.3;margin:0 0 12px}
+.bfacts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.bfact{background:var(--sunk);border-radius:8px;padding:8px 10px;min-width:0}
+.bfl{font-size:11.5px;color:var(--ink3);font-weight:600}
+.bfv{font-family:var(--f-data);font-size:15px;font-weight:600;margin-top:2px}
+.bfv small{display:block;font-family:var(--f-body);font-size:11.5px;font-weight:500;color:var(--ink3)}
+.bfv.pos{color:var(--pos)} .bfv.neg{color:var(--neg)}
+.bbody{margin:0;max-width:72ch;color:var(--ink2)}
+.bimpact{margin:10px 0 0;max-width:72ch;font-size:15px;color:var(--ink)}
+.bimpact strong{color:var(--accent)}
+
+/* ---------- polymarket ---------- */
+.pm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pm-card{display:grid;gap:12px;align-content:start}
+.pm-q{font-family:var(--f-display);font-size:18px;font-weight:700;line-height:1.3;margin:0}
+.pm-numbers{display:flex;align-items:baseline;gap:10px}
+.pm-pct{font-family:var(--f-data);font-size:30px;font-weight:600}
+.pm-label{font-size:13px;color:var(--ink3)}
+.pm-bar-wrap{height:8px;background:var(--sunk);border-radius:4px;overflow:hidden}
+.pm-bar-fill{height:100%;background:var(--accent)}
+.pm-rel{margin:0;font-size:14.5px;color:var(--ink)}
+.pmfacts{margin:0;padding-left:18px;font-size:14px;color:var(--ink2);display:grid;gap:4px}
+.pm-link{font-size:13.5px;font-weight:600;min-height:36px;display:inline-flex;align-items:center;text-decoration:none}
+.pm-note{margin:12px 0 0;font-size:13.5px;color:var(--ink3)}
+
+/* ---------- články ---------- */
+.reads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;border-top:1px solid var(--line)}
+.read{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;min-width:0}
+.read:hover .rtitle{color:var(--accent)}
+.rsrc{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+.rtitle{font-size:16px;font-weight:700;line-height:1.35;margin:0;color:var(--ink)}
+.rsum{font-size:14.5px;color:var(--ink2);margin:0}
+.rmeta{font-family:var(--f-data);font-size:12px;color:var(--ink3)}
+
+/* ---------- fondy ---------- */
+.g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.fund-card{display:grid;gap:8px;align-content:start}
+.fund-ticker{font-family:var(--f-data);font-size:20px;font-weight:600}
+.fund-name{font-size:13px;color:var(--ink3);margin:0;line-height:1.35}
+.fund-tags{display:flex;gap:5px;flex-wrap:wrap}
+.fund-tag{font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--sunk);color:var(--ink2)}
+.fund-desc{font-size:14px;color:var(--ink2);margin:0}
+.fund-chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-family:var(--f-data);font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid var(--line);color:var(--ink2)}
+.fund-meta{font-family:var(--f-data);font-size:12px;color:var(--ink3)}
+
+.footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);max-width:80ch}
+.footer strong{color:var(--ink)}
+.fsrc{margin-top:8px;font-size:12px}
+
+/* ---------- glosář ---------- */
+.tk{border-bottom:1px dotted currentColor;cursor:help}
+#tip{position:fixed;left:0;top:0;z-index:100;max-width:300px;padding:10px 12px;background:var(--ink);color:var(--bg);font:500 13px/1.5 var(--f-body);border-radius:8px;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s}
+#tip.show{opacity:1;visibility:visible}
+#tip b{display:block;margin-bottom:2px;font-family:var(--f-data);font-size:12px}
+
+/* ---------- tablet ---------- */
+@media(min-width:721px) and (max-width:1099px){
+  .g3,.picks,.pm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .bfacts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:1100px){ .section{scroll-margin-top:70px} }
+
+/* ---------- mobil ---------- */
 @media(max-width:720px){
-  .wrap{
-    padding:16px calc(14px + var(--safe-r)) calc(40px + var(--safe-b)) calc(14px + var(--safe-l));
-  }
-
-  /* --- hero --- */
-  .hero{flex-direction:column;align-items:stretch;gap:14px;margin-bottom:20px;padding-bottom:18px}
-  .hero h1{font-size:30px}
-  .hero .sub{font-size:13.5px;margin-top:5px}
-  .meta-row{gap:6px;margin-bottom:11px}
-  .pill{font-size:10px;padding:4px 9px}
-
-  /* --- tl;dr --- */
-  .tldr{margin-bottom:18px;border-radius:12px}
-  .tldr-head{padding:11px 15px}
-  .tldr-head h2{font-size:15.5px}
-  .tldr-head .tldr-when{font-size:10px}
-  .tldr-row{flex-direction:column;gap:8px;padding:13px 15px}
-  .tldr-tag{width:auto;padding:0}
-  .tldr-row p{font-size:14px;line-height:1.55}
-
-  /* --- sticky nav, horizontal scroll --- */
-  .navchips{
-    position:sticky;top:0;z-index:40;
-    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;
-    gap:6px;margin:0 calc(-14px - var(--safe-l)) 6px calc(-14px - var(--safe-r));
-    padding:9px calc(14px + var(--safe-r)) 9px calc(14px + var(--safe-l));
-    background:rgba(247,246,243,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .navchips::-webkit-scrollbar{display:none}
-  .navchip{flex-shrink:0;min-height:36px;font-size:12px;padding:7px 13px}
-
-  /* --- collapsible section headers --- */
-  .section{margin-top:16px;scroll-margin-top:64px}
-  details.sec>summary{
-    pointer-events:auto;cursor:pointer;
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
-    min-height:52px;margin:0;padding:12px 14px;
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    box-shadow:var(--sh);
-    -webkit-tap-highlight-color:transparent;
-  }
-  details.sec[open]>summary{
-    border-radius:12px 12px 0 0;border-bottom-color:transparent;box-shadow:none;
-  }
-  details.sec>summary h2{font-size:17px;flex:1;min-width:0}
+  .wrap{padding-top:18px}
+  body{font-size:15.5px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi .v{font-size:19px}
+  .section{margin-top:30px;scroll-margin-top:64px}
+  .week-row{grid-template-columns:1fr;gap:4px;padding:13px 0}
+  .week-row p{font-size:15.5px}
+  .plan{padding:16px}
+  .plan h3{font-size:20px}
+  .alloc td{padding:10px 4px}
+  .alloc tr{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"sym pct kc" "logic logic logic";gap:2px 10px}
+  .alloc td{display:block;border:0;padding:0}
+  .alloc tr{border-top:1px solid var(--line);padding:10px 0}
+  .alloc td.sym{grid-area:sym} .alloc td.logic{grid-area:logic;font-size:14px} .alloc td.pct{grid-area:pct;color:var(--ink3)} .alloc td.kc{grid-area:kc}
+  .method{grid-template-columns:1fr;padding:16px}
+  details.sec>summary{pointer-events:auto;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:52px;margin:0 0 4px;padding:10px 0;border-bottom:1px solid var(--line)}
+  details.sec>summary h2{font-size:22px;flex:1;min-width:0}
   details.sec>summary .lead{display:none}
-  details.sec>summary .chev{
-    display:block;flex-shrink:0;width:20px;height:20px;
-    border-radius:50%;position:relative;background:#f2f1ec;transition:transform .2s;
-  }
-  details.sec>summary .chev::before{
-    content:"";position:absolute;left:6px;top:7px;
-    width:6px;height:6px;border-right:2px solid var(--ink3);border-bottom:2px solid var(--ink3);
-    transform:rotate(45deg);
-  }
-  details.sec[open]>summary .chev{transform:rotate(180deg);background:rgba(79,70,229,.10)}
-  details.sec[open]>summary .chev::before{border-color:var(--accent)}
-  .sec-body{
-    border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;
-    padding:14px;background:rgba(255,255,255,.45);box-shadow:var(--sh);
-  }
-  .sec-body>.g:last-child,.sec-body>.card:last-child{margin-bottom:0}
-
-  /* --- swipe carousels for market + fund cards --- */
-  .g.swipe{
-    display:flex;flex-wrap:nowrap;
-    overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
-    scroll-snap-type:x mandatory;scrollbar-width:none;
-    gap:10px;margin:0 -14px;padding:2px 14px 6px;
-  }
-  .g.swipe::-webkit-scrollbar{display:none}
-  .g.swipe>*{
-    flex:0 0 auto;width:80%;max-width:290px;min-width:230px;
-    scroll-snap-align:center;
-  }
-  .swipe-hint{
-    margin:2px 0 0;font-size:10.5px;color:var(--ink4);font-family:var(--mono);
-    display:flex;align-items:center;gap:5px;
-  }
-  .swipe-hint::after{content:"→";font-size:12px}
-  .card{padding:15px 16px;border-radius:12px}
-  .mcard .val{font-size:26px}
-  .mcard .fxsig{bottom:12px;right:13px}
-  .hz b{font-size:11.5px}
-
-  /* --- comment zones --- */
-  .comment-wrap{border-radius:12px}
-  .comment-sentiment{padding:13px 15px;gap:9px}
-  .sent-title{font-size:14px;margin-left:0}
-  .comment-grid{grid-template-columns:1fr}
-  .czone{padding:15px;border-right:none;border-bottom:1px solid var(--border)}
-  .czone:last-child{border-bottom:none}
-  .akce-item{font-size:13px;padding:10px 11px}
-
-  /* --- fund cards inside carousel --- */
-  .fund-header{padding:15px 15px 12px}
-  .fund-ticker{font-size:21px}
-  .fund-body{padding:13px 14px;gap:9px}
-  .fund-desc{font-size:12.5px}
-
-  /* --- allocation table -> stacked rows --- */
-  .alloc-table thead{display:none}
-  .alloc-table,.alloc-table tbody{display:block;width:100%}
-  .alloc-table tr{
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    grid-template-areas:"sym pct kc" "logic logic logic";
-    gap:2px 10px;align-items:center;
-    padding:12px 0;border-bottom:1px solid var(--border);
-  }
-  .alloc-table tr:last-child{border-bottom:none;padding-bottom:2px}
-  .alloc-table td{display:block;padding:0;border:none}
-  .alloc-table td.sym{grid-area:sym;font-size:15px}
-  .alloc-table td:nth-child(2){grid-area:logic;margin-top:5px}
-  .alloc-table td.pct{grid-area:pct;text-align:right;font-size:13px;color:var(--ink3)}
-  .alloc-table td.kc{grid-area:kc;text-align:right;font-size:15px}
-  .alloc-table .kc::after{content:" Kč";font-size:11px;color:var(--ink4);font-weight:600}
-  .alloc-table .logic{font-size:12.5px}
-  .bar-wrap{max-width:none}
-
-  /* --- polymarket --- */
-  .pm-grid{grid-template-columns:1fr;gap:10px}
-  .pm-card{padding:14px 15px;border-radius:12px}
-  .pm-pct{font-size:20px}
-  .pm-footer{padding-top:4px}
-  .pm-link{min-height:40px;padding:0 2px;font-size:12px}
-
-  /* --- weekly briefing --- */
-  .blist>li{padding:15px;gap:11px}
-  .bhead{font-size:14.5px;margin-bottom:10px}
-  .bfacts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-  .bfact{padding:8px 9px}
-  .bfv{font-size:13.5px;white-space:normal;overflow:visible;text-overflow:clip}
-  .bbody{font-size:13.5px;max-width:none}
-  .bimpact{font-size:12.5px;padding:10px 11px}
-
-  /* --- graham --- */
-  .gr-card{border-radius:12px}
-  .gr-head{padding:14px 15px 10px}
-  .gr-bar,.gr-list{padding:0 15px}
-  .gr-type,.gr-sub{margin-left:15px;margin-right:15px}
-  .gr-verdict{margin:12px 15px 15px}
-
-  /* --- reads become compact rows --- */
-  .reads{grid-template-columns:1fr;gap:9px}
-  .read{flex-direction:row;align-items:stretch;border-radius:12px}
-  .rthumb{height:auto;width:62px;flex-shrink:0}
-  .rthumb svg{width:24px;height:24px}
-  .rbody{padding:11px 12px;gap:5px}
-  .rtitle{font-size:13.5px}
-  .rsum{font-size:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .rmeta{border-top:none;padding-top:1px;font-size:10px}
-
-  /* --- chart + footer --- */
-  #allocChart{max-height:230px}
-  .footer{margin-top:22px;padding:14px 15px;font-size:11.5px;border-radius:12px}
+  details.sec>summary .chev{display:block;flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--sunk);position:relative;transition:transform .2s}
+  details.sec>summary .chev::before{content:"";position:absolute;left:8px;top:7px;width:6px;height:6px;border-right:2px solid var(--ink2);border-bottom:2px solid var(--ink2);transform:rotate(45deg)}
+  details.sec[open]>summary .chev{transform:rotate(180deg)}
+  .sec-head{margin-bottom:12px}
+  .swipe{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:10px;margin:0 calc(-1 * var(--gut));padding:2px var(--gut) 6px}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{flex:0 0 84%;max-width:320px;scroll-snap-align:center}
+  .swipe-hint{display:block;margin:4px 0 0;font-size:12.5px;color:var(--ink3)}
+  .picks,.pm-grid,.reads{grid-template-columns:1fr}
+  .bfacts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .blist>li{grid-template-columns:1fr;gap:6px;padding:18px 0}
+  .bdot{display:none}
+  .bhead{font-size:18px}
+  .val{font-size:25px}
 }
-
-@media(max-width:380px){
-  .hero h1{font-size:26px}
-  .mcard .val{font-size:23px}
-  .g.swipe>*{width:86%;min-width:210px}
-  .bfacts{grid-template-columns:1fr}
-  .fund-ticker{font-size:19px}
-}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  .card:hover,.read:hover,.fund-card:hover,.navchip:hover{transform:none}
-}
-
-@media print{
-  .navchips,.toc,.chev,#tip{display:none!important}
-  .layout{display:block!important}
-  details.sec>.sec-body{display:block!important}
-}
+@media(max-width:380px){ .kpi .v{font-size:17px} .prices{grid-template-columns:1fr 1fr} }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+@media print{.navchips,.chev,#tip{display:none!important} details.sec>.sec-body{display:block!important}}
 </style>
 <style id="pin-gate-style">body.pin-locked{overflow:hidden;height:100vh}body.pin-locked .wrap{max-height:100vh;overflow:hidden;filter:blur(14px);pointer-events:none;user-select:none}@media(max-width:720px){body.pin-locked .wrap{filter:none;opacity:.10}}.pin-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(800px 500px at 50% 30%,rgba(124,58,237,.10),transparent 60%),rgba(247,246,243,.96);font-family:-apple-system,BlinkMacSystemFont,Inter,sans-serif;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}.pin-box{background:#fff;border:1px solid #e7e5e0;border-radius:18px;padding:32px 26px;box-shadow:0 24px 60px -12px rgba(10,10,10,.18);text-align:center;width:min(360px,calc(100vw - 32px))}.pin-box .pin-icon{width:56px;height:56px;margin:0 auto 14px;border-radius:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff}.pin-box h2{font-family:"Iowan Old Style",Baskerville,serif;margin:0 0 6px;font-size:22px;color:#0a0a0a}.pin-box p{margin:0 0 18px;color:#737373;font-size:13.5px}.pin-input{width:100%;padding:14px 16px;font-size:22px;font-family:ui-monospace,Menlo,monospace;text-align:center;letter-spacing:.4em;border:1px solid #d4d4d4;border-radius:10px;background:#fafaf7;outline:none}.pin-input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.12)}.pin-input.error{border-color:#be123c;animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.pin-btn{margin-top:12px;width:100%;padding:14px;min-height:48px;background:#0a0a0a;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer}.pin-btn:hover{background:#262626}.pin-hint{margin-top:14px;font-size:11.5px;color:#a3a3a3}</style>
 </head>
@@ -536,507 +291,327 @@ details.sec>summary::marker{content:""}
 
 <header class="hero">
   <div>
-    <div class="meta-row">
-      <span class="pill live">Týden 42</span>
-      <span class="pill muted">5.–9. 10. 2026</span>
-    </div>
-    <h1>Finanční briefing</h1>
+    <div class="eyebrow"><span class="pill live">Týden 42</span><span class="pill muted">5.–9. 10. 2026</span></div>
+    <h1 style="margin-top:14px">Finanční briefing</h1>
     <p class="sub">Data k pátečnímu zavření 9. 10. · vydáno 12. 10. 2026</p>
   </div>
+  <div class="kpis" aria-label="Hlavní čísla týdne">
+    <div class="kpi"><div class="label">S&amp;P 500</div><div class="v">7 811,54</div><div class="d up">+1,15 % za týden</div></div>
+    <div class="kpi"><div class="label">Nasdaq</div><div class="v">27 366,17</div><div class="d up">+0,64 % za týden</div></div>
+    <div class="kpi"><div class="label">USD/CZK</div><div class="v">21,745</div><div class="d up">−0,23 % za týden</div></div>
+    <div class="kpi"><div class="label">10Y výnos</div><div class="v">5,244 %</div><div class="d up">−3 bp za týden</div></div>
+  </div>
 </header>
-
-<div class="layout">
-
-<aside class="toc" aria-label="Obsah">
-  <p class="toc-title">Obsah</p>
-  <ol>
-    <li><a href="#tyden"><small>01</small>Týden</a></li>
-    <li><a href="#trhy"><small>02</small>Trhy</a></li>
-    <li><a href="#komentar"><small>03</small>Komentář</a></li>
-    <li><a href="#alokace"><small>04</small>Alokace</a></li>
-    <li><a href="#briefing"><small>05</small>Briefing</a></li>
-    <li><a href="#graham"><small>06</small>Graham</a></li>
-    <li><a href="#clanky"><small>07</small>Články</a></li>
-    <li><a href="#portfolio"><small>08</small>Fondy</a></li>
-    <li><a href="#polymarket"><small>09</small>Polymarket</a></li>
-  </ol>
-  <p class="toc-meta">Týden 42<br>5.–9. 10. 2026</p>
-</aside>
 
 <main class="main">
 
 <nav class="navchips" aria-label="Sekce">
   <a class="navchip" href="#tyden">Týden</a>
+  <a class="navchip" href="#akce">Akce</a>
   <a class="navchip" href="#trhy">Trhy</a>
-  <a class="navchip" href="#komentar">Komentář</a>
-  <a class="navchip" href="#alokace">Alokace</a>
-  <a class="navchip" href="#briefing">Briefing</a>
   <a class="navchip" href="#graham">Graham</a>
+  <a class="navchip" href="#briefing">Briefing</a>
+  <a class="navchip" href="#polymarket">Polymarket</a>
   <a class="navchip" href="#clanky">Články</a>
   <a class="navchip" href="#portfolio">Fondy</a>
-  <a class="navchip" href="#polymarket">Polymarket</a>
 </nav>
 
-<section class="tldr section" id="tyden" style="margin-top:0">
-  <div class="tldr-head">
-    <h2>Týden ve zkratce</h2>
-    <span class="tldr-when">5.–9. 10. 2026</span>
+<section class="section" id="tyden" style="margin-top:28px">
+  <div class="sec-head"><h2>Týden ve zkratce</h2><span class="lead">5.–9. 10. 2026</span></div>
+  <div class="week">
+    <div class="week-row"><span class="label">Akcie</span><p>S&amp;P 500 skončil na <b>7 811,54</b> (+1,15 % za týden), jen 0,09 % pod úterním rekordem. Nasdaq přidal 0,64 %, ve čtvrtek ale ztratil 1,25 % po zprávě FT, že roční tržby OpenAI jsou asi o 20 mld. USD nižší, než se uvádělo.</p></div>
+    <div class="week-row"><span class="label">Úroky</span><p>Výnos 10letého dluhopisu USA zavřel v pondělí na <b>5,311 %</b>, nejvýš od dubna 2002, a týden skončil na 5,244 % (−3 bp). Podle zápisu ze zářijového zasedání Fedu většina členů čeká do konce roku další zvýšení sazeb.</p></div>
+    <div class="week-row"><span class="label">Kurzy</span><p>Koruna mírně posílila: euro <b>24,365 Kč</b> (−0,41 %), dolar <b>21,745 Kč</b> (−0,23 %), libra 28,745 Kč (−0,08 %). Dolar je přesto o 4,5 % dražší než před měsícem.</p></div>
+    <div class="week-row"><span class="label">Dlouhodobě</span><p>Za rok: S&amp;P 500 <b>+16,0 %</b>, Nasdaq +18,9 %, dolar vůči koruně +3,8 %, bitcoin zhruba −32 %. Od 1. ledna: S&amp;P 500 +14,1 %, Nasdaq +17,7 %. Týden na tomhle obrazu nic nemění.</p></div>
+    <div class="week-row"><span class="label">Tento týden</span><p><b>13. 10.</b> česká inflace za září (odhad 2,5 %) a výsledky velkých amerických bank, <b>14. 10.</b> americká inflace CPI. ČNB drží sazbu 3,75 %, další zasedání je v listopadu.</p></div>
   </div>
-  <div class="tldr-row">
-    <span class="tldr-tag t1"><span>Trhy</span></span>
-    <p>S&amp;P 500 zavřel na <b>7 811,54</b> (+1,15 % za týden), 0,09 % pod rekordem z 6. 10. Nasdaq Composite skončil na <b>27 366,17</b> (+0,64 %), Dow na 51 654,95 (+0,93 %). Malé firmy ztratily: Russell 2000 -0,92 %. Výnos 10Y zavřel v pondělí na <b>5,311 %</b>, nejvýš od dubna 2002, v pátek na <b>5,244 %</b> (-3 bp za týden); 30Y 5,600 %. Ve čtvrtek spadl Nasdaq o 1,25 %: FT napsal, že roční tržby OpenAI jsou o zhruba 20 mld. USD pod dříve uváděným číslem.</p>
-  </div>
-  <div class="tldr-row">
-    <span class="tldr-tag t2"><span>Portfolio</span></span>
-    <p>Koruna mírně posílila vůči všem třem měnám: euro <b>24,365 Kč</b> (-0,41 % za týden), dolar <b>21,745 Kč</b> (-0,23 %), libra 28,745 Kč (-0,08 %). Dolar zůstává nad hranicí 21,50, signál pro EIMI je dál DRAHÉ. Bitcoin zavřel v pátek zhruba na <b>82 600 USD</b> (~-2,3 % za týden); americké spotové ETF měly 7. a 8. 10. odtok zhruba 729 mil. USD.</p>
-  </div>
-  <div class="tldr-row">
-    <span class="tldr-tag t4"><span>Dlouhodobě</span></span>
-    <p>Za rok je S&amp;P 500 výš o <b>16,0 %</b>, Nasdaq o <b>18,9 %</b>; od 1. ledna +14,1 % a +17,7 %. Dolar vůči koruně za rok přidal 3,8 %, od 1. ledna 5,4 %, euro za rok jen 0,2 %. Bitcoin je za rok zhruba <b>-32 %</b>, od 1. ledna zhruba -6 %. Týdenní +1,15 % u S&amp;P 500 trend nemění. Dolar zdražil za poslední měsíc o 4,5 %, to je největší pohyb na kurzech.</p>
-  </div>
-  <div class="tldr-row">
-    <span class="tldr-tag t3"><span>Akce</span></span>
-    <p><b>Alokace beze změny</b>, žádný index se nepohnul o 10 %. Tento týden: <b>13. 10.</b> finální česká inflace za září (odhad 2,5 %, srpen 1,9 %) a začátek výsledkové sezony velkými bankami, <b>14. 10.</b> americká CPI za září. Říjnový hike Fedu trh podle Bloombergu cení na 19,4 % (8. 10.), zasedání Fedu je <b>27.–28. 10.</b></p>
+</section>
+
+<section class="section" id="akce">
+  <div class="sec-head"><h2>Co udělat v říjnu</h2><span class="lead">Měsíční nákup 10 000 Kč</span></div>
+  <div class="plan">
+    <div>
+      <h3>Nakup podle plánu, alokace beze změny</h3>
+      <p class="why">Žádný index se za týden nepohnul o 10 %, takže pravidlo pro změnu rozdělení se nespouští. S&amp;P 500 +1,15 %, Nasdaq +0,64 %.</p>
+    </div>
+    <div class="stack" aria-hidden="true"><span style="width:35%;background:#0f766e"></span><span style="width:20%;background:#c27a12"></span><span style="width:15%;background:#6d4fc2"></span><span style="width:15%;background:#2f8f5b"></span><span style="width:15%;background:#2f62c9"></span></div>
+    <table class="alloc">
+      <tbody>
+        <tr><td class="sym"><i style="background:#0f766e"></i>VWRP</td><td class="logic">Celý svět v jednom fondu, jádro portfolia. Libra 28,745 Kč, signál FAIR.</td><td class="pct">35 %</td><td class="kc">3 500 Kč</td></tr>
+        <tr><td class="sym"><i style="background:#c27a12"></i>EIMI</td><td class="logic">Rozvíjející se trhy, nákup přes dolar. 21,745 Kč je nad hranicí 21,50, signál DRAHÉ.</td><td class="pct">20 %</td><td class="kc">2 000 Kč</td></tr>
+        <tr><td class="sym"><i style="background:#6d4fc2"></i>EQQQ</td><td class="logic">Nasdaq 100 v eurech. Nejcitlivější na výnosy dluhopisů a zprávy o AI.</td><td class="pct">15 %</td><td class="kc">1 500 Kč</td></tr>
+        <tr><td class="sym"><i style="background:#2f8f5b"></i>VUAA</td><td class="logic">S&amp;P 500 v librách.</td><td class="pct">15 %</td><td class="kc">1 500 Kč</td></tr>
+        <tr><td class="sym"><i style="background:#2f62c9"></i>CSPX</td><td class="logic">S&amp;P 500 v eurech. Euro 24,365 Kč, za rok +0,2 %.</td><td class="pct">15 %</td><td class="kc">1 500 Kč</td></tr>
+      </tbody>
+    </table>
+    <div class="notes">
+      <div class="note"><span class="tag warn">Dolar</span><span>EIMI kupuješ přes dolar, který je za měsíc o 4,5 % dražší. Kvůli kurzu alokaci neměň: měsíční výkyv o pár procent je proti desetiletému horizontu malý.</span></div>
+      <div class="note"><span class="tag info">Akcie</span><span>Grahamův shortlist níž není součást plánu. Kdybys jednotlivou akcii zvažoval, patří mimo těchto 10 000 Kč a jen jako malá část portfolia.</span></div>
+    </div>
   </div>
 </section>
 
 <section class="section" id="trhy">
   <details class="sec" open>
-    <summary class="sec-head">
-      <h2>Tržní přehled</h2>
-      <span class="lead">Spotová data · 9. 10. 2026 · FX signál: LEVNÉ / FAIR / DRAHÉ pro DCA</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Trhy</h2><span class="lead">Ceny k 9. 10. 2026 · FX signál LEVNÉ / FAIR / DRAHÉ pro pravidelný nákup</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
-      <p class="hz-legend"><b>1T</b> týden · <b>1M</b> měsíc · <b>YTD</b> od 1. 1. 2026 · <b>1R</b> rok. U měn plus znamená, že koruna oslabila a nákup ETF v té měně zdražil.</p>
-      <div class="g g3 swipe" style="margin-bottom:13px">
+      <p class="hz-legend"><b>1T</b> týden · <b>1M</b> měsíc · <b>YTD</b> od 1. 1. · <b>1R</b> rok. U měn znamená plus, že koruna oslabila a nákup v té měně zdražil.</p>
+      <div class="g3 swipe">
         <div class="card mcard" id="card-eur">
           <div class="mlabel"><span class="mlt">EUR / CZK</span><span class="msrc">ČNB · 9. 10.</span></div>
-          <div class="val" id="val-eur">24.365</div>
-          <div class="sub">
-            <span class="delta down" id="d-eur">0.41%</span>
-            <span class="ctx">CSPX &amp; EQQQ · nákup v EUR</span>
-          </div>
-          <div class="hz"><span><i>1T</i><b class="down">-0,41 %</b></span><span><i>1M</i><b class="up">+0,47 %</b></span><span><i>YTD</i><b class="up">+0,49 %</b></span><span><i>1R</i><b class="up">+0,19 %</b></span></div>
-          <div class="mnote">Euro za týden zlevnilo o 0,41 % a je 13,5 haléře pod horní hranicí pásma FAIR (24,50). Za rok se kurz pohnul o 0,2 %, týdenní změna je šum.</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj EUR/CZK za týden — mírný pokles">
-            <polyline points="0,6 40,7 80,18 120,13 160,19 200,26" fill="none" stroke="#047857" stroke-width="1.5"/>
-          </svg>
-          <span class="fxsig fair" id="sig-eur">FAIR</span>
+          <div class="mrow"><span class="val" id="val-eur">24,365</span><span class="delta up">−0,41 %</span><span class="fxsig fair" id="sig-eur">FAIR</span></div>
+          <svg class="sp" data-series="24.465,24.460,24.405,24.430,24.400,24.365" data-good="down" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="EUR/CZK za týden, mírný pokles"></svg>
+          <div class="hz"><span><i>1T</i><b class="up">−0,41 %</b></span><span><i>1M</i><b class="down">+0,47 %</b></span><span><i>YTD</i><b class="down">+0,49 %</b></span><span><i>1R</i><b class="down">+0,19 %</b></span></div>
+          <p class="mnote">CSPX a EQQQ. Za rok se kurz skoro nepohnul, týdenní pokles je šum.</p>
         </div>
         <div class="card mcard" id="card-usd">
           <div class="mlabel"><span class="mlt">USD / CZK</span><span class="msrc">ČNB · 9. 10.</span></div>
-          <div class="val" id="val-usd">21.745</div>
-          <div class="sub">
-            <span class="delta down" id="d-usd">0.23%</span>
-            <span class="ctx">EIMI · USD denominace</span>
-          </div>
-          <div class="hz"><span><i>1T</i><b class="down">-0,23 %</b></span><span><i>1M</i><b class="up">+4,48 %</b></span><span><i>YTD</i><b class="up">+5,39 %</b></span><span><i>1R</i><b class="up">+3,80 %</b></span></div>
-          <div class="mnote">Dolar za týden zlevnil o 5 haléřů, pořád je ale nad hranicí DRAHÉ (21,50). Za měsíc +4,5 %: 9. 9. stál 20,81 Kč. Týdenní pohyb je šum, měsíční trend zdražování trvá.</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj USD/CZK za týden — kolísání, mírný pokles">
-            <polyline points="0,12 40,9 80,26 120,6 160,11 200,17" fill="none" stroke="#047857" stroke-width="1.5"/>
-          </svg>
-          <span class="fxsig fair" id="sig-usd">FAIR</span>
+          <div class="mrow"><span class="val" id="val-usd">21,745</span><span class="delta up">−0,23 %</span><span class="fxsig fair" id="sig-usd">FAIR</span></div>
+          <svg class="sp" data-series="21.795,21.834,21.647,21.861,21.811,21.745" data-good="down" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="USD/CZK za týden, kolísání a mírný pokles"></svg>
+          <div class="hz"><span><i>1T</i><b class="up">−0,23 %</b></span><span><i>1M</i><b class="down">+4,48 %</b></span><span><i>YTD</i><b class="down">+5,39 %</b></span><span><i>1R</i><b class="down">+3,80 %</b></span></div>
+          <p class="mnote">EIMI. Nad hranicí DRAHÉ (21,50); 9. 9. stál dolar 20,81 Kč.</p>
         </div>
         <div class="card mcard" id="card-gbp">
           <div class="mlabel"><span class="mlt">GBP / CZK</span><span class="msrc">ČNB · 9. 10.</span></div>
-          <div class="val" id="val-gbp">28.745</div>
-          <div class="sub">
-            <span class="delta down" id="d-gbp">0.08%</span>
-            <span class="ctx">VUAA &amp; VWRP · GBP</span>
-          </div>
-          <div class="hz"><span><i>1T</i><b class="down">-0,08 %</b></span><span><i>1M</i><b class="up">+1,84 %</b></span><span><i>YTD</i><b class="up">+3,44 %</b></span><span><i>1R</i><b class="up">+2,63 %</b></span></div>
-          <div class="mnote">Libra se za týden skoro nepohnula (-0,08 %). Do hranice DRAHÉ (29,00) chybí 25,5 haléře; za rok +2,6 %.</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj GBP/CZK za týden — beze změny">
-            <polyline points="0,22 40,6 80,26 120,7 160,16 200,26" fill="none" stroke="#047857" stroke-width="1.5"/>
-          </svg>
-          <span class="fxsig fair" id="sig-gbp">FAIR</span>
-        </div>
-      </div>
-      <div class="g g3 swipe">
-        <div class="card mcard">
-          <div class="mlabel"><span class="mlt">Bitcoin BTC/USD</span><span class="msrc">24/7 · 9. 10.</span></div>
-          <div class="val">$82 564</div>
-          <div class="sub">
-            <span class="delta down">2.3%</span>
-            <span class="ctx">pondělní snímek 86 490 · odtok z ETF</span>
-          </div>
-          <div class="hz"><span><i>1T</i><b class="down">~-2,3 %</b></span><span><i>1M</i><b class="up">~+5,5 %</b></span><span><i>YTD</i><b class="down">~-5,7 %</b></span><span><i>1R</i><b class="down">~-32 %</b></span></div>
-          <div class="mnote">Za týden zhruba -2,3 %, za měsíc zhruba +5,5 %, za rok zhruba -32 % (10. 10. 2025 kolem 121 000 USD). ETF měly 7. a 8. 10. odtok 729 mil. USD. Hodnoty jsou orientační (CoinGecko, snímky 00:00 UTC).</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj bitcoinu za týden — pokles od pondělí">
-            <polyline points="0,12 40,6 80,7 120,18 160,26 200,22" fill="none" stroke="#be123c" stroke-width="1.5"/>
-          </svg>
+          <div class="mrow"><span class="val" id="val-gbp">28,745</span><span class="delta up">−0,08 %</span><span class="fxsig fair" id="sig-gbp">FAIR</span></div>
+          <svg class="sp" data-series="28.768,28.875,28.747,28.868,28.807,28.745" data-good="down" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="GBP/CZK za týden, beze změny"></svg>
+          <div class="hz"><span><i>1T</i><b class="up">−0,08 %</b></span><span><i>1M</i><b class="down">+1,84 %</b></span><span><i>YTD</i><b class="down">+3,44 %</b></span><span><i>1R</i><b class="down">+2,63 %</b></span></div>
+          <p class="mnote">VUAA a VWRP. Do hranice DRAHÉ (29,00) chybí 25 haléřů.</p>
         </div>
         <div class="card mcard">
           <div class="mlabel"><span class="mlt">S&amp;P 500</span><span class="msrc">Yahoo · 9. 10.</span></div>
-          <div class="val">7 811.54</div>
-          <div class="sub">
-            <span class="delta up">1.15%</span>
-            <span class="ctx">rekord 7 818,93 · 6. 10.</span>
-          </div>
+          <div class="mrow"><span class="val">7 811,54</span><span class="delta up">+1,15 %</span></div>
+          <svg class="sp" data-series="7722.72,7773.95,7818.93,7801.77,7765.36,7811.54" data-good="up" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="S&amp;P 500 za týden, rekord v úterý a páteční růst"></svg>
           <div class="hz"><span><i>1T</i><b class="up">+1,15 %</b></span><span><i>1M</i><b class="up">+2,29 %</b></span><span><i>YTD</i><b class="up">+14,11 %</b></span><span><i>1R</i><b class="up">+15,98 %</b></span></div>
-          <div class="mnote">Týdenní +1,15 % navazuje na měsíční růst (+2,29 %): index je 0,09 % pod rekordním zavřením. Pod povrchem velký rozptyl, utility +3,97 %, technologie -0,52 %.</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj S&P 500 za týden — rekord v úterý, pokles do čtvrtka, páteční odraz">
-            <polyline points="0,26 40,15 80,6 120,10 160,17 200,8" fill="none" stroke="#047857" stroke-width="1.5"/>
-          </svg>
+          <p class="mnote">0,09 % pod rekordem z 6. 10. Utility +3,97 %, technologie −0,52 %.</p>
         </div>
         <div class="card mcard">
           <div class="mlabel"><span class="mlt">Nasdaq Composite</span><span class="msrc">Yahoo · 9. 10.</span></div>
-          <div class="val">27 366.17</div>
-          <div class="sub">
-            <span class="delta up">0.64%</span>
-            <span class="ctx">rekord 27 599,79 · 6. 10.</span>
-          </div>
+          <div class="mrow"><span class="val">27 366,17</span><span class="delta up">+0,64 %</span></div>
+          <svg class="sp" data-series="27190.86,27477.31,27599.79,27538.69,27193.34,27366.17" data-good="up" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="Nasdaq za týden, rekord v úterý a propad ve čtvrtek"></svg>
           <div class="hz"><span><i>1T</i><b class="up">+0,64 %</b></span><span><i>1M</i><b class="up">+4,24 %</b></span><span><i>YTD</i><b class="up">+17,74 %</b></span><span><i>1R</i><b class="up">+18,86 %</b></span></div>
-          <div class="mnote">Index je 0,85 % pod rekordem. Ve čtvrtek -1,25 % po zprávě FT o OpenAI (polovodiče -3,39 %), v pátek +0,64 %. Nvidia za týden -2,00 %, Amazon +4,34 %, Microsoft +3,39 %.</div>
-          <svg class="sp" viewBox="0 0 200 32" preserveAspectRatio="none" role="img" aria-label="Vývoj Nasdaq Composite za týden — rekord v úterý, propad ve čtvrtek">
-            <polyline points="0,26 40,12 80,6 120,9 160,26 200,17" fill="none" stroke="#047857" stroke-width="1.5"/>
-          </svg>
+          <p class="mnote">0,85 % pod rekordem. Ve čtvrtek −1,25 %, polovodiče −3,39 %.</p>
+        </div>
+        <div class="card mcard">
+          <div class="mlabel"><span class="mlt">Bitcoin</span><span class="msrc">CoinGecko · 9. 10.</span></div>
+          <div class="mrow"><span class="val">$82 564</span><span class="delta down">≈−2,3 %</span></div>
+          <svg class="sp" data-series="84506,85771,85540,83282,81686,82564" data-good="up" viewBox="0 0 200 40" preserveAspectRatio="none" role="img" aria-label="Bitcoin za týden, pokles od pondělí"></svg>
+          <div class="hz"><span><i>1T</i><b class="down">≈−2,3 %</b></span><span><i>1M</i><b class="up">≈+5,5 %</b></span><span><i>YTD</i><b class="down">≈−5,7 %</b></span><span><i>1R</i><b class="down">≈−32 %</b></span></div>
+          <p class="mnote">Orientační hodnoty. Spotové ETF měly 7.–8. 10. odtok 729 mil. USD.</p>
         </div>
       </div>
-      <p class="swipe-hint">Přejeď prstem pro další karty</p>
+      <p class="swipe-hint">Přejeď prstem pro další karty →</p>
     </div>
   </details>
 </section>
 
-<section class="section" id="komentar">
+<section class="section" id="graham">
   <details class="sec" open>
-    <summary class="sec-head">
-      <h2>Komentář k týdnu</h2>
-      <span class="lead">Sentiment · Události · Akce</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Grahamův shortlist</h2><span class="lead">Velké firmy, které jsou podle Grahamových pravidel levné. Vzdělávací rámec, ne doporučení k nákupu.</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
-      <div class="comment-wrap">
-        <div class="comment-sentiment">
-          <span class="sent-dot neut"></span>
-          <span class="sent-label neut">REKORDY V ÚTERÝ, PROPAD AI VE ČTVRTEK, VÝNOSY STÁLE NA MAXIMECH</span>
-          <span class="sent-title">S&amp;P 500 týden +1,15 %, technologie ale -0,52 % a malé firmy -0,92 %. 10Y výnos v pondělí zavřel na 5,311 % (nejvýš od dubna 2002). Ve čtvrtek Nasdaq -1,25 % po zprávě o tržbách OpenAI, v pátek telekomy -10 až -13 % po koupi spektra firmou SpaceX.</span>
+      <div class="method">
+        <div>
+          <p>Každý týden projdu stejný seznam 60 velkých firem z USA a Evropy, které jdou koupit na Trading 212. Krátkodobý pohyb ceny nehraje roli. Firma projde, jen když splní všechny tři podmínky:</p>
+          <ol>
+            <li>kladný zisk v každém z posledních 10 let,</li>
+            <li>dividendu bez pozastavení za posledních 10 let,</li>
+            <li>P/E × P/B nejvýš 22,5.</li>
+          </ol>
+          <p style="margin-top:8px">Pořadí určuje polštář: o kolik je Grahamova cena, √(22,5 × EPS × účetní hodnota na akcii), nad dnešní cenou. Z jednoho odvětví ukazuju jen nejlevnější firmu.</p>
         </div>
-        <div class="comment-grid">
-          <div class="czone">
-            <p class="czone-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Co se stalo
-            </p>
-            <ul>
-              <li><strong>10Y výnos 5,311 %</strong> v pondělí 5. 10., nejvyšší zavření od 2. 4. 2002; v pátek 5,244 % (-3 bp za týden), 30Y 5,600 % (-3 bp)</li>
-              <li><strong>Zápis z Fedu (7. 10.):</strong> většina účastníků považuje další zvýšení sazeb do konce roku za pravděpodobně vhodné; říjnový hike trh cení na 19,4 % (Bloomberg, 8. 10.)</li>
-              <li><strong>OpenAI:</strong> FT 8. 10. napsal, že roční tržby jsou kolem 50 mld. USD, zhruba o 20 mld. méně než dříve uváděný odhad; polovodiče -3,39 %, Oracle -5,5 %, Micron -4,79 %</li>
-              <li><strong>SpaceX koupí 800MHz spektrum</strong> od Grain Management (podle WSJ za zhruba 8 mld. USD): T-Mobile -13,3 %, AT&amp;T -10,8 %, Verizon -10,1 % v pátek</li>
-              <li><strong>Ropa a Česko:</strong> Brent 104,72 USD (+2,42 % za týden). ČNB drží repo na 3,75 %, další zasedání je v listopadu, finální inflace za září vyjde 13. 10.</li>
-            </ul>
-          </div>
-          <div class="czone">
-            <p class="czone-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              Dopad na portfolio
-            </p>
-            <ul>
-              <li><strong>EIMI</strong>: dolar 21,745 Kč, za týden -0,23 %, ale za měsíc +4,5 %. Pořád nad hranicí 21,50, signál DRAHÉ</li>
-              <li><strong>EQQQ</strong> je z pěti fondů nejcitlivější na čtvrteční AI zprávu: Nasdaq -1,25 % za jeden den, za týden +0,64 %. Nvidia -2,00 % za týden</li>
-              <li><strong>CSPX a VUAA</strong> (S&amp;P 500) +1,15 % za týden v indexu. Silnější koruna ubrala korunové hodnotě CSPX a EQQQ zhruba 0,4 % (euro), VUAA a VWRP 0,1 % (libra)</li>
-            </ul>
-          </div>
-          <div class="czone">
-            <p class="czone-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              Tvá akce
-            </p>
-            <div>
-              <div class="akce-item"><span class="arrow">→</span><span><strong>Kup podle plánu.</strong> VWRP 3 500 + EIMI 2 000 + EQQQ 1 500 + VUAA 1 500 + CSPX 1 500 Kč</span></div>
-              <div class="akce-item"><span class="arrow">→</span><span><strong>EIMI je v pásmu DRAHÉ.</strong> Alokaci neměním, pravidlo ji mění až při pohybu indexu o 10 %. Dolar je o 4,5 % dražší než před měsícem</span></div>
-              <div class="akce-item"><span class="arrow">→</span><span><strong>Sleduj 13.–14. 10.</strong> České inflační číslo, banky v USA s výsledky a CPI za září. Fed zasedá 27.–28. 10.</span></div>
-            </div>
-          </div>
+        <div class="stat">
+          <div><span>Prověřeno firem</span><b>60</b></div>
+          <div><span>Prošlo všemi podmínkami</span><b>9</b></div>
+          <div><span>Moody's AAA (8. 10.)</span><b>6,25 %</b></div>
+          <div><span>Earnings yield musí být</span><b>≥ 12,5 %</b></div>
+          <div><span>Dividendový výnos musí být</span><b>≥ 4,17 %</b></div>
         </div>
       </div>
-    </div>
-  </details>
-</section>
 
-<section class="section" id="alokace">
-  <details class="sec" open>
-    <summary class="sec-head">
-      <h2>Měsíční alokace · 10 000 Kč</h2>
-      <span class="lead">Všech 5 fondů · čistě investiční budget</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
-    <div class="sec-body">
-      <div class="g g2">
-        <div class="card">
-          <table class="alloc-table">
-            <thead><tr><th>ETF</th><th>Logika</th><th class="r">%</th><th class="r">Kč / měsíc</th></tr></thead>
-            <tbody>
-              <tr><td class="sym">VWRP</td><td><span class="logic">Core — celý svět v jednom fondě; nese i utility a spotřební základ (+3,6 až +4,0 % za týden) i menší firmy (Russell 2000 -0,92 %)</span><div class="bar-wrap"><div class="bar-fill" style="width:35%"></div></div></td><td class="pct">35 %</td><td class="kc">3 500</td></tr>
-              <tr><td class="sym">EIMI</td><td><span class="logic">EM tilt — dolar 21,745 Kč (-0,23 % za týden, +4,5 % za měsíc), nad hranicí 21,50, signál DRAHÉ</span><div class="bar-wrap"><div class="bar-fill" style="width:20%"></div></div></td><td class="pct">20 %</td><td class="kc">2 000</td></tr>
-              <tr><td class="sym">EQQQ</td><td><span class="logic">Tech satelit — Nasdaq +0,64 % za týden, +18,9 % za rok; ve čtvrtek -1,25 % po zprávě o OpenAI</span><div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td><td class="pct">15 %</td><td class="kc">1 500</td></tr>
-              <tr><td class="sym">VUAA</td><td><span class="logic">S&amp;P 500 GBP — libra 28,745 Kč, -0,08 % za týden, signál FAIR</span><div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td><td class="pct">15 %</td><td class="kc">1 500</td></tr>
-              <tr><td class="sym">CSPX</td><td><span class="logic">S&amp;P 500 EUR — euro 24,365 Kč, -0,41 % za týden, za rok +0,2 %</span><div class="bar-wrap"><div class="bar-fill" style="width:15%"></div></div></td><td class="pct">15 %</td><td class="kc">1 500</td></tr>
-            </tbody>
-          </table>
-          <p style="margin:12px 0 0;font-size:11.5px;color:var(--ink4);font-family:var(--mono);line-height:1.5;">Celkem 100 % · 10 000 Kč · bez hotovostní rezervy (tu vedeš samostatně) · beze změny — S&amp;P 500 +1,15 % a Nasdaq +0,64 % za týden jsou daleko od 10% triggeru</p>
-        </div>
-        <div class="card">
-          <div style="font-size:13.5px;font-weight:700;margin-bottom:10px">Vizuálně</div>
-          <div style="position:relative;height:260px"><canvas id="allocChart"></canvas></div>
-        </div>
+      <div class="picks">
+        <article class="card pick">
+          <div class="pick-top">
+            <div><div class="rank">1. největší polštář</div><div class="tk">VOW3</div><div class="nm">Volkswagen, prioritní akcie · auta · Xetra, EUR</div></div>
+            <div class="cushion"><b>+350 %</b><span>polštář</span></div>
+          </div>
+          <div class="prices"><div><small>Cena 9. 10.</small><b>68,00 €</b></div><div><small>Grahamova cena</small><b>~306 €</b></div><div><small>Za rok</small><b class="down">−25,5 %</b></div></div>
+          <div class="score"><b>5/7</b><div class="bar7" aria-label="5 ze 7 kritérií"><i class="ok"></i><i></i><i class="ok"></i><i class="ok"></i><i></i><i class="ok"></i><i class="ok"></i></div></div>
+          <ul class="crit">
+            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">tržby €322 mld</span></li>
+            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2</span><span class="v">1,07</span></li>
+            <li class="ok"><span class="m">✓</span><span>Zisk 10 let</span><span class="v">2016–2025</span></li>
+            <li class="ok"><span class="m">✓</span><span>Dividenda 20 let</span><span class="v">nepřerušeně</span></li>
+            <li class="no"><span class="m">✗</span><span>Růst EPS ≥ 33 %</span><span class="v">+19 %</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/E ≤ 15</span><span class="v">6,5</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/B ≤ 1,5</span><span class="v">0,17</span></li>
+            <li class="ok"><span class="m">✓</span><span>Earnings yield</span><span class="v">15,4 %</span></li>
+            <li class="ok"><span class="m">✓</span><span>Dividendový výnos</span><span class="v">7,7 %</span></li>
+            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">2,4 %</span></li>
+          </ul>
+          <div class="why2">
+            <p><b>Proč je tady:</b> cena je 6,5× zisk a 0,17× účetní hodnota. Ze tří automobilek, které prošly, je nejlevnější (BMW a Mercedes jsou v tabulce níž).</p>
+            <p><b>Hlavní riziko:</b> zisk na akcii padá, z 31,81 € v roce 2023 na 13,31 € v roce 2025 a 10,46 € za posledních 12 měsíců. ROIC 2,4 % znamená, že vložený kapitál skoro nezhodnocuje.</p>
+          </div>
+        </article>
+
+        <article class="card pick">
+          <div class="pick-top">
+            <div><div class="rank">2. největší polštář</div><div class="tk">CMCSA</div><div class="nm">Comcast · kabelová TV, internet, NBCUniversal · Nasdaq, USD</div></div>
+            <div class="cushion"><b>+102 %</b><span>polštář</span></div>
+          </div>
+          <div class="prices"><div><small>Cena 12. 10.</small><b>$20,68</b></div><div><small>Grahamova cena</small><b>~$41,9</b></div><div><small>Za rok</small><b class="down">−29,8 %</b></div></div>
+          <div class="score"><b>5/7</b><div class="bar7" aria-label="5 ze 7 kritérií"><i class="ok"></i><i></i><i class="ok"></i><i></i><i class="ok"></i><i class="ok"></i><i class="ok"></i></div></div>
+          <ul class="crit">
+            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">tržby $125 mld</span></li>
+            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2</span><span class="v">0,80</span></li>
+            <li class="ok"><span class="m">✓</span><span>Zisk 10 let</span><span class="v">2016–2025</span></li>
+            <li class="no"><span class="m">✗</span><span>Dividenda 20 let</span><span class="v">od 2008</span></li>
+            <li class="ok"><span class="m">✓</span><span>Růst EPS ≥ 33 %</span><span class="v">+44 %</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/E ≤ 15</span><span class="v">6,7</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/B ≤ 1,5</span><span class="v">0,82</span></li>
+            <li class="ok"><span class="m">✓</span><span>Earnings yield</span><span class="v">14,9 %</span></li>
+            <li class="ok"><span class="m">✓</span><span>Dividendový výnos</span><span class="v">6,4 %</span></li>
+            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">8,2 %</span></li>
+          </ul>
+          <div class="why2">
+            <p><b>Proč je tady:</b> P/E 6,7 a P/B 0,82. Dividenda dává 6,4 % a spotřebuje 43 % zisku, takže má rezervu.</p>
+            <p><b>Hlavní riziko:</b> za rok −29,8 %. Zisk na akcii za posledních 12 měsíců je 3,09 $ proti 5,39 $ za rok 2025. Dividendu platí teprve od roku 2008, takže Grahamových 20 let nesplní.</p>
+          </div>
+        </article>
+
+        <article class="card pick">
+          <div class="pick-top">
+            <div><div class="rank">3. největší polštář</div><div class="tk">BAC</div><div class="nm">Bank of America · banka · NYSE, USD</div></div>
+            <div class="cushion"><b>+13 %</b><span>polštář</span></div>
+          </div>
+          <div class="prices"><div><small>Cena 12. 10.</small><b>$54,58</b></div><div><small>Grahamova cena</small><b>~$61,9</b></div><div><small>Za rok</small><b class="up">+12,2 %</b></div></div>
+          <div class="score"><b>6/7</b><div class="bar7" aria-label="6 ze 7 kritérií, current ratio u banky nelze použít"><i class="ok"></i><i class="na"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i></div></div>
+          <ul class="crit">
+            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">tržby $114 mld</span></li>
+            <li class="na"><span class="m">–</span><span>Current ratio ≥ 2</span><span class="v">u banky ne</span></li>
+            <li class="ok"><span class="m">✓</span><span>Zisk 10 let</span><span class="v">2016–2025</span></li>
+            <li class="ok"><span class="m">✓</span><span>Dividenda 20 let</span><span class="v">od 1986</span></li>
+            <li class="ok"><span class="m">✓</span><span>Růst EPS ≥ 33 %</span><span class="v">+73 %</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/E ≤ 15</span><span class="v">12,6</span></li>
+            <li class="ok"><span class="m">✓</span><span>P/B ≤ 1,5</span><span class="v">1,39</span></li>
+            <li class="no"><span class="m">✗</span><span>Earnings yield</span><span class="v">7,9 %</span></li>
+            <li class="no"><span class="m">✗</span><span>Dividendový výnos</span><span class="v">2,4 %</span></li>
+            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">u banky ne</span></li>
+          </ul>
+          <div class="why2">
+            <p><b>Proč je tady:</b> jako jediná ze tří splňuje všechna hlavní kritéria, která na ni jdou použít. Zisk na akcii vzrostl z průměru 1,93 $ (2016–18) na 3,35 $ (2023–25).</p>
+            <p><b>Hlavní riziko:</b> polštář je jen 13 % a earnings yield 7,9 % je pod hranicí 12,5 %. Úvěrové riziko banky síto nevidí.</p>
+          </div>
+        </article>
       </div>
+
+      <div class="others">
+        <table>
+          <thead><tr><th>Další, které prošly</th><th>Odvětví</th><th class="n">P/E × P/B</th><th class="n">Polštář</th><th>Poznámka</th></tr></thead>
+          <tbody>
+            <tr><td>BMW</td><td>auta</td><td class="n">1,7</td><td class="n">+267 %</td><td>stejné odvětví jako VW, zisk na akcii od 2022 klesá</td></tr>
+            <tr><td>Mercedes-Benz</td><td>auta</td><td class="n">2,9</td><td class="n">+177 %</td><td>stejné odvětví jako VW, dividenda snížena v roce 2025</td></tr>
+            <tr><td>Deutsche Telekom</td><td>telekomunikace</td><td class="n">18,4</td><td class="n">+11 %</td><td>dividenda 4,0 %, snížena v roce 2019</td></tr>
+            <tr><td>Wells Fargo</td><td>banka</td><td class="n">18,5</td><td class="n">+10 %</td><td>dividenda snížena v roce 2020</td></tr>
+            <tr><td>Verizon</td><td>telekomunikace</td><td class="n">19,1</td><td class="n">+9 %</td><td>dividenda 6,6 %, current ratio 0,60; 9. 10. −10 % kvůli SpaceX</td></tr>
+            <tr><td>Cigna</td><td>zdravotní pojištění</td><td class="n">20,5</td><td class="n">+5 %</td><td>skutečnou dividendu platí až od 2021</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fails"><b>Neprošly kvůli ztrátě</b> v posledních 10 letech mimo jiné Citigroup (2017), CVS (2018), Shell, TotalEnergies, BP a Eni (2020), BASF, Ford, Intel a Stellantis. ING a BNP Paribas v roce 2020 pozastavily dividendu. Příliš drahé jsou třeba J&amp;J, Coca-Cola, JPMorgan, Nestlé, Novartis a Allianz.</p>
+      <p class="caveat">Polštář počítám ze zisku za posledních 12 měsíců. Graham chtěl průměr za 3 roky; u firem s klesajícím ziskem (VW, BMW, Mercedes) by průměr polštář ještě zvětšil, budoucí zisk ale může být nižší. Data: stockanalysis.com, companiesmarketcap.com a výroční zprávy, ceny 9.–12. 10.</p>
     </div>
   </details>
 </section>
 
 <section class="section" id="briefing">
   <details class="sec" open>
-    <summary class="sec-head">
-      <h2>Týdenní briefing</h2>
-      <span class="lead">Co se děje a co to znamená · Týden 42</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Briefing</h2><span class="lead">Co se stalo a co to znamená pro tvé fondy</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
-      <div class="card" style="padding:0">
-        <ul class="blist">
-          <li>
-            <span class="bdot neg"></span>
-            <div class="bcontent">
-              <p class="bhead">Desetiletý výnos dosáhl v pondělí 5,311 %, nejvýš od dubna 2002; týden skončil na 5,244 %</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">10Y výnos</div><div class="bfv">5,244 % <small>-3 bp za týden</small></div></div><div class="bfact"><div class="bfl">30Y výnos</div><div class="bfv">5,600 % <small>-3 bp za týden</small></div></div><div class="bfact"><div class="bfl">2Y výnos</div><div class="bfv">4,80 % <small>-3 bp za týden</small></div></div><div class="bfact"><div class="bfl">Max 10Y</div><div class="bfv neg">5,311 % <small>5. 10.</small></div></div></div>
-              <p class="bbody">Výnos 10Y zavřel v pondělí na 5,311 %, v úterý na 5,269 %, ve středu na 5,277 %, ve čtvrtek na 5,231 % a v pátek na 5,244 %. Ve středu se při obchodování dotkl 5,364 %. Pokud výnos za rok vyroste o víc než 1 p. b. a inflace je nad 3 %, skončilo to podle Portfolio Terminal ztrátou akcií ve všech 7 případech od roku 1963. Dnes je výnos za rok o 1,1 p. b. výš.</p>
-              <p class="bimpact neg"><strong>Dopad:</strong> Beze změny alokace. S&amp;P 500 přesto skončil 0,09 % pod rekordem, takže tento týden výnosy akcie nesrazily. Riziko zůstává u EQQQ, kde se vyšší výnosy promítají do ocenění růstových firem nejvíc.</p>
-            </div>
-          </li>
-          <li>
-            <span class="bdot neu"></span>
-            <div class="bcontent">
-              <p class="bhead">Zápis z Fedu: další zvýšení do konce roku většina vidí jako vhodné; říjnový hike trh cení zhruba na 19 %</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">Sazba Fedu</div><div class="bfv">3,75–4,00 % <small>od 16. 9.</small></div></div><div class="bfact"><div class="bfl">Hike v říjnu</div><div class="bfv">~19 % <small>8. 10., Bloomberg</small></div></div><div class="bfact"><div class="bfl">Před týdnem</div><div class="bfv">~22 % <small>5. 10.</small></div></div><div class="bfact"><div class="bfl">Příští FOMC</div><div class="bfv">27.–28. 10.</div></div></div>
-              <p class="bbody">Zápis ze zasedání 15.–16. září vyšel ve středu. Podle něj by většina účastníků považovala další zvýšení sazeb do konce roku za pravděpodobně vhodné. Šance na hike už v říjnu klesla z 70,3 % (28. 9.) na 19,4 %. UOB čeká dvě další zvýšení o 25 bp, v prosinci a v 1. čtvrtletí 2027, a pak pauzu.</p>
-              <p class="bimpact"><strong>Dopad:</strong> Trh tedy neřeší, jestli Fed zvedne, ale kdy. Pro 10Y výnos a EIMI (přes dolar) je důležitější prosinec než říjen. Alokaci neměním.</p>
-            </div>
-          </li>
-          <li>
-            <span class="bdot neg"></span>
-            <div class="bcontent">
-              <p class="bhead">Zpráva FT o tržbách OpenAI srazila polovodiče o 3,39 %; Nasdaq ve čtvrtek -1,25 %, v pátek odraz</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">Nasdaq 8. 10.</div><div class="bfv neg">-1,25 %</div></div><div class="bfact"><div class="bfl">Polovodiče SOX</div><div class="bfv neg">-3,39 % <small>čtvrtek</small></div></div><div class="bfact"><div class="bfl">Oracle</div><div class="bfv neg">-5,5 % <small>čtvrtek</small></div></div><div class="bfact"><div class="bfl">Nvidia</div><div class="bfv neg">-2,00 % <small>za týden</small></div></div></div>
-              <p class="bbody">FT napsal, že roční tržby OpenAI se na konci září blížily 50 mld. USD, zhruba o 20 mld. méně než dříve uváděný odhad. Euronews uvádí, že firma cíl nemíjí a rozdíl vznikl jiným způsobem počítání tržeb. Broadcom ve čtvrtek ztratil 4,35 %, Micron 4,79 %. Čipy prodávající firmy se rozešly s těmi, které výpočetní výkon pronajímají: Amazon +4,34 % a Microsoft +3,39 % za týden.</p>
-              <p class="bimpact neg"><strong>Dopad:</strong> Nvidii držíš přes čtyři fondy (CSPX, VUAA, EQQQ, VWRP). EQQQ za týden skončil v plusu (Nasdaq +0,64 %), ale jeden článek v novinách mu za den vzal 1,25 %. Za týden jde o šum, dlouhodobě je to připomenutí, jak velká část indexů závisí na AI.</p>
-            </div>
-          </li>
-          <li>
-            <span class="bdot neg"></span>
-            <div class="bcontent">
-              <p class="bhead">SpaceX kupuje spektrum pro Starlink Mobile: T-Mobile -13,3 %, AT&amp;T -10,8 %, Verizon -10,1 % v pátek</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">T-Mobile</div><div class="bfv neg">-13,3 % <small>9. 10.</small></div></div><div class="bfact"><div class="bfl">AT&amp;T</div><div class="bfv neg">-10,8 % <small>9. 10.</small></div></div><div class="bfact"><div class="bfl">Verizon</div><div class="bfv neg">-10,1 % <small>9. 10.</small></div></div><div class="bfact"><div class="bfl">Crown Castle</div><div class="bfv pos">+15,6 % <small>9. 10.</small></div></div></div>
-              <p class="bbody">SpaceX podle Reuters koupí od Grain Management portfolio 800MHz spektra, WSJ uvádí cenu zhruba 8 mld. USD; transakce čeká na schválení regulátora. Morgan Stanley čeká, že hrozba pro dnešní operátory se projeví postupně, od venkova. Oppenheimer snížil doporučení u AT&amp;T. Evropské telekomy ztratily přes 2 % (Deutsche Telekom -6,5 % před otevřením). Věžové firmy rostly: Crown Castle +15,6 %, American Tower +9,3 %.</p>
-              <p class="bimpact"><strong>Dopad:</strong> Sektor komunikací (XLC) skončil týden na +0,05 %, protože telekomy kompenzovaly Alphabet (+2,38 %). V CSPX, VUAA a VWRP jsou telekomy malou částí. Tři firmy rozebírá Grahamovo sítko níž.</p>
-            </div>
-          </li>
-          <li>
-            <span class="bdot neu"></span>
-            <div class="bcontent">
-              <p class="bhead">Utility +3,97 % a spotřební základ +3,60 %, technologie -0,52 %: index rostl, technologie ne</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">Utility (XLU)</div><div class="bfv pos">+3,97 %</div></div><div class="bfact"><div class="bfl">Energie (XLE)</div><div class="bfv pos">+3,60 % <small>Brent +2,42 %</small></div></div><div class="bfact"><div class="bfl">Technologie (XLK)</div><div class="bfv neg">-0,52 %</div></div><div class="bfact"><div class="bfl">Russell 2000</div><div class="bfv neg">-0,92 %</div></div></div>
-              <p class="bbody">Zdravotnictví (XLV) po minulém týdnu -2,65 % vyskočilo o 2,79 %, financials (XLF) o 2,32 %. Brent skončil na 104,72 USD, WTI na 91,85 USD. Hurikán Isaias odstavil zhruba 63 % těžby v Mexickém zálivu. Prezident Trump řekl, že USA před volbami 3. 11. na Írán nezaútočí. Michiganský index spotřebitelské důvěry za říjen klesl na 46,3 z 48,1 (odhad 47,6).</p>
-              <p class="bimpact"><strong>Dopad:</strong> VWRP drží celý trh, takže nese utility, energii i technologie. Minulotýdenní propad zdravotnictví a bank se vrátil, takže jde spíš o rotaci než o změnu trendu.</p>
-            </div>
-          </li>
-          <li>
-            <span class="bdot neu"></span>
-            <div class="bcontent">
-              <p class="bhead">Bitcoin skončil týden na zhruba 82 600 USD; ETF mají za dva dny odtok 729 mil. USD</p>
-              <div class="bfacts"><div class="bfact"><div class="bfl">BTC 9. 10.</div><div class="bfv neg">$82 564 <small>~-2,3 % za týden</small></div></div><div class="bfact"><div class="bfl">ETF 7. 10.</div><div class="bfv neg">-$485 mil. <small>odtok</small></div></div><div class="bfact"><div class="bfl">ETF 8. 10.</div><div class="bfv neg">-$244 mil. <small>odtok</small></div></div><div class="bfact"><div class="bfl">Za rok</div><div class="bfv neg">~-32 % <small>z ~$121 000</small></div></div></div>
-              <p class="bbody">Podle Crypto Briefing se bitcoin 7.–8. 10. obchodoval mezi 81 500 a 83 000 USD a krátce klesl pod 81 000. Odtoky spojuje s ropou, výnosy dluhopisů a silnějším dolarem. Od začátku roku mají spotové ETF čisté přítoky zhruba 2,4 mld. USD. Americký zákon CLARITY Act o tržní struktuře krypta selhal v Senátu 49:50, šanci na podpis v roce 2026 trhy cenily na zhruba 5–6 %. Žádný nový krok od minulého týdne jsem nenašel.</p>
-              <p class="bimpact"><strong>Dopad:</strong> Přímou expozici nemáš. Krypto se tento týden pohybovalo spolu s technologiemi: pondělní maximum kolem 86 500 dalo zpět do pátku.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <ul class="blist">
+        <li><span class="bdot neg"></span><div>
+          <p class="bhead">Desetiletý výnos v pondělí 5,311 %, nejvýš od dubna 2002</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">10Y výnos</div><div class="bfv">5,244 %<small>−3 bp za týden</small></div></div><div class="bfact"><div class="bfl">30Y výnos</div><div class="bfv">5,600 %<small>−3 bp za týden</small></div></div><div class="bfact"><div class="bfl">2Y výnos</div><div class="bfv">4,80 %<small>−3 bp za týden</small></div></div><div class="bfact"><div class="bfl">Hike v říjnu</div><div class="bfv">19,4 %<small>28. 9. bylo 70,3 %</small></div></div></div>
+          <p class="bbody">Zápis ze zářijového zasedání Fedu vyšel 7. 10. Většina členů v něm považuje další zvýšení sazeb do konce roku za pravděpodobně vhodné. Na říjnovém zasedání 27.–28. 10. s ním trh skoro nepočítá, šanci dává 19,4 % (Bloomberg, 8. 10.).</p>
+          <p class="bimpact"><strong>Pro tebe:</strong> vyšší výnosy tlačí hlavně na ocenění technologických firem, tedy na EQQQ. Tento týden se to v cenách neprojevilo.</p>
+        </div></li>
+        <li><span class="bdot neg"></span><div>
+          <p class="bhead">Zpráva o tržbách OpenAI stáhla polovodiče za jeden den o 3,39 %</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">Nasdaq 8. 10.</div><div class="bfv neg">−1,25 %</div></div><div class="bfact"><div class="bfl">Polovodiče SOX</div><div class="bfv neg">−3,39 %<small>8. 10.</small></div></div><div class="bfact"><div class="bfl">Oracle</div><div class="bfv neg">−5,5 %<small>8. 10.</small></div></div><div class="bfact"><div class="bfl">Nvidia</div><div class="bfv neg">−2,00 %<small>za týden</small></div></div></div>
+          <p class="bbody">FT napsal, že roční tržby OpenAI se blíží 50 mld. USD místo dříve uváděných zhruba 70 mld. Podle Euronews jde hlavně o jiný způsob počítání. Firmy, které výpočetní výkon pronajímají, za týden rostly: Amazon +4,34 %, Microsoft +3,39 %.</p>
+          <p class="bimpact"><strong>Pro tebe:</strong> Nvidii máš ve čtyřech z pěti fondů. Jeden článek vzal Nasdaqu za den 1,25 %, do pátku se index vrátil.</p>
+        </div></li>
+        <li><span class="bdot neu"></span><div>
+          <p class="bhead">SpaceX kupuje mobilní spektrum, americké telekomy ztratily za den 10 až 13 %</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">T-Mobile</div><div class="bfv neg">−13,3 %<small>9. 10.</small></div></div><div class="bfact"><div class="bfl">AT&amp;T</div><div class="bfv neg">−10,8 %<small>9. 10.</small></div></div><div class="bfact"><div class="bfl">Verizon</div><div class="bfv neg">−10,1 %<small>9. 10.</small></div></div><div class="bfact"><div class="bfl">Crown Castle</div><div class="bfv pos">+15,6 %<small>9. 10.</small></div></div></div>
+          <p class="bbody">SpaceX koupí od Grain Management licence na pásmo 800 MHz pro Starlink Mobile, podle WSJ zhruba za 8 mld. USD. Obchod musí schválit regulátor. Morgan Stanley čeká, že konkurence pro operátory poroste pomalu, nejdřív na venkově. Majitelé vysílacích věží naopak rostli.</p>
+          <p class="bimpact"><strong>Pro tebe:</strong> telekomy jsou v tvých fondech malou částí. Sektor komunikací skončil týden na +0,05 %, protože Alphabet přidal 2,38 %.</p>
+        </div></li>
+        <li><span class="bdot neu"></span><div>
+          <p class="bhead">Peníze se přesouvaly do utilit a spotřebního zboží, technologie ztratily</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">Utility XLU</div><div class="bfv pos">+3,97 %</div></div><div class="bfact"><div class="bfl">Spotřební zboží XLP</div><div class="bfv pos">+3,60 %</div></div><div class="bfact"><div class="bfl">Technologie XLK</div><div class="bfv neg">−0,52 %</div></div><div class="bfact"><div class="bfl">Russell 2000</div><div class="bfv neg">−0,92 %</div></div></div>
+          <p class="bbody">Ropa Brent zdražila za týden o 2,42 % na 104,72 USD, hurikán Isaias odstavil zhruba 63 % těžby v Mexickém zálivu. Spotřebitelská důvěra podle Michiganské univerzity klesla na 46,3 z 48,1.</p>
+          <p class="bimpact"><strong>Pro tebe:</strong> VWRP drží všechny sektory, takže přesuny mezi nimi ho skoro neovlivní.</p>
+        </div></li>
+        <li><span class="bdot neu"></span><div>
+          <p class="bhead">Bitcoin kolem 82 600 USD, z ETF odteklo za dva dny 729 mil. USD</p>
+          <div class="bfacts"><div class="bfact"><div class="bfl">BTC 9. 10.</div><div class="bfv">$82 564<small>≈−2,3 % za týden</small></div></div><div class="bfact"><div class="bfl">ETF 7. 10.</div><div class="bfv neg">−$485 mil.</div></div><div class="bfact"><div class="bfl">ETF 8. 10.</div><div class="bfv neg">−$244 mil.</div></div><div class="bfact"><div class="bfl">Za rok</div><div class="bfv neg">≈−32 %</div></div></div>
+          <p class="bbody">Crypto Briefing spojuje odtoky s dražší ropou, vyššími výnosy a silnějším dolarem. Zákon CLARITY o pravidlech krypto trhu v Senátu neprošel (49:50) a nový termín hlasování není.</p>
+          <p class="bimpact"><strong>Pro tebe:</strong> bitcoin nemáš. Tento týden se hýbal spolu s technologickými akciemi.</p>
+        </div></li>
+      </ul>
     </div>
   </details>
 </section>
 
-<section class="section" id="graham">
+<section class="section" id="polymarket">
   <details class="sec" data-mobile="closed" open>
-    <summary class="sec-head">
-      <h2>Grahamovo sítko</h2>
-      <span class="lead">Velké firmy s propadem tento týden · vzdělávací rámec, ne doporučení k nákupu</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Polymarket</h2><span class="lead">Tři sázky, které se týkají tvých fondů</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
-      <p class="gr-intro">Každý týden hledám 3–4 velké firmy, které výrazně spadly, a prověřím je proti 7 kritériím defenzivního investora z The Intelligent Investor. Doplňková pravidla počítám s výnosem Moody's AAA <b>6,25 %</b> (denní údaj 8. 10.): earnings yield musí být ≥ 12,5 %, dividendový výnos ≥ 4,17 %. ROIC je jen kontext, do skóre se nepočítá. Tento týden žádná ze čtyř firem nesplnila víc než 4 kritéria ze 7. Všechna tři doplňková pravidla splnil jen AT&amp;T; Verizon dvě ze tří. Tři z firem spadly kvůli jedné zprávě (SpaceX a spektrum). Hodnoty jsou ze stockanalysis.com k 9. 10., desetiletou historii EPS ve zdroji nemám, kde to jde, počítám z pěti let.</p>
-      <div class="gr-grid">
-
-        <article class="gr-card">
-          <div class="gr-head">
-            <div>
-              <div class="gr-tk">T</div>
-              <div class="gr-name">AT&amp;T · telekomunikace</div>
-              <span class="gr-drop">-10,8 % · 9. 10.</span>
-            </div>
-            <div class="gr-score"><b>4<small>/7</small></b><span>kritérií splněno</span></div>
-          </div>
-          <div class="gr-bar" aria-label="4 ze 7 kritérií splněno"><i class="ok"></i><i></i><i></i><i class="ok"></i><i></i><i class="ok"></i><i class="ok"></i></div>
-          <p class="gr-type">Levná, ale riziková</p>
-          <p class="gr-sub">7 hlavních kritérií</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">$152 mld<small>tržby $127 mld</small></span></li>
-            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2,0</span><span class="v">0,97</span></li>
-            <li class="no"><span class="m">✗</span><span>Kladný zisk 10 let</span><span class="v">ne<small>2022: -8,1 mld. USD</small></span></li>
-            <li class="ok"><span class="m">✓</span><span>Dividenda ≥ 20 let</span><span class="v">40+ let<small>snížena v 2022</small></span></li>
-            <li class="na"><span class="m">–</span><span>Růst EPS ≥ 33 % / 10 let</span><span class="v">n/d<small>5 let: +11 %</small></span></li>
-            <li class="ok"><span class="m">✓</span><span>P/E ≤ 15</span><span class="v">7,3<small>TTM</small></span></li>
-            <li class="ok"><span class="m">✓</span><span>P/B ≤ 1,5</span><span class="v">1,38</span></li>
-          </ul>
-          <p class="gr-sub">Doplňková pravidla</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>P/E × P/B ≤ 22,5</span><span class="v">10,1</span></li>
-            <li class="ok"><span class="m">✓</span><span>Earnings yield ≥ 12,5 %</span><span class="v">14,1 %</span></li>
-            <li class="ok"><span class="m">✓</span><span>Div. výnos ≥ 4,17 %</span><span class="v">5,01 %<small>payout 37 %</small></span></li>
-            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">8,9 %<small>ROE 18,3 %</small></span></li>
-          </ul>
-          <p class="gr-verdict">AT&amp;T spadl v pátek o 10,8 %, za týden zhruba o 11 %, nejvíc od března 2020, a drží 52týdenní minimum. Důvodem je koupě 800MHz spektra firmou SpaceX pro Starlink Mobile; Oppenheimer snížil doporučení na „perform“. Sítko ukazuje levnou akcii: P/E 7,3, P/B 1,38, earnings yield 14,1 % a dividendový výnos 5,0 % při payout 37 %. Proti tomu stojí current ratio 0,97, ztráta v roce 2022 a dluh/vlastní kapitál 1,29. Sítko neřeší, jestli SpaceX ohrozí tržby, a právě to cenu srazilo. Desetiletý růst EPS jsem nedohledal.</p>
-        </article>
-
-        <article class="gr-card">
-          <div class="gr-head">
-            <div>
-              <div class="gr-tk">VZ</div>
-              <div class="gr-name">Verizon · telekomunikace</div>
-              <span class="gr-drop">-10,1 % · 9. 10.</span>
-            </div>
-            <div class="gr-score"><b>4<small>/7</small></b><span>kritérií splněno</span></div>
-          </div>
-          <div class="gr-bar" aria-label="4 ze 7 kritérií splněno"><i class="ok"></i><i></i><i class="ok"></i><i class="ok"></i><i></i><i class="ok"></i><i></i></div>
-          <p class="gr-type">Levná, ale zadlužená</p>
-          <p class="gr-sub">7 hlavních kritérií</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">$173 mld<small>tržby $139 mld</small></span></li>
-            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2,0</span><span class="v">0,60</span></li>
-            <li class="ok"><span class="m">✓</span><span>Kladný zisk 10 let</span><span class="v">ano</span></li>
-            <li class="ok"><span class="m">✓</span><span>Dividenda ≥ 20 let</span><span class="v">20+ let<small>bez přerušení</small></span></li>
-            <li class="no"><span class="m">✗</span><span>Růst EPS ≥ 33 % / 10 let</span><span class="v">-28 %<small>2021 vs. TTM</small></span></li>
-            <li class="ok"><span class="m">✓</span><span>P/E ≤ 15</span><span class="v">10,9<small>TTM</small></span></li>
-            <li class="no"><span class="m">✗</span><span>P/B ≤ 1,5</span><span class="v">1,67</span></li>
-          </ul>
-          <p class="gr-sub">Doplňková pravidla</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>P/E × P/B ≤ 22,5</span><span class="v">18,1</span></li>
-            <li class="no"><span class="m">✗</span><span>Earnings yield ≥ 12,5 %</span><span class="v">9,4 %</span></li>
-            <li class="ok"><span class="m">✓</span><span>Div. výnos ≥ 4,17 %</span><span class="v">6,80 %<small>payout 74 %</small></span></li>
-            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">8,3 %<small>ROE 15,8 %</small></span></li>
-          </ul>
-          <p class="gr-verdict neg">Verizon v pátek -10,1 %, za týden zhruba -11 %, nejhorší týden od července 2022. Stejný důvod jako u AT&amp;T: SpaceX a spektrum pro Starlink Mobile. Dividendový výnos 6,8 % projde limitem, earnings yield 9,4 % ne. Current ratio je 0,60, dluh/vlastní kapitál 1,84 a payout 74 %. EPS klesl z 5,32 USD v roce 2021 na 3,84 USD za posledních 12 měsíců. Za 10 let jsem EPS nedohledal, proto kritérium označuji podle pětiletého údaje.</p>
-        </article>
-
-        <article class="gr-card">
-          <div class="gr-head">
-            <div>
-              <div class="gr-tk">TMUS</div>
-              <div class="gr-name">T-Mobile US · telekomunikace</div>
-              <span class="gr-drop">-13,3 % · 9. 10.</span>
-            </div>
-            <div class="gr-score"><b>3<small>/7</small></b><span>kritérií splněno</span></div>
-          </div>
-          <div class="gr-bar" aria-label="3 ze 7 kritérií splněno"><i class="ok"></i><i></i><i class="ok"></i><i></i><i class="ok"></i><i></i><i></i></div>
-          <p class="gr-type">Průměrná kvalita, bez polštáře</p>
-          <p class="gr-sub">7 hlavních kritérií</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">$159 mld<small>tržby $92 mld</small></span></li>
-            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2,0</span><span class="v">0,92</span></li>
-            <li class="ok"><span class="m">✓</span><span>Kladný zisk 10 let</span><span class="v">ano</span></li>
-            <li class="no"><span class="m">✗</span><span>Dividenda ≥ 20 let</span><span class="v">od 2023</span></li>
-            <li class="ok"><span class="m">✓</span><span>Růst EPS ≥ 33 % / 10 let</span><span class="v">+296 %<small>2021 vs. TTM</small></span></li>
-            <li class="no"><span class="m">✗</span><span>P/E ≤ 15</span><span class="v">15,6<small>TTM</small></span></li>
-            <li class="no"><span class="m">✗</span><span>P/B ≤ 1,5</span><span class="v">2,84</span></li>
-          </ul>
-          <p class="gr-sub">Doplňková pravidla</p>
-          <ul class="gr-list">
-            <li class="no"><span class="m">✗</span><span>P/E × P/B ≤ 22,5</span><span class="v">44,2</span></li>
-            <li class="no"><span class="m">✗</span><span>Earnings yield ≥ 12,5 %</span><span class="v">6,6 %</span></li>
-            <li class="no"><span class="m">✗</span><span>Div. výnos ≥ 4,17 %</span><span class="v">3,15 %<small>payout 49 %</small></span></li>
-            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">8,9 %<small>ROE 18,3 %</small></span></li>
-          </ul>
-          <p class="gr-verdict neg">T-Mobile je z tří telekomů nejlevnější, přesto ztratil v pátek nejvíc (-13,3 %). Za posledních 12 měsíců EPS 9,54 USD (v roce 2021 2,41 USD), P/E ale 15,6 je těsně nad limitem a P/B 2,84 hluboko nad ním. Dividendu platí teprve od roku 2023, 20letou podmínku tedy nesplní. Za rok je akcie o 15,5 % níž, dluh/vlastní kapitál je 1,29. Sítko rostoucí zisky ocení, cenu a dividendovou historii ne.</p>
-        </article>
-
-        <article class="gr-card">
-          <div class="gr-head">
-            <div>
-              <div class="gr-tk">ORCL</div>
-              <div class="gr-name">Oracle · software a cloud</div>
-              <span class="gr-drop">-5,5 % · 8. 10.</span>
-            </div>
-            <div class="gr-score"><b>3<small>/7</small></b><span>kritérií splněno</span></div>
-          </div>
-          <div class="gr-bar" aria-label="3 ze 7 kritérií splněno"><i class="ok"></i><i></i><i class="ok"></i><i></i><i class="ok"></i><i></i><i></i></div>
-          <p class="gr-type">Drahá, zadlužená</p>
-          <p class="gr-sub">7 hlavních kritérií</p>
-          <ul class="gr-list">
-            <li class="ok"><span class="m">✓</span><span>Velikost</span><span class="v">$429 mld<small>tržby $72 mld</small></span></li>
-            <li class="no"><span class="m">✗</span><span>Current ratio ≥ 2,0</span><span class="v">1,17</span></li>
-            <li class="ok"><span class="m">✓</span><span>Kladný zisk 10 let</span><span class="v">ano</span></li>
-            <li class="no"><span class="m">✗</span><span>Dividenda ≥ 20 let</span><span class="v">17 let<small>od 2009</small></span></li>
-            <li class="ok"><span class="m">✓</span><span>Růst EPS ≥ 33 % / 10 let</span><span class="v">+165 %<small>2022 vs. TTM</small></span></li>
-            <li class="no"><span class="m">✗</span><span>P/E ≤ 15</span><span class="v">22,2<small>TTM</small></span></li>
-            <li class="no"><span class="m">✗</span><span>P/B ≤ 1,5</span><span class="v">6,92</span></li>
-          </ul>
-          <p class="gr-sub">Doplňková pravidla</p>
-          <ul class="gr-list">
-            <li class="no"><span class="m">✗</span><span>P/E × P/B ≤ 22,5</span><span class="v">153</span></li>
-            <li class="no"><span class="m">✗</span><span>Earnings yield ≥ 12,5 %</span><span class="v">4,4 %</span></li>
-            <li class="no"><span class="m">✗</span><span>Div. výnos ≥ 4,17 %</span><span class="v">1,41 %<small>payout 31 %</small></span></li>
-            <li class="na"><span class="m">–</span><span>ROIC (kontext)</span><span class="v">11,3 %<small>ROE 41,2 %</small></span></li>
-          </ul>
-          <p class="gr-verdict neg">Oracle ve čtvrtek ztratil 5,5 % po zprávě FT o nižších tržbách OpenAI; Oracle OpenAI dodává velké objemy výpočetního výkonu. Za rok je akcie o 51 % níž, přesto stojí 22× zisk a 6,9× účetní hodnotu. Zisk na akcii vzrostl z 2,41 USD (FY 2022) na 6,38 USD za 12 měsíců, ale dividendový výnos je 1,4 %, dluh/vlastní kapitál 2,52 a current ratio 1,17. Sítko u ní skončí na provozních kritériích, ne na ceně.</p>
-        </article>
-
+      <div class="pm-grid">
+        <div class="card pm-card">
+          <p class="pm-q">Zvýší Fed sazby do konce roku 2026?</p>
+          <div class="pm-numbers"><span class="pm-pct">52 %</span><span class="pm-label">ano</span></div>
+          <div class="pm-bar-wrap"><div class="pm-bar-fill" style="width:52%"></div></div>
+          <p class="pm-rel">Vyšší sazby znamenají vyšší výnosy dluhopisů a tlak na ocenění akcií, nejvíc u EQQQ.</p>
+          <ul class="pmfacts"><li>Zápis z Fedu: většina členů čeká zvýšení do konce roku</li><li>Říjen trh cení na 19,4 % (8. 10.)</li><li>Zasedání 27.–28. 10.</li></ul>
+          <a class="pm-link" href="https://polymarket.com/event/fed-rate-hike-by" target="_blank" rel="noopener">Otevřít na Polymarketu →</a>
+        </div>
+        <div class="card pm-card">
+          <p class="pm-q">Skončí S&amp;P 500 rok 2026 nad 8 000?</p>
+          <div class="pm-numbers"><span class="pm-pct">55 %</span><span class="pm-label">ano</span></div>
+          <div class="pm-bar-wrap"><div class="pm-bar-fill" style="width:55%"></div></div>
+          <p class="pm-rel">CSPX a VUAA sledují přímo tento index, VWRP z velké části.</p>
+          <ul class="pmfacts"><li>Do 8 000 chybí 2,4 % (minulý týden 3,6 %)</li><li>Rekord 7 818,93 z 6. 10.</li><li>Výsledková sezona začíná 13. 10.</li></ul>
+          <a class="pm-link" href="https://polymarket.com/event/sp500-end-2026" target="_blank" rel="noopener">Otevřít na Polymarketu →</a>
+        </div>
+        <div class="card pm-card">
+          <p class="pm-q">Bude v USA do konce roku 2026 recese?</p>
+          <div class="pm-numbers"><span class="pm-pct">18 %</span><span class="pm-label">ano</span></div>
+          <div class="pm-bar-wrap"><div class="pm-bar-fill" style="width:18%"></div></div>
+          <p class="pm-rel">Recese by zasáhla všech pět fondů najednou.</p>
+          <ul class="pmfacts"><li>Pracovní místa za září +29 tis., nezaměstnanost 4,2 %</li><li>Spotřebitelská důvěra 46,3</li><li>Inflace CPI za září vyjde 14. 10.</li></ul>
+          <a class="pm-link" href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" rel="noopener">Otevřít na Polymarketu →</a>
+        </div>
       </div>
+      <p class="pm-note">Pravděpodobnosti jsou z 22. 6. 2026 a od té doby je neaktualizuji. Komentáře jsou k 9. 10.</p>
     </div>
   </details>
 </section>
 
 <section class="section" id="clanky">
   <details class="sec" data-mobile="closed" open>
-    <summary class="sec-head">
-      <h2>Články týdne</h2>
-      <span class="lead">Kurátorský výběr · 12. 10. 2026</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Články týdne</h2><span class="lead">Vybráno 12. 10. 2026</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
       <div class="reads">
-        <a class="read" href="https://www.investicniweb.cz/aktuality/330389-americke-akcie-9-rijna-2026" target="_blank" rel="noopener">
-          <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">Wall Street v pátek uzavřela v zelených číslech, index Dow přidal přes 400 bodů</p><p class="rsum">Česky o pátku 9. 10.: Dow +0,83 %, S&amp;P 500 +0,59 %, Nasdaq +0,64 %. Odraz po čtvrtečním propadu technologií.</p><div class="rmeta">9. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://www.investicniweb.cz/aktuality/330388-americke-akcie-8-rijna-2026" target="_blank" rel="noopener">
-          <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Investiční web</span><span class="rtype cz">Akcie</span></div><p class="rtitle">Americké akcie ve čtvrtek oslabily. Ropa nad 100 dolary a vysoké výnosy dluhopisů znovu probudily obavy</p><p class="rsum">Čtvrtek 8. 10.: S&amp;P 500 -0,47 %, Nasdaq -1,25 %. Brent nad 100 USD a 10Y kolem 5,2 %.</p><div class="rmeta">8. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://zpravy.kurzy.cz/877836-mirne-zotaveni-pred-vysledkovou-sezonou-denni-shrnuti/" target="_blank" rel="noopener">
-          <div class="rthumb cz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h4l3-10 4 14 3-8h4"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Kurzy.cz</span><span class="rtype cz">Trhy</span></div><p class="rtitle">Mírné zotavení před výsledkovou sezonou - Denní shrnutí</p><p class="rsum">Denní shrnutí před startem výsledkové sezony, kterou 13. 10. otevírají velké americké banky.</p><div class="rmeta">říjen 2026</div></div>
-        </a>
-        <a class="read" href="https://euronews.com/2026/10/09/what-happened-to-openais-20bn-revenue-scare-rattles-ai-trade" target="_blank" rel="noopener">
-          <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Euronews</span><span class="rtype gl">AI</span></div><p class="rtitle">What happened to OpenAI's $20bn revenue scare that rattled the AI trade</p><p class="rsum">Co FT skutečně napsal: tržby kolem 50 mld. USD místo 70 mld. a proč rozdíl vznikl jiným počítáním. Dopad: Nasdaq -1,25 %, polovodiče -3,4 %.</p><div class="rmeta">9. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://www.thestar.com.my/tech/tech-news/2026/10/09/us-european-telecom-stocks-slide-as-spacex-spectrum-deal-rattles-sector" target="_blank" rel="noopener">
-          <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h4l3-10 4 14 3-8h4"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">The Star (Reuters)</span><span class="rtype gl">Telekomy</span></div><p class="rtitle">US, European telecom stocks slide as SpaceX spectrum deal rattles sector</p><p class="rsum">SpaceX kupuje 800MHz spektrum od Grain Management. Telekomy v USA klesly o 10–13 %, evropský index o víc než 2 %, věžové firmy rostly.</p><div class="rmeta">9. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://www.fxstreet.com/news/federal-reserve-more-hikes-ahead-after-october-pause-uob-202610081303" target="_blank" rel="noopener">
-          <div class="rthumb gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h4l3-10 4 14 3-8h4"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">FXStreet</span><span class="rtype gl">Fed</span></div><p class="rtitle">Federal Reserve: more hikes ahead after October pause - UOB</p><p class="rsum">UOB čeká po říjnové pauze další zvýšení o 25 bp v prosinci a v 1. čtvrtletí 2027. Říjnový hike Bloomberg cení na 19,4 %.</p><div class="rmeta">8. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://cryptobriefing.com/bitcoin-etfs-outflows-bitcoin-81500/" target="_blank" rel="noopener">
-          <div class="rthumb cr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9zm0 5h5a2.5 2.5 0 0 1 0 5H9zm2-9v2m2-2v2m-2 12v2m2-2v2"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Crypto Briefing</span><span class="rtype cr">Krypto</span></div><p class="rtitle">Bitcoin ETFs shed hundreds of millions as Bitcoin holds near $81,500</p><p class="rsum">Odtoky ze spotových ETF 7. a 8. 10. zhruba 729 mil. USD; od ledna jsou přítoky pořád kladné (zhruba +2,4 mld. USD).</p><div class="rmeta">9. 10. 2026</div></div>
-        </a>
-        <a class="read" href="https://portfolio-terminal.com/blog/stock-market-week-in-review-october-9-2026" target="_blank" rel="noopener">
-          <div class="rthumb etf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-          <div class="rbody"><div class="rsource-row"><span class="rsrc">Portfolio Terminal</span><span class="rtype etf">Týden</span></div><p class="rtitle">Stock market week in review, Oct. 5–9, 2026: two records, then an AI scare</p><p class="rsum">Zavření po dnech, sektory a největší akcie. S&amp;P 500 +1,15 %, utility +3,97 %, technologie -0,52 %.</p><div class="rmeta">10. 10. 2026</div></div>
-        </a>
+        <a class="read" href="https://portfolio-terminal.com/blog/stock-market-week-in-review-october-9-2026" target="_blank" rel="noopener"><span class="rsrc">Portfolio Terminal · týden</span><p class="rtitle">Stock market week in review, Oct. 5–9, 2026: two records, then an AI scare</p><p class="rsum">Všechna zavření po dnech, sektory a osm největších firem. Nejlepší přehled týdne v jednom článku.</p><span class="rmeta">10. 10. 2026</span></a>
+        <a class="read" href="https://euronews.com/2026/10/09/what-happened-to-openais-20bn-revenue-scare-rattles-ai-trade" target="_blank" rel="noopener"><span class="rsrc">Euronews · AI</span><p class="rtitle">What happened to OpenAI's $20bn revenue scare</p><p class="rsum">Co FT o tržbách OpenAI napsal, proč čísla nesedí a jak na to reagovaly Oracle a Nvidia.</p><span class="rmeta">9. 10. 2026</span></a>
+        <a class="read" href="https://www.investicniweb.cz/aktuality/330389-americke-akcie-9-rijna-2026" target="_blank" rel="noopener"><span class="rsrc">Investiční web · akcie</span><p class="rtitle">Wall Street v pátek uzavřela v zelených číslech, Dow přidal přes 400 bodů</p><p class="rsum">Česky o pátku 9. 10.: odraz po čtvrtečním propadu technologií.</p><span class="rmeta">9. 10. 2026</span></a>
+        <a class="read" href="https://www.investicniweb.cz/aktuality/330388-americke-akcie-8-rijna-2026" target="_blank" rel="noopener"><span class="rsrc">Investiční web · akcie</span><p class="rtitle">Americké akcie ve čtvrtek oslabily, ropa nad 100 dolary a vysoké výnosy probudily obavy</p><p class="rsum">Česky o čtvrtku 8. 10., kdy Nasdaq ztratil 1,25 %.</p><span class="rmeta">8. 10. 2026</span></a>
+        <a class="read" href="https://www.thestar.com.my/tech/tech-news/2026/10/09/us-european-telecom-stocks-slide-as-spacex-spectrum-deal-rattles-sector" target="_blank" rel="noopener"><span class="rsrc">The Star (Reuters) · telekomy</span><p class="rtitle">US, European telecom stocks slide as SpaceX spectrum deal rattles sector</p><p class="rsum">Detaily obchodu se spektrem a reakce operátorů v USA i v Evropě.</p><span class="rmeta">9. 10. 2026</span></a>
+        <a class="read" href="https://www.fxstreet.com/news/federal-reserve-more-hikes-ahead-after-october-pause-uob-202610081303" target="_blank" rel="noopener"><span class="rsrc">FXStreet · Fed</span><p class="rtitle">Federal Reserve: more hikes ahead after October pause</p><p class="rsum">Banka UOB čeká zvýšení sazeb v prosinci a v 1. čtvrtletí 2027, v říjnu ne.</p><span class="rmeta">8. 10. 2026</span></a>
+        <a class="read" href="https://cryptobriefing.com/bitcoin-etfs-outflows-bitcoin-81500/" target="_blank" rel="noopener"><span class="rsrc">Crypto Briefing · krypto</span><p class="rtitle">Bitcoin ETFs shed hundreds of millions as Bitcoin holds near $81,500</p><p class="rsum">Odtoky ze spotových ETF 7.–8. 10. a proč od ledna zůstávají přítoky kladné.</p><span class="rmeta">9. 10. 2026</span></a>
+        <a class="read" href="https://zpravy.kurzy.cz/877836-mirne-zotaveni-pred-vysledkovou-sezonou-denni-shrnuti/" target="_blank" rel="noopener"><span class="rsrc">Kurzy.cz · trhy</span><p class="rtitle">Mírné zotavení před výsledkovou sezonou</p><p class="rsum">Denní shrnutí před startem výsledků velkých amerických bank.</p><span class="rmeta">říjen 2026</span></a>
       </div>
     </div>
   </details>
@@ -1044,156 +619,38 @@ details.sec>summary::marker{content:""}
 
 <section class="section" id="portfolio">
   <details class="sec" data-mobile="closed" open>
-    <summary class="sec-head">
-      <h2>Tvé fondy</h2>
-      <span class="lead">5 ETF · přehled</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+    <summary class="sec-head"><h2>Tvé fondy</h2><span class="lead">5 ETF na Trading 212</span><span class="chev" aria-hidden="true"></span></summary>
     <div class="sec-body">
-      <div class="g g5 swipe">
-        <div class="fund-card">
-          <div class="fund-header fh-sp500eur">
-            <div class="fund-ticker">CSPX</div>
-            <div class="fund-name">iShares Core S&amp;P 500 UCITS ETF</div>
-            <div class="fund-tags"><span class="fund-tag">EUR</span><span class="fund-tag">ACC</span><span class="fund-tag">US Large Cap</span></div>
-          </div>
-          <div class="fund-body">
-            <p class="fund-desc">Sleduje S&amp;P 500 — 500 největších US firem. Nízký TER 0.07 %, obchodováno v EUR. Překrývá se 100 % s VUAA (jiná měna).</p>
-            <div><div class="fund-holdings-label">Top holdings</div><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span></div></div>
-            <div class="fund-meta"><span class="fund-meta-item">TER <span>0.07 %</span></span><span class="fund-meta-item">~500 firem</span><span class="fund-meta-item">iShares</span></div>
-          </div>
-        </div>
-        <div class="fund-card">
-          <div class="fund-header fh-em">
-            <div class="fund-ticker">EIMI</div>
-            <div class="fund-name">iShares Core MSCI EM IMI UCITS ETF</div>
-            <div class="fund-tags"><span class="fund-tag">USD</span><span class="fund-tag">ACC</span><span class="fund-tag">Emerging Markets</span></div>
-          </div>
-          <div class="fund-body">
-            <p class="fund-desc">Rozvíjející se trhy — přes 3 000 firem z Číny, Indie, Tchaj-wanu, Brazílie, Koreje. Expozice, kterou VWRP pokrývá jen zhruba 12 %.</p>
-            <div><div class="fund-holdings-label">Top holdings</div><div class="fund-chips"><span class="chip">TSMC</span><span class="chip">Samsung</span><span class="chip">Tencent</span><span class="chip">Alibaba</span><span class="chip">Reliance</span><span class="chip">HDFC</span></div></div>
-            <div class="fund-meta"><span class="fund-meta-item">TER <span>0.18 %</span></span><span class="fund-meta-item">~3 087 firem</span><span class="fund-meta-item">iShares</span></div>
-          </div>
-        </div>
-        <div class="fund-card">
-          <div class="fund-header fh-nasdaq">
-            <div class="fund-ticker">EQQQ</div>
-            <div class="fund-name">Invesco EQQQ NASDAQ-100 UCITS ETF</div>
-            <div class="fund-tags"><span class="fund-tag">EUR</span><span class="fund-tag">ACC</span><span class="fund-tag">US Tech</span></div>
-          </div>
-          <div class="fund-body">
-            <p class="fund-desc">100 největších nefinančních firem na Nasdaq. Tech satelit portfolia — 85 %+ překryv s S&amp;P 500 top, ale silnější tech tilt.</p>
-            <div><div class="fund-holdings-label">Top holdings</div><div class="fund-chips"><span class="chip">MSFT</span><span class="chip">AAPL</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">ASML</span><span class="chip">TSLA</span></div></div>
-            <div class="fund-meta"><span class="fund-meta-item">TER <span>0.30 %</span></span><span class="fund-meta-item">100 firem</span><span class="fund-meta-item">Invesco</span></div>
-          </div>
-        </div>
-        <div class="fund-card">
-          <div class="fund-header fh-sp500gbp">
-            <div class="fund-ticker">VUAA</div>
-            <div class="fund-name">Vanguard S&amp;P 500 UCITS ETF</div>
-            <div class="fund-tags"><span class="fund-tag">GBP</span><span class="fund-tag">ACC</span><span class="fund-tag">US Large Cap</span></div>
-          </div>
-          <div class="fund-body">
-            <p class="fund-desc">Identický index jako CSPX (S&amp;P 500), ale v britských librách — 100 % duplicita expozice, jiná měnová třída.</p>
-            <div><div class="fund-holdings-label">Top holdings</div><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span></div></div>
-            <div class="fund-meta"><span class="fund-meta-item">TER <span>0.07 %</span></span><span class="fund-meta-item">~500 firem</span><span class="fund-meta-item">Vanguard</span></div>
-          </div>
-        </div>
-        <div class="fund-card">
-          <div class="fund-header fh-world">
-            <div class="fund-ticker">VWRP</div>
-            <div class="fund-name">Vanguard FTSE All-World UCITS ETF</div>
-            <div class="fund-tags"><span class="fund-tag">GBP</span><span class="fund-tag">ACC</span><span class="fund-tag">Global</span></div>
-          </div>
-          <div class="fund-body">
-            <p class="fund-desc">Celý svět v jednom fondě — ~3 600 firem, 49 zemí. US ~60 %, EM ~12 %. Obsahuje S&amp;P 500, Nasdaq i EM.</p>
-            <div><div class="fund-holdings-label">Top holdings</div><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">TSMC</span></div></div>
-            <div class="fund-meta"><span class="fund-meta-item">TER <span>0.22 %</span></span><span class="fund-meta-item">~3 600 firem</span><span class="fund-meta-item">Vanguard</span></div>
-          </div>
-        </div>
+      <div class="g5 swipe">
+        <div class="card fund-card"><div class="fund-ticker">CSPX</div><p class="fund-name">iShares Core S&amp;P 500 UCITS ETF</p><div class="fund-tags"><span class="fund-tag">EUR</span><span class="fund-tag">ACC</span><span class="fund-tag">US Large Cap</span></div><p class="fund-desc">500 největších firem v USA. Stejný index jako VUAA, jen jiná měna.</p><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span></div><div class="fund-meta">TER 0,07 % · ~500 firem</div></div>
+        <div class="card fund-card"><div class="fund-ticker">EIMI</div><p class="fund-name">iShares Core MSCI EM IMI UCITS ETF</p><div class="fund-tags"><span class="fund-tag">USD</span><span class="fund-tag">ACC</span><span class="fund-tag">Emerging Markets</span></div><p class="fund-desc">Přes 3 000 firem z Číny, Indie, Tchaj-wanu, Koreje a Brazílie. VWRP jich má jen zhruba 12 %.</p><div class="fund-chips"><span class="chip">TSMC</span><span class="chip">Samsung</span><span class="chip">Tencent</span><span class="chip">Alibaba</span><span class="chip">Reliance</span><span class="chip">HDFC</span></div><div class="fund-meta">TER 0,18 % · ~3 087 firem</div></div>
+        <div class="card fund-card"><div class="fund-ticker">EQQQ</div><p class="fund-name">Invesco EQQQ NASDAQ-100 UCITS ETF</p><div class="fund-tags"><span class="fund-tag">EUR</span><span class="fund-tag">ACC</span><span class="fund-tag">US Tech</span></div><p class="fund-desc">100 největších nefinančních firem z Nasdaqu. Silně technologický.</p><div class="fund-chips"><span class="chip">MSFT</span><span class="chip">AAPL</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">ASML</span><span class="chip">TSLA</span></div><div class="fund-meta">TER 0,30 % · 100 firem</div></div>
+        <div class="card fund-card"><div class="fund-ticker">VUAA</div><p class="fund-name">Vanguard S&amp;P 500 UCITS ETF</p><div class="fund-tags"><span class="fund-tag">GBP</span><span class="fund-tag">ACC</span><span class="fund-tag">US Large Cap</span></div><p class="fund-desc">Stejný index jako CSPX, obchoduješ ho v librách.</p><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">META</span></div><div class="fund-meta">TER 0,07 % · ~500 firem</div></div>
+        <div class="card fund-card"><div class="fund-ticker">VWRP</div><p class="fund-name">Vanguard FTSE All-World UCITS ETF</p><div class="fund-tags"><span class="fund-tag">GBP</span><span class="fund-tag">ACC</span><span class="fund-tag">Global</span></div><p class="fund-desc">Celý svět v jednom fondu: ~3 600 firem ze 49 zemí, USA zhruba 60 %.</p><div class="fund-chips"><span class="chip">AAPL</span><span class="chip">MSFT</span><span class="chip">NVDA</span><span class="chip">AMZN</span><span class="chip">GOOGL</span><span class="chip">TSMC</span></div><div class="fund-meta">TER 0,22 % · ~3 600 firem</div></div>
       </div>
-      <p class="swipe-hint">Přejeď prstem pro další fondy</p>
-    </div>
-  </details>
-</section>
-
-<section class="section" id="polymarket">
-  <details class="sec" data-mobile="closed" open>
-    <summary class="sec-head">
-      <h2>Polymarket predikce</h2>
-      <span class="lead">Pravděpodobnosti z 22. 6. 2026 (neaktualizováno) · komentář k 9. 10. 2026</span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
-    <div class="sec-body">
-      <div class="pm-grid">
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">Fed rate hike do konce roku 2026?</span><span class="pm-cat macro">Makro</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill neut" style="width:52%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct neut">52 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">zastaralé</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Zápis z Fedu potvrdil, že hike do konce roku většina považuje za vhodný; říjen trh vylučuje.</p><ul class="pmfacts"><li>Říjnový hike trh cení na <b>19,4 %</b> (Bloomberg, 8. 10.), 5. 10. 21,6 %, 28. 9. 70,3 %</li><li>UOB čeká hike v prosinci a v 1. čtvrtletí 2027</li><li>2Y výnos <b>4,80 %</b> je nad horní hranicí sazby 4,00 %; další zasedání Fedu <b>27.–28. 10.</b></li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/fed-rate-hike-by" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">Kdo vydělá nejvíc v 2026: S&amp;P 500, Gold, nebo Bitcoin?</span><span class="pm-cat equity">Akcie</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:44%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct bull">44 %</div><div class="pm-label">S&amp;P 500 první · Gold 36 % · BTC 20 %</div></div><div class="pm-vol">zlato týden +1,3 %</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Od začátku roku vedou akcie, bitcoin je v mínusu.</p><ul class="pmfacts"><li>S&amp;P 500 <b>+14,1 %</b> od 1. 1., Nasdaq +17,7 %, BTC zhruba <b>-5,7 %</b></li><li>Zlato za týden zhruba +1,3 %</li><li>Pravděpodobnosti jsou z června a poslední čtyři měsíce nezahrnují</li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/bitcoin-vs-gold-vs-sp-500-in-2026" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">Bitcoin dosáhne $100k před koncem 2026?</span><span class="pm-cat crypto">Krypto</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill neut" style="width:20%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct neut">20 %</div><div class="pm-label">pravděpodobnost ANO (červnová)</div></div><div class="pm-vol">pátek ~82,6 tis.</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Do 100 tisíc zbývá o něco víc než minulý týden, pondělní maximum bitcoin neudržel.</p><ul class="pmfacts"><li>BTC <b>$82 564</b>, do $100k zbývá <b>+21 %</b> (minulý týden +17 %)</li><li>Za měsíc zhruba +5,5 %, za rok zhruba -32 %</li><li>Spotové ETF měly 7. a 8. 10. odtok zhruba 729 mil. USD; přímá expozice v portfoliu zůstává nulová</li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/what-price-will-bitcoin-hit-before-2027" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">USA recese do konce roku 2026?</span><span class="pm-cat macro">Makro</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:18%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct bear">18 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">UMich 46,3</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Důvěra spotřebitelů klesla na 46,3 a ropa dál roste: slabá poptávka při vysokých cenách.</p><ul class="pmfacts"><li>Michiganský index za říjen <b>46,3</b> (září 48,1, odhad 47,6)</li><li>Brent <b>104,72 USD</b> (+2,42 % za týden), srpnová PCE inflace 3,4 %</li><li>Americká CPI za září vyjde <b>14. 10.</b>; payrolls za září byly +29 tis.</li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">S&amp;P 500 uzavře rok 2026 nad 8 000?</span><span class="pm-cat equity">Akcie</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill bull" style="width:55%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct bull">55 %</div><div class="pm-label">pravděpodobnost ANO</div></div><div class="pm-vol">chybí +2,4 %</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Index je 0,09 % pod rekordem, do 8 000 zbývá 2,4 %.</p><ul class="pmfacts"><li>Chybí <b>+2,4 %</b>, minulý týden +3,6 %</li><li>Rekord 7 818,93 z 6. 10.; 10Y výnos 5,244 %</li><li>Riziko: inflace nad 3 %, výnosy nad 5 % a výsledková sezona od 13. 10.</li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/sp500-end-2026" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-        <div class="pm-card">
-          <div class="pm-header"><span class="pm-q">Projde CLARITY Act v roce 2026?</span><span class="pm-cat crypto">Krypto</span></div>
-          <div class="pm-bar-wrap"><div class="pm-bar-fill bear" style="width:4%"></div></div>
-          <div class="pm-numbers"><div><div class="pm-pct bear">~0 %</div><div class="pm-label">fakticky vyloučeno</div></div><div class="pm-vol">beze změny od 24. 9.</div></div>
-          <div class="pm-impact"><p class="pm-verdict">Zákon zůstává zablokovaný; trhy cenily podpis v roce 2026 na zhruba 5–6 %.</p><ul class="pmfacts"><li>Procedurální hlasování v Senátu skončilo <b>49:50</b>, nový termín jsem nenašel</li><li>SEC a CFTC postupují podle stávajících pravidel</li><li>Od minulého týdne jsem žádný nový krok nenašel</li></ul></div>
-          <div class="pm-footer"><span class="pm-src">polymarket.com</span><a class="pm-link" href="https://polymarket.com/event/fed-rate-hike-by" target="_blank" rel="noopener">Otevřít →</a></div>
-        </div>
-      </div>
+      <p class="swipe-hint">Přejeď prstem pro další fondy →</p>
     </div>
   </details>
 </section>
 
 <div class="footer">
-  <strong>Disclaimer:</strong> Toto není investiční doporučení ani finanční poradenství. Claude je jazykový model a analytický nástroj, ne licencovaný poradce. Tržní data jsou orientační. Konečné rozhodnutí je vždy na tobě.
-  <div class="fsrc">Zdroje · ČNB (denní a roční kurzy) · Yahoo Finance · Portfolio Terminal · CNBC · Bloomberg · Cointelegraph · CoinDesk · Investiční web · Kurzy.cz · ČSÚ · StockAnalysis.com · FRED (Moody's AAA) · Polymarket</div>
+  <strong>Upozornění:</strong> Tohle není investiční doporučení ani finanční poradenství. Claude je jazykový model, ne licencovaný poradce. Tržní data jsou orientační a rozhodnutí je vždy na tobě.
+  <div class="fsrc">Zdroje: ČNB (denní kurzy), Yahoo Finance, Portfolio Terminal, CoinGecko, FRED (Moody's AAA), StockAnalysis.com, companiesmarketcap.com, Euronews, Reuters, FXStreet, Crypto Briefing, Investiční web, Kurzy.cz, Polymarket</div>
 </div>
 
 </main>
-</div>
-
 </div>
 
 <div id="tip" role="tooltip"></div>
 
 <script>
 (function(){
-  /* ---- mobile: collapse reference-heavy sections by default ---- */
+  /* ---- mobil: referenční sekce zavřené ---- */
   var MOBILE = window.matchMedia("(max-width:720px)");
   function applyCollapse(){
     var closeThem = MOBILE.matches;
     document.querySelectorAll('details.sec[data-mobile="closed"]').forEach(function(el){
-      if (closeThem) { if (!el.dataset.touched) el.open = false; }
-      else { el.open = true; }
+      if (closeThem) { if (!el.dataset.touched) el.open = false; } else { el.open = true; }
     });
   }
   document.querySelectorAll("details.sec").forEach(function(el){
@@ -1202,27 +659,25 @@ details.sec>summary::marker{content:""}
   applyCollapse();
   if (MOBILE.addEventListener) MOBILE.addEventListener("change", applyCollapse);
 
-  /* ---- nav chips + side TOC open the target section before jumping to it ---- */
-  document.querySelectorAll(".navchip, .toc a").forEach(function(a){
+  /* ---- navigace otevře cílovou sekci ---- */
+  document.querySelectorAll(".navchip").forEach(function(a){
     a.addEventListener("click", function(){
-      var t = document.querySelector(a.getAttribute("href"));
-      if (!t) return;
+      var t = document.querySelector(a.getAttribute("href")); if (!t) return;
       var det = t.querySelector("details.sec");
       if (det && !det.open) { det.open = true; det.dataset.touched = "1"; }
     });
   });
 
-  /* ---- scrollspy: highlight current section in TOC and chip bar ---- */
-  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a, .navchip"));
+  /* ---- scrollspy ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".navchip"));
   var chipBar = document.querySelector(".navchips");
   var sections = Array.prototype.slice.call(document.querySelectorAll("main .section[id]"));
   var current = "";
   function setActive(id){
-    if (id === current) return;
-    current = id;
+    if (id === current) return; current = id;
     links.forEach(function(a){ a.classList.toggle("active", a.getAttribute("href") === "#" + id); });
     var chip = chipBar && chipBar.querySelector('.navchip[href="#' + id + '"]');
-    if (chip && chipBar.scrollWidth > chipBar.clientWidth) {
+    if (chip && chipBar.scrollWidth > chipBar.clientWidth && chipBar.scrollTo) {
       chipBar.scrollTo({ left: chip.offsetLeft - chipBar.clientWidth / 2 + chip.offsetWidth / 2, behavior: "smooth" });
     }
   }
@@ -1232,21 +687,33 @@ details.sec>summary::marker{content:""}
     requestAnimationFrame(function(){
       ticking = false;
       var line = window.innerHeight * 0.3, id = sections.length ? sections[0].id : "";
-      for (var i = 0; i < sections.length; i++) {
-        if (sections[i].getBoundingClientRect().top <= line) id = sections[i].id; else break;
-      }
+      for (var i = 0; i < sections.length; i++) { if (sections[i].getBoundingClientRect().top <= line) id = sections[i].id; else break; }
       setActive(id);
     });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---- FX signal ---- */
-  var FX_THRESHOLDS = {
-    eur: { cheap: 24.0, pricey: 24.5 },
-    usd: { cheap: 20.5, pricey: 21.5 },
-    gbp: { cheap: 27.5, pricey: 29.0 }
-  };
+  /* ---- sparklines z data-series ---- */
+  var NS = "http://www.w3.org/2000/svg";
+  document.querySelectorAll("svg.sp[data-series]").forEach(function(svg){
+    var v = svg.getAttribute("data-series").split(",").map(Number);
+    var lo = Math.min.apply(null, v), hi = Math.max.apply(null, v), n = v.length;
+    var pts = v.map(function(x, i){ var y = hi > lo ? 34 - (x - lo) / (hi - lo) * 28 : 20; return [i * 200 / (n - 1), y]; });
+    var good = svg.getAttribute("data-good"), rising = v[n - 1] >= v[0];
+    var cls = (rising === (good === "up")) ? "up" : "down";
+    var line = pts.map(function(p){ return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
+    var area = document.createElementNS(NS, "polygon");
+    area.setAttribute("points", "0,40 " + line + " 200,40");
+    area.setAttribute("class", cls); area.setAttribute("fill", "currentColor"); area.setAttribute("fill-opacity", ".10");
+    var pl = document.createElementNS(NS, "polyline");
+    pl.setAttribute("points", line); pl.setAttribute("fill", "none"); pl.setAttribute("stroke", "currentColor");
+    pl.setAttribute("stroke-width", "1.8"); pl.setAttribute("vector-effect", "non-scaling-stroke"); pl.setAttribute("class", cls);
+    svg.appendChild(area); svg.appendChild(pl);
+  });
+
+  /* ---- FX signál ---- */
+  var FX_THRESHOLDS = { eur: { cheap: 24.0, pricey: 24.5 }, usd: { cheap: 20.5, pricey: 21.5 }, gbp: { cheap: 27.5, pricey: 29.0 } };
   function getFxSignal(rate, key) {
     var t = FX_THRESHOLDS[key];
     if (rate < t.cheap) return { cls: "cheap", label: "LEVNÉ" };
@@ -1255,74 +722,58 @@ details.sec>summary::marker{content:""}
   }
   var rates = { eur: 24.365, usd: 21.745, gbp: 28.745 };
   ["eur","usd","gbp"].forEach(function(k){
-    var sig = getFxSignal(rates[k], k);
-    var el = document.getElementById("sig-" + k);
+    var sig = getFxSignal(rates[k], k), el = document.getElementById("sig-" + k);
     if (el) { el.className = "fxsig " + sig.cls; el.textContent = sig.label; }
   });
 
-  /* ---- glossary: hover / tap on a term shows an explanation ---- */
+  /* ---- glosář ---- */
   var GLOSSARY = {
-    "CSPX": "iShares Core S&P 500 UCITS ETF. 500 největších US firem, obchoduješ ho v EUR, TER 0,07 %. U tebe 15 % měsíčního vkladu.",
-    "EIMI": "iShares Core MSCI EM IMI UCITS ETF. Přes 3 000 firem z rozvíjejících se trhů (Čína, Indie, Tchaj-wan, Korea…), v USD, TER 0,18 %. U tebe 20 %.",
-    "EQQQ": "Invesco EQQQ Nasdaq-100 UCITS ETF. 100 největších nefinančních firem z Nasdaqu, silně technologický, v EUR, TER 0,30 %. U tebe 15 %.",
-    "VUAA": "Vanguard S&P 500 UCITS ETF. Stejný index jako CSPX, jen v librách (GBP), TER 0,07 %. U tebe 15 %.",
+    "CSPX": "iShares Core S&P 500 UCITS ETF. 500 největších firem v USA, v EUR, TER 0,07 %. U tebe 15 % měsíčního nákupu.",
+    "EIMI": "iShares Core MSCI EM IMI UCITS ETF. Přes 3 000 firem z rozvíjejících se trhů, v USD, TER 0,18 %. U tebe 20 %.",
+    "EQQQ": "Invesco EQQQ Nasdaq-100 UCITS ETF. 100 největších nefinančních firem z Nasdaqu, v EUR, TER 0,30 %. U tebe 15 %.",
+    "VUAA": "Vanguard S&P 500 UCITS ETF. Stejný index jako CSPX, v librách, TER 0,07 %. U tebe 15 %.",
     "VWRP": "Vanguard FTSE All-World UCITS ETF. Celý svět v jednom fondu, ~3 600 firem, v GBP, TER 0,22 %. Jádro portfolia, 35 %.",
-    "NKE": "Nike — americký výrobce sportovního oblečení a obuvi, člen indexu Dow Jones.",
-    "JNJ": "Johnson & Johnson — americká firma na léčiva a zdravotnické prostředky, člen indexu Dow Jones.",
-    "GS": "Goldman Sachs — americká investiční banka, v Dow Jones nejdražší akcie podle ceny.",
-    "ISM": "Institute for Supply Management: průzkum mezi nákupčími v průmyslu a službách. Index nad 50 znamená růst; podindex cen měří tlak na ceny vstupů.",
-    "FOMC": "Federal Open Market Committee: výbor Fedu, který rozhoduje o sazbách. Zasedá zhruba osmkrát ročně.",
-    "Brent": "Severomořská ropa, světový benchmark ceny ropy (dnes kontrakt na prosinec).",
-    "WTI": "West Texas Intermediate: americká ropa, benchmark ceny v USA.",
-    "XLV": "ETF sektoru zdravotnictví v S&P 500.",
-    "XLF": "ETF finančního sektoru v S&P 500 (banky, pojišťovny).",
-    "P/E": "Price/Earnings: cena akcie děleno ziskem na akcii. Kolik let zisku platíš. Graham chce ≤ 15.",
-    "P/B": "Price/Book: cena děleno účetní hodnotou vlastního kapitálu na akcii. Graham chce ≤ 1,5.",
-    "ROIC": "Return on Invested Capital: jak výnosně firma zhodnocuje kapitál od akcionářů i věřitelů. Nad 15 % silné, pod 8–10 % slabé.",
-    "WACC": "Průměrné náklady kapitálu firmy. ROIC nad WACC znamená, že firma vytváří hodnotu.",
-    "EPS": "Earnings per share: čistý zisk na jednu akcii.",
-    "Current ratio": "Oběžná aktiva děleno krátkodobými závazky. Graham chce ≥ 2, tedy dvojnásobnou rezervu na krátkodobé dluhy.",
-    "Earnings yield": "Obrácené P/E (zisk/cena). Graham chce aspoň dvojnásobek výnosu nejbezpečnějších firemních dluhopisů (AAA).",
-    "AAA": "Výnos firemních dluhopisů s nejvyšším ratingem (Moody's AAA). Graham ho používá jako měřítko bezpečné alternativy k akciím.",
-    "PMI": "Purchasing Managers' Index: průzkum mezi nákupčími firem. Nad 50 = ekonomika roste, pod 50 = zpomaluje.",
-    "PCE": "Cenový index osobní spotřeby. Inflační ukazatel, podle kterého se nejvíc řídí Fed.",
-    "payrolls": "Měsíční počet nově vytvořených pracovních míst v USA (Nonfarm Payrolls). Silné číslo = tlak na vyšší sazby.",
-    "UMich": "Index spotřebitelské důvěry Michiganské univerzity. Obsahuje i inflační očekávání domácností.",
-    "10Y": "Výnos desetiletého amerického vládního dluhopisu. Když roste, zdražují se hypotéky a úvěry a akcie (hlavně růstové) se oceňují níž.",
+    "VOW3": "Prioritní akcie Volkswagenu na burze Xetra. Nemají hlasovací právo, dostávají o 6 centů vyšší dividendu než kmenové.",
+    "CMCSA": "Comcast: americký kabelový a internetový operátor, vlastní NBCUniversal a Sky.",
+    "BAC": "Bank of America: druhá největší banka v USA podle aktiv.",
+    "polštář": "Margin of safety. O kolik je Grahamova cena nad dnešní cenou akcie. Čím větší, tím víc chyb v odhadu cena snese.",
+    "Grahamova cena": "√(22,5 × EPS × účetní hodnota na akcii). Nejvyšší cena, kterou by Graham u defenzivní akcie ještě zaplatil.",
+    "ISM": "Průzkum mezi nákupčími v průmyslu a službách. Nad 50 znamená růst.",
+    "FOMC": "Výbor Fedu, který rozhoduje o sazbách. Zasedá zhruba osmkrát ročně.",
+    "Brent": "Severomořská ropa, světový benchmark ceny ropy.",
+    "XLU": "ETF sektoru utilit v S&P 500 (elektřina, plyn, voda).",
+    "XLP": "ETF sektoru spotřebního zboží denní potřeby v S&P 500 (potraviny, drogerie).",
+    "XLK": "ETF technologického sektoru S&P 500.",
+    "SOX": "Index PHLX Semiconductor: 30 největších amerických firem z oboru polovodičů.",
+    "P/E": "Cena akcie děleno ziskem na akcii. Kolik let zisku platíš. Graham chce nejvýš 15.",
+    "P/B": "Cena děleno účetní hodnotou vlastního kapitálu na akcii. Graham chce nejvýš 1,5.",
+    "ROIC": "Jak výnosně firma zhodnocuje kapitál od akcionářů i věřitelů. Nad 15 % silné, pod 8–10 % slabé.",
+    "EPS": "Čistý zisk na jednu akcii.",
+    "Current ratio": "Oběžná aktiva děleno krátkodobými závazky. Graham chce aspoň 2.",
+    "Earnings yield": "Zisk děleno cenou (obrácené P/E). Graham chce aspoň dvojnásobek výnosu dluhopisů AAA.",
+    "AAA": "Výnos firemních dluhopisů s nejvyšším ratingem (Moody's AAA). Graham ho bere jako bezpečnou alternativu k akciím.",
+    "CPI": "Index spotřebitelských cen, hlavní měřítko inflace v USA.",
+    "10Y": "Výnos desetiletého amerického vládního dluhopisu. Když roste, akcie (hlavně růstové) se oceňují níž.",
     "30Y": "Výnos třicetiletého amerického vládního dluhopisu.",
     "2Y": "Výnos dvouletého amerického vládního dluhopisu. Nejvíc odráží očekávané sazby Fedu.",
-    "bp": "Bazický bod = 0,01 procentního bodu. 25 bp = 0,25 p. b.",
-    "YTD": "Year to date: změna od 1. ledna letošního roku.",
-    "DCA": "Dollar cost averaging: pravidelné investování stejné částky bez ohledu na cenu. Tvých 10 000 Kč měsíčně.",
+    "bp": "Bazický bod = 0,01 procentního bodu.",
+    "YTD": "Změna od 1. ledna letošního roku.",
+    "DCA": "Pravidelné investování stejné částky bez ohledu na cenu. Tvých 10 000 Kč měsíčně.",
     "FAIR": "Kurz je v běžném pásmu. LEVNÉ = koruna je silná a nákup v té měně výhodnější, DRAHÉ = naopak.",
-    "TER": "Total Expense Ratio: roční poplatek fondu z investované částky.",
-    "XLK": "ETF technologického sektoru S&P 500. Používá se jako měřítko, jak se daří tech firmám.",
-    "XLU": "ETF sektoru utilit (energetika, voda). Citlivý na úrokové sazby.",
-    "XLE": "ETF energetického sektoru (ropa, plyn).",
-    "Russell 2000": "Index 2 000 menších amerických firem. Na vyšší sazby reaguje citlivěji než S&P 500.",
-    "CLARITY Act": "Návrh amerického zákona o tržní struktuře krypta (dozor SEC a CFTC). V Senátu 15. 9. 2026 neprošel.",
-    "VZ": "Verizon Communications — americký telekomunikační operátor, člen indexu Dow Jones.",
-    "TMUS": "T-Mobile US — americký mobilní operátor, většinově vlastněný Deutsche Telekom.",
-    "ORCL": "Oracle — americká firma na databáze, software a cloud; dodává výpočetní výkon pro OpenAI.",
-    "AT&T": "AT&T — americký telekomunikační operátor, člen indexu Dow Jones.",
-    "SOX": "Index PHLX Semiconductor: 30 největších amerických firem z oboru polovodičů.",
-    "CPI": "Index spotřebitelských cen: nejsledovanější měřítko inflace. Americká CPI za září vychází 14. 10.",
-    "DXY": "Dolarový index: hodnota dolaru proti koši šesti hlavních měn (euro, jen, libra a další).",
-    "WSJ": "Wall Street Journal.",
-    "Grahamovo číslo": "P/E × P/B ≤ 22,5. Dovoluje vyšší P/E, pokud je nízké P/B, a naopak."
+    "TER": "Roční poplatek fondu z investované částky.",
+    "Russell 2000": "Index 2 000 menších amerických firem.",
+    "CLARITY": "Návrh amerického zákona o pravidlech krypto trhu. V Senátu 49:50 neprošel."
   };
   var keys = Object.keys(GLOSSARY).sort(function(a,b){ return b.length - a.length; });
   var esc = function(s){ return s.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&"); };
   var re;
   try { re = new RegExp("(?<![\\p{L}\\p{N}])(" + keys.map(esc).join("|") + ")(?![\\p{L}\\p{N}])", "gu"); }
   catch(e) { re = new RegExp("\\b(" + keys.map(esc).join("|") + ")\\b", "g"); }
-  var SKIP = { A:1, SCRIPT:1, STYLE:1, SVG:1, CANVAS:1, SUMMARY:0, TEXTAREA:1 };
-  var lower = {}; keys.forEach(function(k){ lower[k.toLowerCase()] = k; });
-  /* only the first occurrence of each term per section gets underlined, to keep the text calm */
+  var SKIP = { A:1, SCRIPT:1, STYLE:1, SVG:1, TEXTAREA:1, NAV:1 };
   var seen = {};
   function walk(node){
     if (node.nodeType === 1) {
-      if (SKIP[node.tagName] || SKIP[node.nodeName.toUpperCase()] || node.classList.contains("tk") || node.classList.contains("toc") || node.classList.contains("navchips")) return;
+      if (SKIP[node.nodeName.toUpperCase()] || node.classList.contains("tk") || node.classList.contains("navchips")) return;
       if (node.classList.contains("section")) seen = {};
       Array.prototype.slice.call(node.childNodes).forEach(walk);
     } else if (node.nodeType === 3) {
@@ -1347,8 +798,7 @@ details.sec>summary::marker{content:""}
 
   var tip = document.getElementById("tip"), tipFor = null;
   function showTip(el){
-    var k = el.dataset.term, txt = GLOSSARY[k];
-    if (!txt) return;
+    var k = el.dataset.term, txt = GLOSSARY[k]; if (!txt) return;
     tip.innerHTML = "";
     var b = document.createElement("b"); b.textContent = k; tip.appendChild(b);
     tip.appendChild(document.createTextNode(txt));
@@ -1370,38 +820,6 @@ details.sec>summary::marker{content:""}
     else if (tipFor) hideTip();
   });
   window.addEventListener("scroll", function(){ if (tipFor) hideTip(); }, { passive: true });
-
-  /* ---- allocation doughnut: build only once its section is visible ---- */
-  var chartBuilt = false;
-  function buildChart(){
-    if (chartBuilt || !window.Chart) return;
-    var cv = document.getElementById("allocChart");
-    if (!cv || !cv.offsetParent) return;
-    chartBuilt = true;
-    Chart.defaults.font.family = '-apple-system,BlinkMacSystemFont,"Inter",sans-serif';
-    Chart.defaults.font.size = 11.5;
-    Chart.defaults.color = "#404040";
-    new Chart(cv, {
-      type: "doughnut",
-      data: {
-        labels: ["VWRP 3 500 Kč","EIMI 2 000 Kč","EQQQ 1 500 Kč","VUAA 1 500 Kč","CSPX 1 500 Kč"],
-        datasets:[{
-          data:[35,20,15,15,15],
-          backgroundColor:["#0d9488","#f59e0b","#8b5cf6","#10b981","#3b82f6"],
-          borderWidth:2,
-          borderColor:"#fff"
-        }]
-      },
-      options:{
-        responsive:true, maintainAspectRatio:false, cutout:"60%",
-        plugins:{legend:{position:"bottom",labels:{boxWidth:10,padding:11,font:{size:11}}}}
-      }
-    });
-  }
-  buildChart();
-  document.querySelectorAll("details.sec").forEach(function(el){
-    el.addEventListener("toggle", function(){ if (el.open) setTimeout(buildChart, 60); });
-  });
 })();
 </script>
 <script id="pin-gate-script">(function(){var PIN_HASH="5ca78d60306335e9cdf1efa886dd54cb3d06100d29c1099f11c1389e15ca0816";var KEY="briefingUnlockedV1";var b=document.body,o=document.getElementById("pinOverlay"),i=document.getElementById("pinInput"),btn=document.getElementById("pinSubmit");async function s(s){var u=new TextEncoder().encode(s),h=await crypto.subtle.digest("SHA-256",u);return Array.from(new Uint8Array(h)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")}function u(){o.style.display="none";b.classList.remove("pin-locked");try{localStorage.setItem(KEY,"1")}catch(e){}}async function t(){var v=i.value.trim();if(!v)return;var h=await s(v);if(h===PIN_HASH){u()}else{i.classList.add("error");setTimeout(function(){i.classList.remove("error");i.value="";i.focus()},400)}}b.classList.add("pin-locked");try{if(localStorage.getItem(KEY)==="1"){u();return}}catch(e){}btn.addEventListener("click",t);i.addEventListener("keypress",function(e){if(e.key==="Enter")t()})})()</script>
